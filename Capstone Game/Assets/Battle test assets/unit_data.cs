@@ -21,10 +21,11 @@ public class unit_data : MonoBehaviour
     {
         _healthbar.updatemax(max_hp);
         update_health(current_hp);
+        _healthbar.setName(unit_name);
     }
     
     //Update UI health bar and player health
-    void update_health(int hp)
+    public void update_health(int hp)
     {
         current_hp = hp;
         _healthbar.updatehp(hp);

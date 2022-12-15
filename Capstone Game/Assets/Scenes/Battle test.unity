@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   player: {fileID: 8403003902429719045, guid: d9febc0393dfed34ba2c3b2c6f76803f, type: 3}
-  enemy: {fileID: 1989445170972482636, guid: 0547061cbeda3da4f9ef2cf080d0bcb3, type: 3}
+  enemy: {fileID: 4097655729498751263, guid: 0547061cbeda3da4f9ef2cf080d0bcb3, type: 3}
 --- !u!1 &426686565
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,9 +555,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.745283, g: 0.03867035, b: 0.03867035, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6156863, g: 0.03529412, b: 0.03529412, a: 1}
+    m_PressedColor: {r: 0.93333334, g: 0.5254902, b: 0.34117648, a: 1}
+    m_SelectedColor: {r: 0.74509805, g: 0.039215688, b: 0.039215688, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -677,9 +677,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.745283, g: 0.03867035, b: 0.03867035, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6156863, g: 0.03529412, b: 0.03529412, a: 1}
+    m_PressedColor: {r: 0.93333334, g: 0.5254902, b: 0.34117648, a: 1}
+    m_SelectedColor: {r: 0.74509805, g: 0.039215688, b: 0.039215688, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1436,9 +1436,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.745283, g: 0.03867035, b: 0.03867035, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6156863, g: 0.03529412, b: 0.03529412, a: 1}
+    m_PressedColor: {r: 0.93333334, g: 0.5254902, b: 0.34117648, a: 1}
+    m_SelectedColor: {r: 0.74509805, g: 0.039215688, b: 0.039215688, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1655,9 +1655,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.745283, g: 0.03867035, b: 0.03867035, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6132076, g: 0.031817377, b: 0.031817377, a: 1}
+    m_PressedColor: {r: 0.9339623, g: 0.5246557, b: 0.33922213, a: 1}
+    m_SelectedColor: {r: 0.74509805, g: 0.039215688, b: 0.039215688, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1676,7 +1676,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1686479351}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 150250658}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: attack_button
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1686479351
 MonoBehaviour:
   m_ObjectHideFlags: 0
