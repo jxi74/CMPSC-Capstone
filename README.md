@@ -8,3 +8,5 @@ CMPSC 488 Capstone Project
 12/14
 - 360 "Combat" camera
 - Use case diagrams
+- Use case texts
+- Class Diagram
