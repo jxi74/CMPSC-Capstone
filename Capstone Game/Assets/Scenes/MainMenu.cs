@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
+        //Replace GetActiveScene w/ battle test 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
