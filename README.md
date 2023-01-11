@@ -10,3 +10,6 @@ CMPSC 488 Capstone Project
 - Use case diagrams
 - Use case texts
 - Class Diagram
+
+1/10/2023
+- New (Functional) main menu prototype added!
