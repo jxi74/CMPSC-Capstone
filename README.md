@@ -13,3 +13,6 @@ CMPSC 488 Capstone Project
 
 1/10/2023
 - New (Functional) main menu prototype added!
+
+1/23/2023
+- 3rd Person Camera/movement prototype added
