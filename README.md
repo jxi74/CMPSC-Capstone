@@ -16,3 +16,6 @@ CMPSC 488 Capstone Project
 
 1/23/2023
 - 3rd Person camera/movement prototype added
+
+1/24/2023
+- Interaction prototype added
