@@ -19,3 +19,6 @@ CMPSC 488 Capstone Project
 
 1/24/2023
 - Interaction prototype added
+
+1/25/2023
+- Added (realistic) terrain prototype
