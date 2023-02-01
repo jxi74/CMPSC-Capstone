@@ -23,12 +23,12 @@ MonoBehaviour:
   def: 32
   res: 25
   lck: 25
-  spd: 60
+  spd: 45
   sta: 28
-  learnableSkills:
-  - movebase: {fileID: 11400000, guid: ec03c267adbc2a04196812381ff3b44a, type: 2}
+  learnableskills:
+  - moveBase: {fileID: 11400000, guid: ec03c267adbc2a04196812381ff3b44a, type: 2}
     level: 1
-  - movebase: {fileID: 11400000, guid: 767783dbd4ef16b47b047e13f4e1c1a1, type: 2}
-    level: 7
-  - movebase: {fileID: 11400000, guid: 767783dbd4ef16b47b047e13f4e1c1a1, type: 2}
-    level: 7
+  - moveBase: {fileID: 11400000, guid: 6ce33fa82a1c1394b9b8229ceabb3f9d, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: cfb8f2d5a36600646ab0bb9603a00028, type: 2}
+    level: 5

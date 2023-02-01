@@ -13,14 +13,7 @@ public class unit_data : MonoBehaviour
     public int lv;
     public int max_hp;
     public int current_hp;
-    public int atk;
-    public int flx;
-    public int def;
-    public int res;
-    public int lck;
-    public int spd;
-    public int sta;
-    
+
     //implement skills later
     //initialize data
     void Start()

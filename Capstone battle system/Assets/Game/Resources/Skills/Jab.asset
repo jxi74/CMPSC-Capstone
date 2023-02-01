@@ -16,5 +16,5 @@ MonoBehaviour:
   description: A quick punch
   type: 7
   power: 35
-  accuracy: 95
+  accuracy: 90
   stamina_cost: 5

@@ -78,10 +78,7 @@ public class CameraMotionControls : MonoBehaviour {
             //We only really want to capture the position of the cursor when the screen when the user is holding down left click/touching the screen
             //That's why we're checking for that before campturing the mouse/finger position.
             //Otherwise, on a computer, the camera would move whenever the cursor moves. 
-            if (Input.GetMouseButton(0)) {
-                xVelocity += Input.GetAxis("Mouse X") * rotationSensitivity;
-                yVelocity -= Input.GetAxis("Mouse Y") * rotationSensitivity;
-            }
+
 
             xRotationAxis += xVelocity;
             yRotationAxis += yVelocity;

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0021f869b2635c248b3523b69657ded8, type: 3}
   m_Name: Gust
   m_EditorClassIdentifier: 
-  name: 
-  description: Creates a sharp gust of wind through quick movements
+  name: Gust
+  description: Create a gust of wind
   type: 3
   power: 45
-  accuracy: 90
-  stamina_cost: 6
+  accuracy: 85
+  staminaCost: 6

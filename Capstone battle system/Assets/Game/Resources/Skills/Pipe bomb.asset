@@ -16,5 +16,5 @@ MonoBehaviour:
   description: I put a pipe bomb in your mailbox
   type: 4
   power: 90
-  accuracy: 65
-  stamina_cost: 15
+  accuracy: 70
+  stamina_cost: 13

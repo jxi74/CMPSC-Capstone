@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Units", menuName = "Units/Create unit")]
 
 public class UnitBase : ScriptableObject
 {
-    [SerializeField] private string name;
+    [SerializeField] private new string name;
 
     [TextArea] [SerializeField] private string description;
 
@@ -25,7 +27,8 @@ public class UnitBase : ScriptableObject
     [SerializeField] private int sta;
 
     //learnable moves
-    [SerializeField] private List<LearnableSkill> learnableSkills;
+    [SerializeField] public List<LearnableSkill> learnableskills;
+    
     //grab value functions
     public string Name
     {
@@ -94,19 +97,18 @@ public class UnitBase : ScriptableObject
 
     public List<LearnableSkill> LearnableSkills
     {
-        get { return learnableSkills; }
+        get { return learnableskills; }
     }
-    
+
     [System.Serializable]
-    //Learnable skills
     public class LearnableSkill
     {
-        [SerializeField] private MoveBase movebase;
-        [SerializeField] private int level;
+        [SerializeField] public MoveBase moveBase;
+        [SerializeField] public int level;
 
         public MoveBase Base
         {
-            get { return new MoveBase(); }
+            get { return moveBase; }
         }
 
         public int Level
