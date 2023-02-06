@@ -6,7 +6,7 @@ using UnityEngine;
 using Random = System.Random;
 
 //Battle States
-public enum BattleState { Start, PlayerAction1, PlayerAction2, EnemyAction1, EnemyAction2, Busy, PerformSkills}
+public enum BattleState { Start, PlayerAction1, PlayerAction2, PerformSkills}
 
 public class BattleSystem : MonoBehaviour
 {
@@ -56,7 +56,7 @@ public class BattleSystem : MonoBehaviour
     public IEnumerator BattleSetup()
     {
         ResetMoveQueue();
-        
+        state = BattleState.Start;
         unit1.Setup();
         unit1hud.Setdata(unit1.Unit);
         unit2.Setup();
@@ -87,24 +87,37 @@ public class BattleSystem : MonoBehaviour
     IEnumerator NewRound()
     {
         ResetMoveQueue();
-        //Debug.Log("ENEMY TURN TRANSITION");
-        //Perform enemy turn
-        StartCoroutine(EnemyAction(3));
-        StartCoroutine(EnemyAction(4));
-        if (unit1.Unit.HP > 0)
+        if (unit1.Unit.HP == 0 || unit2.Unit.HP == 0)
         {
-            Debug.Log("Unit1 turn");
-            PlayerAction(1);
+            //game over
+            yield return box.DisplayText("You lose :(");
+            yield return box.DisplayText("Loser.");
         }
-        else if (unit2.Unit.HP > 0)
+        else if (unit3.Unit.HP == 0 || unit4.Unit.HP == 0)
         {
-            Debug.Log("Unit2 turn");
-            PlayerAction(2);
+            yield return box.DisplayText("You win :)");
+            //win
         }
         else
         {
-            yield return box.DisplayText("I don't really know what happened, but the game broke.. Fuck.");
+            StartCoroutine(EnemyAction(3));
+            StartCoroutine(EnemyAction(4));
+            if (unit1.Unit.HP > 0)
+            {
+                Debug.Log("Unit1 turn");
+                PlayerAction(1);
+            }
+            else if (unit2.Unit.HP > 0)
+            {
+                Debug.Log("Unit2 turn");
+                PlayerAction(2);
+            }
+            else
+            {
+                yield return box.DisplayText("I don't really know what happened, but the game broke.. Fuck.");
+            }
         }
+        
     }
     // ReSharper disable Unity.PerformanceAnalysis
     void PlayerAction(int unit)
@@ -203,22 +216,29 @@ public class BattleSystem : MonoBehaviour
                 var move = unitcontrol.Unit.Skills[movequeue[index] - 1];
                 yield return box.DisplayText(unitcontrol.Base.Name + $" used {move.Base.Name}");
                 BattleUnit targetUnit = inBattleUnits[target - 1];
-                bool guardCheck = (movequeue[target - 1] == 7);
-                bool isDefeated = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
                 
-                yield return unithuds[targetlist[index] - 1].UpdateHpBar();
-                unitcontrol.Unit.UseMove(move);
-                yield return unithuds[index].UpdateStaBar();
                 //yield return unithuds[targetlist[index] - 1].UpdateStaBar();
                 if (targetUnit.Unit.HP <= 0)
                 {
                     yield return box.DisplayText(
                         $"{targetUnit.Unit.Base.Name} is already deafeated, the attack misses!");
                 }
-                else if (isDefeated)
+                else
                 {
-                    yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                    bool guardCheck = (movequeue[target - 1] == 7);
+                    bool isDefeated = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
+                
+                    yield return unithuds[targetlist[index] - 1].UpdateHpBar();
+                    unitcontrol.Unit.UseMove(move);
+                    yield return unithuds[index].UpdateStaBar();
+                    if (isDefeated)
+                    {
+                        
+                        yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                    }
                 }
+                
+                
             }
         }
         //Go to unit 2 if unit 1 performing
@@ -260,22 +280,23 @@ public class BattleSystem : MonoBehaviour
                 var move = unitcontrol.Unit.GetRandomSKill();
                 yield return box.DisplayText(unitcontrol.Base.Name + $" used {move.Base.Name}");
                 BattleUnit targetUnit = inBattleUnits[target - 1];
-                bool guardCheck = (movequeue[target - 1] == 7);
-                bool isDefeated = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
-                
-                yield return unithuds[targetlist[index] - 1].UpdateHpBar();
-                unitcontrol.Unit.UseMove(move);
-                yield return unithuds[index].UpdateStaBar();
-                //yield return unithuds[targetlist[index] - 1].UpdateStaBar();
                 
                 if (targetUnit.Unit.HP <= 0)
                 {
                     yield return box.DisplayText(
-                        $"{targetUnit.Unit.Base.Name} is already deafeated, the attack misses!");
+                        $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
                 }
-                else if (isDefeated)
+                else
                 {
-                    yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                    bool guardCheck = (movequeue[target - 1] == 7);
+                    bool isDefeated = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
+                    yield return unithuds[targetlist[index] - 1].UpdateHpBar();
+                    unitcontrol.Unit.UseMove(move);
+                    yield return unithuds[index].UpdateStaBar();
+                    if (isDefeated)
+                    {
+                        yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                    }
                 }
             }
             
@@ -290,7 +311,7 @@ public class BattleSystem : MonoBehaviour
         {
             //Redo turn
             
-            yield return box.DisplayText("Return to player turn");
+            //yield return box.DisplayText("Return to player turn");
             StartCoroutine(NewRound());
             
         }
