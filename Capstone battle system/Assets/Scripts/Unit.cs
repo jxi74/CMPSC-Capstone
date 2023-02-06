@@ -118,5 +118,9 @@ public class Unit
     public void Rest()
     {
         STA += Mathf.FloorToInt(STA * .15f + 4);
+        if (STA >= 0)
+        {
+            STA = MaxStamina;
+        }
     }
 }

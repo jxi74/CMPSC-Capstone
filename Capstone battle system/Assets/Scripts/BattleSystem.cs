@@ -6,7 +6,7 @@ using UnityEngine;
 using Random = System.Random;
 
 //Battle States
-public enum BattleState { Start, PlayerAction1, PlayerAction2, PerformSkills}
+public enum BattleState { Start, PlayerAction1, PlayerAction2, PerformSkills, Busy}
 
 public class BattleSystem : MonoBehaviour
 {
@@ -87,13 +87,13 @@ public class BattleSystem : MonoBehaviour
     IEnumerator NewRound()
     {
         ResetMoveQueue();
-        if (unit1.Unit.HP == 0 || unit2.Unit.HP == 0)
+        if (unit1.Unit.HP == 0 && unit2.Unit.HP == 0)
         {
             //game over
             yield return box.DisplayText("You lose :(");
             yield return box.DisplayText("Loser.");
         }
-        else if (unit3.Unit.HP == 0 || unit4.Unit.HP == 0)
+        else if (unit3.Unit.HP == 0 && unit4.Unit.HP == 0)
         {
             yield return box.DisplayText("You win :)");
             //win
@@ -104,12 +104,12 @@ public class BattleSystem : MonoBehaviour
             StartCoroutine(EnemyAction(4));
             if (unit1.Unit.HP > 0)
             {
-                Debug.Log("Unit1 turn");
+                //Debug.Log("Unit1 turn");
                 PlayerAction(1);
             }
             else if (unit2.Unit.HP > 0)
             {
-                Debug.Log("Unit2 turn");
+                //Debug.Log("Unit2 turn");
                 PlayerAction(2);
             }
             else
@@ -119,9 +119,17 @@ public class BattleSystem : MonoBehaviour
         }
         
     }
-    // ReSharper disable Unity.PerformanceAnalysis
+
+    IEnumerator busy(int unit)
+    {
+        yield return new WaitForSeconds(1f);
+        PlayerAction(unit);
+    }
+    
     void PlayerAction(int unit)
     {
+        
+        
         BattleUnit unitcontrol;
         if (unit == 1)
         {
@@ -165,7 +173,7 @@ public class BattleSystem : MonoBehaviour
             //Eventually add stamina checks for enemy to reroll move
             movequeue[index] = new Random().Next(1, 7);
             targetlist[index] = new Random().Next(1, 3);
-            Debug.Log($"Enemy {index + 1}: {targetlist[index]}");
+            //Debug.Log($"Enemy {index + 1}: {targetlist[index]}");
             //var move = unitcontrol.Unit.GetRandomSKill();
             
         }
@@ -254,7 +262,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PerformEnemyMove(int unit)
     {
-        Debug.Log("enemy turn: " + unit);
+        //Debug.Log("enemy turn: " + unit);
         BattleUnit unitcontrol;
         int index;
         int target;
@@ -271,7 +279,7 @@ public class BattleSystem : MonoBehaviour
             index = 3;
         }
 
-        Debug.Log("Unit hp: " + unitcontrol.Unit.HP);
+        //Debug.Log("Unit hp: " + unitcontrol.Unit.HP);
         if (unitcontrol.Unit.HP > 0)
         {
             if (movequeue[index] <= 6)
@@ -304,7 +312,7 @@ public class BattleSystem : MonoBehaviour
         
         if (unit == 3)
         {
-            Debug.Log("Going to unit 4");
+            //Debug.Log("Going to unit 4");
             StartCoroutine(PerformEnemyMove(4));
         }
         else
@@ -370,9 +378,21 @@ public class BattleSystem : MonoBehaviour
 
         if (button <= 6)
         {
-            movename = unit.Unit.Skills[button - 1].Base.Name;
-            yield return box.DisplayText(unit.Base.Name + " readied up with " + movename + "!");
-            targetlist[index] = target;
+            var move = unit.Unit.Skills[button - 1];
+            Debug.Log("Move cost: " + move.StaminaCost);
+            Debug.Log("Unit sta: " + unit.Unit.STA);
+            if (unit.Unit.STA < move.StaminaCost)
+            {
+                yield return box.DisplayText($"{move.Base.Name} costs too much stamina to use!");
+                state = BattleState.Busy;
+            }
+            else
+            {
+                movename = unit.Unit.Skills[button - 1].Base.Name;
+                yield return box.DisplayText(unit.Base.Name + " readied up with " + movename + "!");
+                targetlist[index] = target;
+            }
+            
 
         }
         else if (button == 7)
@@ -404,9 +424,13 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(PerformBattle());
             }
         }
-        else
+        else if (state == BattleState.PlayerAction2)
         {
             StartCoroutine(PerformBattle());
+        }
+        else
+        {
+            PlayerAction(index + 1);
         }
     }
 
