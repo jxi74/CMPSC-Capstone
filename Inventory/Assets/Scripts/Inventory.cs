@@ -22,6 +22,15 @@ public class Inventory : MonoBehaviour
         GiveItem(4);
         GiveItem(0);
         GiveItem(2);
+        GiveItem(3);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
+        }
     }
 
     //adds the item to the player's Inventory and UIInventory using

@@ -23,37 +23,45 @@ public class ItemDatabase : MonoBehaviour
     void BuildDatabase()
     {
         items = new List<Item> {
-            new Item(0, "Diamond Sword", "A sword made with diamond.",
-            new Dictionary<string, int>
-            {
-                {"Power", 15 },
-                {"Defense", 10 }
-            }),
-            new Item(1, "Diamond Pick", "A pickaxe made with diamond.",
-            new Dictionary<string, int>
-            {
-                {"Power", 12},
-            }),
-            new Item(2, "Silver Pick", "A pickaxe made with silver.",
-            new Dictionary<string, int>
-            {
-                {"Power", 8 }
-            }),
-            new Item(3, "Diamond Ore", "A beautiful diamond.",
-            new Dictionary<string, int>
-            {
-                {"Value", 489 }
-            }),
-            new Item(4, "Gold Ore", "Some beautiful gold.",
-            new Dictionary<string, int>
-            {
-                {"Value", 400 }
-            }),
-            new Item(5, "Emerald Ore", "A beautiful emerald",
-            new Dictionary<string, int>
-            {
-                {"Value", 450 }
-            })
+           new Item(0, "Rusty Sword", "A rusty worn out sword.", "equipable", null,
+           new Dictionary<string, int>
+           {
+               {"ATK", 3}
+           }),
+           new Item(1, "Cardboard Shield", "An item used to defend against enemies.", "equipable", null,
+           new Dictionary<string, int>
+           {
+               {"DEF", 3}
+           }),
+           new Item(2, "Mysterious Stick", "A stick! But mysterious.....", "equipable", null,
+           new Dictionary<string, int>
+           {
+               {"FLX", 5}
+           }),
+           new Item(3, "Energy Drink", "Regenerate STA by 15", "consumable", 
+           new Dictionary<string, int>
+           {
+               {"Regenerate STA", 15 }
+           },
+           new Dictionary<string, int>
+           {
+
+           }),
+           new Item(4, "Bandage", "Regenerates HP by 10", "consumable", 
+           new Dictionary<string, int>
+           {
+               {"Regenerate HP", 10 }
+           }
+           
+               , new Dictionary<string, int>
+               {
+
+               }),
+           new Item(5, "Wumbo", "I wumbo, you wumbe, he, she, we wumbo", "equipable", null,
+           new Dictionary<string, int>
+           {
+               {"HP", 25}
+           })
           };
     }
 }

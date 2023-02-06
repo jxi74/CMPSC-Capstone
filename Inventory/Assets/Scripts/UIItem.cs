@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 
 
-public class UIItem : MonoBehaviour, IPointerClickHandler
+public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     //an item that can be place in a players inventory
     public Item item;
@@ -16,12 +16,15 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
 
 
     private UIItem selectedItem;
+    private Tooltip tooltip;
+
 
     private void Awake()
     {
         spriteImage = GetComponent<Image>();
         UpdateItem(null);
         selectedItem = GameObject.Find("SelectedItem").GetComponent<UIItem>();
+        tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
     }
 
     public void UpdateItem(Item item)
@@ -59,5 +62,18 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
             UpdateItem(selectedItem.item);
             selectedItem.UpdateItem(null);
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(this.item != null)
+        {
+            tooltip.GenerateTooltip(this.item);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tooltip.gameObject.SetActive(false);
     }
 }

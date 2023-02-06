@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{CE9B2838-BAA5-58C9-FABF-B8A8DCBCAB94}</ProjectGuid>
+    <ProjectGuid>{7BE601F3-3358-509A-F06E-90147423800A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,12 +56,14 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Tooltip.cs" />
     <Compile Include="Assets\Scripts\UIInventory.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\itemScriptLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\TriggerCheckerLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\InventoryMenuScriptLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\inventoryPanelLITE.cs" />
     <Compile Include="Assets\Scripts\UIItem.cs" />
+    <Compile Include="Assets\Scripts\ItemFollowMouse.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\DropItemScriptLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\itemDragLITE.cs" />
     <Compile Include="Assets\Scripts\ItemDatabase.cs" />
@@ -71,7 +73,6 @@
     <Compile Include="Assets\SSI-BaseLite\Scripts\EquipItemScriptLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\InventoryScriptLITE.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
-    <Compile Include="Assets\Scripts\ItemFollowMouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
