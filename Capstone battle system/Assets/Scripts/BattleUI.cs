@@ -9,7 +9,8 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Canvas defaultButtons;
     [SerializeField] private Canvas actionButtons;
     [SerializeField] private Canvas skillButtons;
-
+    [SerializeField] private Canvas selectButtons;
+    
     public void SetDefaultButtons(bool set)
     {
         defaultButtons.enabled = set;
@@ -25,10 +26,16 @@ public class BattleUI : MonoBehaviour
         skillButtons.enabled = set;
     }
 
+    public void SetSelectButtons(bool set)
+    {
+        selectButtons.enabled = set;
+    }
+    
     public void SetupBattle()
     {
         actionButtons.enabled = false;
         skillButtons.enabled = false;
         defaultButtons.enabled = false;
+        selectButtons.enabled = false;
     }
 }
