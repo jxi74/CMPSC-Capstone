@@ -22,3 +22,7 @@ CMPSC 488 Capstone Project
 
 1/25/2023
 - Added (realistic) terrain prototype
+
+2/10/2023
+- Created Prototype 1 branch
+- Added (Prototype) Interaction, 3rd Person Camera, Movement, Terrain, Battle System, Inventory system
