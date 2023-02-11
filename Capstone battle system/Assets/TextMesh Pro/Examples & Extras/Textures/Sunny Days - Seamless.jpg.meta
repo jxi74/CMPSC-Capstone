@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Capstone Game/Assets/Tree_Textures/shadow.png.meta
-guid: 9e4a96c394a8f0749afd7b24e15bb06e
-========
 guid: 17c350171f7a3ca479f830547c66d187
->>>>>>>> Battle-system-stuff:Capstone battle system/Assets/TextMesh Pro/Examples & Extras/Textures/Sunny Days - Seamless.jpg.meta
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -95,9 +91,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-<<<<<<<< HEAD:Capstone Game/Assets/Tree_Textures/shadow.png.meta
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-========
   - serializedVersion: 2
     buildTarget: Windows Store Apps
     maxTextureSize: 512
@@ -120,7 +113,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
->>>>>>>> Battle-system-stuff:Capstone battle system/Assets/TextMesh Pro/Examples & Extras/Textures/Sunny Days - Seamless.jpg.meta
   spriteSheet:
     serializedVersion: 2
     sprites: []

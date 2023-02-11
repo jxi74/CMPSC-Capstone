@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Capstone Game/Assets/Tree_Textures/diffuse.png.meta
-guid: bd94ca32cb2094140b3661bfb0d2a891
-========
 guid: 8878a782f4334ecbbcf683b3ac780966
->>>>>>>> Battle-system-stuff:Capstone battle system/Assets/TextMesh Pro/Examples & Extras/Textures/Small Crate_normal.jpg.meta
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -95,9 +91,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-<<<<<<<< HEAD:Capstone Game/Assets/Tree_Textures/diffuse.png.meta
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-========
   - serializedVersion: 2
     buildTarget: Windows Store Apps
     maxTextureSize: 512
@@ -120,7 +113,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
->>>>>>>> Battle-system-stuff:Capstone battle system/Assets/TextMesh Pro/Examples & Extras/Textures/Small Crate_normal.jpg.meta
   spriteSheet:
     serializedVersion: 2
     sprites: []

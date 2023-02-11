@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Capstone Game/Assets/TerrainSampleAssets/Materials/Fern.asset.meta
-guid: 405b9ff318b139d478492b258cc6f606
-========
 guid: 99d756e56b5efdf459e77f7f2340be70
->>>>>>>> Battle-system-stuff:Capstone battle system/Assets/Materials/Types/Earth.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

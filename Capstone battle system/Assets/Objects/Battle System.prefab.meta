@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Capstone Game/Assets/TerrainSampleAssets/Prefabs/BushDry_B.prefab.meta
-guid: 054bf5cf244ff2e4083cbf8eca205cf0
-========
 guid: eddd59266336c5344b4c19a14677dbcc
->>>>>>>> Battle-system-stuff:Capstone battle system/Assets/Objects/Battle System.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

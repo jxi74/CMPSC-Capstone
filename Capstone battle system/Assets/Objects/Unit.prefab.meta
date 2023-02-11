@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Capstone Game/Assets/TerrainSampleAssets/Prefabs/Bush_A.prefab.meta
-guid: 0ec1c69bd47ad864f96cc2b516f6cd4b
-========
 guid: 70d67c9316ecdf947ace0ae713bbb5dc
->>>>>>>> Battle-system-stuff:Capstone battle system/Assets/Objects/Unit.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
