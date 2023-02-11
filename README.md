@@ -26,3 +26,5 @@ CMPSC 488 Capstone Project
 2/10/2023
 - Created Prototype 1 branch
 - Added (Prototype) Interaction, 3rd Person Camera, Movement, Terrain, Battle System, Inventory system
+- Interaction, 3rd Person Camera, Movement, and Terrain are located in the Capstone Game Directory
+- Battle System is located in Capstone battle system Directory
