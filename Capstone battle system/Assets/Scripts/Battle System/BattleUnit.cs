@@ -12,9 +12,9 @@ public class BattleUnit : MonoBehaviour
 
     public Unit Unit { get; set; }
 
-    public void Setup()
+    public void Setup(Unit unit)
     {
-        Unit = new Unit(Base, level);
+        Unit = unit;
         //Display Unit model
     }
 }

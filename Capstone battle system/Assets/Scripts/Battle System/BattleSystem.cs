@@ -33,15 +33,26 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private List<UnitUI> unithuds;
     
     [SerializeField] List<BattleUnit> inBattleUnits;
-    
 
+
+    [SerializeField] Party party;
+    [SerializeField] private EnemyEncounter enemygenerator;
+    private Unit enemy1;
+    private Unit enemy2;
+    
     void Start()
     {
-        StartCoroutine(BattleSetup());
-        battleUI.SetupBattle();
+        enemy1 = enemygenerator.GetRandomUnit();
+        enemy2 = enemygenerator.GetRandomUnit();
+        StartBattle();
         
     }
 
+    public void StartBattle()
+    {
+        StartCoroutine(BattleSetup());
+        battleUI.SetupBattle();
+    }
     void ResetMoveQueue()
     {
         movequeue[0] = 0;
@@ -53,17 +64,18 @@ public class BattleSystem : MonoBehaviour
         targetlist[2] = 0;
         targetlist[3] = 0;
     }
+    // ReSharper disable Unity.PerformanceAnalysis
     public IEnumerator BattleSetup()
     {
         ResetMoveQueue();
         state = BattleState.Start;
-        unit1.Setup();
+        unit1.Setup(party.GetFirstHealthyUnit());
         unit1hud.Setdata(unit1.Unit);
-        unit2.Setup();
+        unit2.Setup(party.GetNextHealthyUnit(party.GetFirstHealthyUnit()));
         unit2hud.Setdata(unit2.Unit);
-        unit3.Setup();
+        unit3.Setup(enemy1);
         unit3hud.Setdata((unit3.Unit));
-        unit4.Setup();
+        unit4.Setup(enemy2);
         unit4hud.Setdata(unit4.Unit);
         
         inBattleUnits.Add(unit1);
@@ -84,6 +96,7 @@ public class BattleSystem : MonoBehaviour
 
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     IEnumerator NewRound()
     {
         ResetMoveQueue();
@@ -126,6 +139,7 @@ public class BattleSystem : MonoBehaviour
         PlayerAction(unit);
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     void PlayerAction(int unit)
     {
         
@@ -179,17 +193,21 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
+            //HEY HEY!!!!
+            //EVENTUALLY IMPLEMENT DISPLAY GUARD/REST AFTER UNIT 2, OR AT BATTLE BEGIN FOR ENEMIES
+            
+            
             //guard/rest
             movequeue[index] = new Random().Next(7, 9);
             if (movequeue[index] == 7)
             {
-                box.DisplayText($"{unitcontrol.Unit.Base.name} readied their guard!");
+                //yield return box.DisplayText($"{unitcontrol.Unit.Base.name} readied their guard!");
             }
             else
             {
-                box.DisplayText($"{unitcontrol.Unit.Base.name} rested up!");
+                //yield return box.DisplayText($"{unitcontrol.Unit.Base.name} rested up!");
                 unitcontrol.Unit.Rest();
-                unithuds[index].UpdateStaBar();
+                yield return unithuds[index].UpdateStaBar();
             }
         }
 
@@ -234,12 +252,15 @@ public class BattleSystem : MonoBehaviour
                 else
                 {
                     bool guardCheck = (movequeue[target - 1] == 7);
-                    bool isDefeated = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
+                    var damageDetails = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
                 
+                    //Display UI changes/update values
                     yield return unithuds[targetlist[index] - 1].UpdateHpBar();
                     unitcontrol.Unit.UseMove(move);
                     yield return unithuds[index].UpdateStaBar();
-                    if (isDefeated)
+                    yield return ShowDamageDetails(damageDetails);
+                    
+                    if (damageDetails.Fainted)
                     {
                         
                         yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
@@ -297,11 +318,15 @@ public class BattleSystem : MonoBehaviour
                 else
                 {
                     bool guardCheck = (movequeue[target - 1] == 7);
-                    bool isDefeated = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
+                    var damageDetails = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
+                    
+                    //Display UI changes/update values
                     yield return unithuds[targetlist[index] - 1].UpdateHpBar();
                     unitcontrol.Unit.UseMove(move);
                     yield return unithuds[index].UpdateStaBar();
-                    if (isDefeated)
+                    yield return ShowDamageDetails(damageDetails);
+                    
+                    if (damageDetails.Fainted)
                     {
                         yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
                     }
@@ -322,6 +347,24 @@ public class BattleSystem : MonoBehaviour
             //yield return box.DisplayText("Return to player turn");
             StartCoroutine(NewRound());
             
+        }
+        
+    }
+
+    IEnumerator ShowDamageDetails(Unit.DamageDetails details)
+    {
+        if (details.Critical > 1f)
+        {
+            yield return box.DisplayText("Lucky hit!");
+        }
+
+        if (details.Effectiveness > 1f)
+        {
+            yield return box.DisplayText("A powerful attack!");
+        }
+        else if (details.Effectiveness < 1f)
+        {
+            yield return box.DisplayText("A weaker attack..");
         }
         
     }
@@ -379,8 +422,8 @@ public class BattleSystem : MonoBehaviour
         if (button <= 6)
         {
             var move = unit.Unit.Skills[button - 1];
-            Debug.Log("Move cost: " + move.StaminaCost);
-            Debug.Log("Unit sta: " + unit.Unit.STA);
+            //Debug.Log("Move cost: " + move.StaminaCost);
+            //Debug.Log("Unit sta: " + unit.Unit.STA);
             if (unit.Unit.STA < move.StaminaCost)
             {
                 yield return box.DisplayText($"{move.Base.Name} costs too much stamina to use!");

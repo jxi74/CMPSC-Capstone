@@ -46,4 +46,20 @@ public class MoveBase : ScriptableObject
     {
         get { return staminaCost; }
     }
+
+    public bool IsSpecial
+    {
+        get
+        {
+            if (type == UnitBase.Type.Water || type == UnitBase.Type.Wind || type == UnitBase.Type.Fire || type == UnitBase.Type.Thunder || type == UnitBase.Type.Ice
+                || type == UnitBase.Type.Shadow || type == UnitBase.Type.Moon)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
 }

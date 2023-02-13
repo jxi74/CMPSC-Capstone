@@ -134,4 +134,39 @@ public class UnitBase : ScriptableObject
         Light,
         Moon
     }
+
+    public class TypeChart
+    {
+        static float[][] chart =
+        {
+            /* Earth */ new float[] { .5f, 1f, 2f, 1f, 2f, 1f, 1f, 1f, .5f, 1f, 1f, .5f},
+            /* Water */ new float[] { 2f, .5f, 1f, 2f, .5f, .5f, 1f, 1f, .5f, 1f, 1f, 1f},
+            /* Wind */ new float[] { .5f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 2f, 1f, 1f, .5f},
+            /* Fire */ new float[] { .5f, .5f, 1f, .5f, 1f, 2f, .5f, .5f, 2f, 1f, 1f, 1f},
+            /* Thunder */ new float[] { 1f, 2f, 1f, 1f, .5f, 1f, 1f, 1f, 1f, 2f, .5f, 1f},
+            /* Ice */ new float[] { 2f, 1f, 1f, .5f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 2f},
+            /* Force */ new float[] { 2f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, .5f, .5f, 2f},
+            /* Neutral*/ new float[] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
+            /* Flower */ new float[] { 2f, 1f, 1f, .5f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, .5f},
+            /* Shadow */ new float[] { 1f, 1f, 1f, .5f, 1f, 1f, 1f, 1f, 1f, .5f, 2f, 1f},
+            /* Light */ new float[] { 1f, 1f, 1f, .5f, 2f, 2f, 2f, 1f, .5f, 2f, .5f, .5f},
+            /* Moon */ new float[] { 2f, 1f, 1f, 1f, 1f, .5f, 1f, 1f, 1f, 2f, 1f, .5f}
+        };
+        
+        public static float GetEffectiveness(Type atk, Type def)
+        {
+            if (atk == Type.None || def == Type.None)
+            {
+                return 1;
+            }
+
+            int row = (int)atk - 1;
+            int col = (int)def - 1;
+
+            return chart[row][col];
+        }
+    }
+
+    
+    
 }

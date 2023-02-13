@@ -2,19 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[System.Serializable]
 public class Unit
 {
-    public UnitBase Base { get; set; }
-    public int Level { get; set; }
+    [SerializeField] private UnitBase _base;
+    [SerializeField] private int level;
+
+    public UnitBase Base
+    {
+        get
+        {
+            return _base;
+        } 
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+    }
+
     public int HP { get; set; }
     public int STA { get; set; }
 
     public List<Skill> Skills { get; set; }
     
-    public Unit(UnitBase ubase, int ulevel)
+    public void Init()
     {
-        Base = ubase;
-        Level = ulevel;
+        
         HP = MaxHealth;
         STA = MaxStamina;
         
@@ -76,16 +94,33 @@ public class Unit
 
 
     //Determine if fainted
-    public bool TakeDamage(Skill skill, Unit attacker, bool guard)
+    public DamageDetails TakeDamage(Skill skill, Unit attacker, bool guard)
     {
+        float type = UnitBase.TypeChart.GetEffectiveness(skill.Base.Type, this.Base.Type1) * UnitBase.TypeChart.GetEffectiveness(skill.Base.Type, this.Base.Type2);
+        float critical = 1;
         float block = 1;
+        if (Random.value * 100f <= attacker.Luck)
+        {
+            critical = 2f;
+        }
         if (guard)
         {
             block = 1.5f;
         }
-        float modifier = Random.Range(.85f, 1f);
+
+        var damageDetails = new DamageDetails()
+        {
+            Effectiveness = type,
+            Critical = critical,
+            Fainted = false
+        };
+
+        float attack = skill.Base.IsSpecial ? attacker.Flux : attacker.Attack;
+        float defense = skill.Base.IsSpecial ? Resistance : Defense;
+        
+        float modifier = Random.Range(.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
-        float d = a * skill.Power * ((float)attacker.Attack / (Defense * block)) + 2;
+        float d = a * skill.Power * ((float)attack / (defense * block)) + 2;
         int dmg = Mathf.FloorToInt(d * modifier);
 
         HP -= dmg;
@@ -93,10 +128,10 @@ public class Unit
         if (HP <= 0)
         {
             HP = 0;
-            return true;
+            damageDetails.Fainted = true;
         }
         
-        return false;
+        return damageDetails;
     }
 
     public void UseMove(Skill skill)
@@ -122,5 +157,13 @@ public class Unit
         {
             STA = MaxStamina;
         }
+    }
+
+    public class DamageDetails
+    {
+        public bool Fainted { get; set; }
+        public float Critical { get; set; }
+        public float Effectiveness { get; set; }
+        
     }
 }
