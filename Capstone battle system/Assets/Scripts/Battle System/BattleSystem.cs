@@ -40,16 +40,16 @@ public class BattleSystem : MonoBehaviour
     private Unit enemy1;
     private Unit enemy2;
     
+    //eventually replace w/ start encounter scripts 
     void Start()
     {
-        enemy1 = enemygenerator.GetRandomUnit();
-        enemy2 = enemygenerator.GetRandomUnit();
         StartBattle();
-        
     }
 
     public void StartBattle()
     {
+        enemy1 = enemygenerator.GetRandomUnit();
+        enemy2 = enemygenerator.GetRandomUnit();
         StartCoroutine(BattleSetup());
         battleUI.SetupBattle();
     }
@@ -133,12 +133,6 @@ public class BattleSystem : MonoBehaviour
         
     }
 
-    IEnumerator busy(int unit)
-    {
-        yield return new WaitForSeconds(1f);
-        PlayerAction(unit);
-    }
-    
     // ReSharper disable Unity.PerformanceAnalysis
     void PlayerAction(int unit)
     {
