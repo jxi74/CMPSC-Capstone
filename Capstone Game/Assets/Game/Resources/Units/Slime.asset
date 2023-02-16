@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24075fd21e4676a4dbb8f5636da8f9dd, type: 3}
+  m_Name: Slime
+  m_EditorClassIdentifier: 
+  name: Slime
+  description: A blob of goo.
+  model: {fileID: 1678932645426997599, guid: 1bf60dc0463f17243a83f601c84e3aef, type: 3}
+  type1: 2
+  type2: 0
+  max_hp: 33
+  atk: 27
+  flx: 43
+  def: 22
+  res: 45
+  lck: 30
+  spd: 27
+  sta: 23
+  learnableskills:
+  - moveBase: {fileID: 11400000, guid: 50eaf578e47782b4e8def556443564c4, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 80fd9b7e897718b4d89e94342c0f26dc, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 9dd0f2f46a7b58b40a9f9b781712baff, type: 2}
+    level: 6
