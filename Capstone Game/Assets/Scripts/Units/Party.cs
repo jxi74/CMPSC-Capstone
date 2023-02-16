@@ -11,7 +11,10 @@ public class Party : MonoBehaviour
         foreach (var unit in units)
         {
             unit.Init();
+            //Debug.Log("GetFirstHealthyUnit() returned: " + (unit != null ? unit.Base.Name : "null"));
+            //Debug.Log("GetNextHealthyUnit() returned: " + (GetNextHealthyUnit(unit) != null ? GetNextHealthyUnit(unit).Base.Name : "null"));
         }
+        
     }
 
     public Unit GetFirstHealthyUnit()
@@ -22,11 +25,12 @@ public class Party : MonoBehaviour
     public Unit GetNextHealthyUnit(Unit currentUnit)
     {
         int currentIndex = units.IndexOf(currentUnit);
-        for (int i = currentIndex + 1; i < units.Count; i++)
+        for (int i = 0; i < units.Count; i++)
         {
-            if (units[i].HP > 0)
+            int index = (currentIndex + i + 1) % units.Count;
+            if (units[index].HP > 0)
             {
-                return units[i];
+                return units[index];
             }
         }
         return null;

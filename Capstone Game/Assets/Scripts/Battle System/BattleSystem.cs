@@ -19,81 +19,63 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private BattleUI battleUI;
     [SerializeField] MessageBox box;
     [SerializeField] public SkillsSelect skillsSelect;
-    
+
     //player units
-    [SerializeField] private BattleUnit unit1;
+    [SerializeField] public BattleUnit unit1;
     [SerializeField] UnitUI unit1hud;
-    [SerializeField] private BattleUnit unit2;
+    [SerializeField] public BattleUnit unit2;
     [SerializeField] UnitUI unit2hud;
     //enemy units
-    [SerializeField] private BattleUnit unit3;
+    [SerializeField] public BattleUnit unit3;
     [SerializeField] UnitUI unit3hud;
-    [SerializeField] private BattleUnit unit4;
+    [SerializeField] public BattleUnit unit4;
     [SerializeField] UnitUI unit4hud;
     [SerializeField] private List<UnitUI> unithuds;
-    
+
     [SerializeField] List<BattleUnit> inBattleUnits;
 
 
-    [SerializeField] Party party;
-    [SerializeField] private EnemyEncounter enemygenerator;
-    private Unit enemy1;
-    private Unit enemy2;
-    
-    //eventually replace w/ start encounter scripts 
-    void Start()
-    {
-        StartBattle();
-    }
+    [SerializeField] public Party party;
+    [SerializeField] public EnemyEncounter enemygenerator;
 
     public void StartBattle()
     {
-        enemy1 = enemygenerator.GetRandomUnit();
-        enemy2 = enemygenerator.GetRandomUnit();
+        unithuds = new List<UnitUI> {unit1hud, unit2hud, unit3hud, unit4hud};
         StartCoroutine(BattleSetup());
         battleUI.SetupBattle();
     }
+
     void ResetMoveQueue()
     {
-        movequeue[0] = 0;
-        movequeue[1] = 0;
-        movequeue[2] = 0;
-        movequeue[3] = 0;
-        targetlist[0] = 0;
-        targetlist[1] = 0;
-        targetlist[2] = 0;
-        targetlist[3] = 0;
+        for (int i = 0; i < movequeue.Count; i++)
+        {
+            movequeue[i] = 0;
+            targetlist[i] = 0;
+        }
     }
-    // ReSharper disable Unity.PerformanceAnalysis
+
     public IEnumerator BattleSetup()
     {
         ResetMoveQueue();
         state = BattleState.Start;
+
         unit1.Setup(party.GetFirstHealthyUnit());
         unit1hud.Setdata(unit1.Unit);
         unit2.Setup(party.GetNextHealthyUnit(party.GetFirstHealthyUnit()));
         unit2hud.Setdata(unit2.Unit);
-        unit3.Setup(enemy1);
-        unit3hud.Setdata((unit3.Unit));
-        unit4.Setup(enemy2);
+        unit3.Setup(enemygenerator.GetRandomUnit());
+        unit3hud.Setdata(unit3.Unit);
+        unit4.Setup(enemygenerator.GetRandomUnit());
         unit4hud.Setdata(unit4.Unit);
-        
+
         inBattleUnits.Add(unit1);
         inBattleUnits.Add(unit2);
         inBattleUnits.Add(unit3);
         inBattleUnits.Add(unit4);
-        
-        //Message box
-        yield return box.DisplayText("A random " + unit3.Base.Name + " and " + unit4.Base.Name + " approaches!");
-        
-        yield return box.DisplayText(unit1.Base.Name + " and " + unit2.Base.Name + " went into action!");
-        
-        //Instantiate(unit1, _unit1Spawn.transform);
+        yield return box.DisplayText($"A random {unit3.unitBase.Name} and {unit4.unitBase.Name} approaches!");
+        yield return box.DisplayText(unit1.unitBase.Name + " and " + unit2.unitBase.Name + " went into action!");
 
         StartCoroutine(NewRound());
-
-
-
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
@@ -152,7 +134,7 @@ public class BattleSystem : MonoBehaviour
             unitcontrol = unit2;
         }
         
-        StartCoroutine(box.DisplayText("Select an action for " + unitcontrol.Base.Name));
+        StartCoroutine(box.DisplayText("Select an action for " + unitcontrol.unitBase.Name));
         skillsSelect.SetSkillNames(unitcontrol.Unit.Skills);
         battleUI.SetDefaultButtons(true);
     }
@@ -227,21 +209,20 @@ public class BattleSystem : MonoBehaviour
         //check if alive
         if (unitcontrol.Unit.HP > 0)
         {
-            
+        
             //Only perform if skill
-            if (movequeue[index] <= 6)
+            if (movequeue[index] <= 6 && targetlist[index] > 0)
             {
-                //Debug.Log();
                 target = targetlist[index];
                 var move = unitcontrol.Unit.Skills[movequeue[index] - 1];
-                yield return box.DisplayText(unitcontrol.Base.Name + $" used {move.Base.Name}");
+                yield return box.DisplayText(unitcontrol.unitBase.Name + $" used {move.Base.Name}");
                 BattleUnit targetUnit = inBattleUnits[target - 1];
-                
+            
                 //yield return unithuds[targetlist[index] - 1].UpdateStaBar();
                 if (targetUnit.Unit.HP <= 0)
                 {
                     yield return box.DisplayText(
-                        $"{targetUnit.Unit.Base.Name} is already deafeated, the attack misses!");
+                        $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
                 }
                 else
                 {
@@ -253,15 +234,15 @@ public class BattleSystem : MonoBehaviour
                     unitcontrol.Unit.UseMove(move);
                     yield return unithuds[index].UpdateStaBar();
                     yield return ShowDamageDetails(damageDetails);
-                    
+                
                     if (damageDetails.Fainted)
                     {
-                        
+                    
                         yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
                     }
                 }
-                
-                
+            
+            
             }
         }
         //Go to unit 2 if unit 1 performing
@@ -301,7 +282,7 @@ public class BattleSystem : MonoBehaviour
             {
                 target = targetlist[index];
                 var move = unitcontrol.Unit.GetRandomSKill();
-                yield return box.DisplayText(unitcontrol.Base.Name + $" used {move.Base.Name}");
+                yield return box.DisplayText(unitcontrol.unitBase.Name + $" used {move.Base.Name}");
                 BattleUnit targetUnit = inBattleUnits[target - 1];
                 
                 if (targetUnit.Unit.HP <= 0)
@@ -396,28 +377,29 @@ public class BattleSystem : MonoBehaviour
         int index;
         BattleUnit unit;
         String movename;
-        
+
         if (state == BattleState.PlayerAction1)
         {
+            Debug.Log("Unit 1 turn");
             index = 0;
             unit = unit1;
         }
         else
         {
+            Debug.Log("Unit 2 turn");
             index = 1;
             unit = unit2;
         }
+
         //Skill (1-6) or Guard/Rest (7/8)
         movequeue[index] = button;
-        //Debug.Log("Button: " + button);
         battleUI.SetActionButtons(false);
         battleUI.SetSelectButtons(false);
 
         if (button <= 6)
         {
             var move = unit.Unit.Skills[button - 1];
-            //Debug.Log("Move cost: " + move.StaminaCost);
-            //Debug.Log("Unit sta: " + unit.Unit.STA);
+
             if (unit.Unit.STA < move.StaminaCost)
             {
                 yield return box.DisplayText($"{move.Base.Name} costs too much stamina to use!");
@@ -426,29 +408,24 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 movename = unit.Unit.Skills[button - 1].Base.Name;
-                yield return box.DisplayText(unit.Base.Name + " readied up with " + movename + "!");
+                yield return box.DisplayText(unit.unitBase.Name + " readied up with " + movename + "!");
                 targetlist[index] = target;
             }
-            
-
         }
         else if (button == 7)
         {
             //Guard
-            yield return box.DisplayText(unit.Base.Name + " readied their guard!");
+            yield return box.DisplayText(unit.unitBase.Name + " readied their guard!");
             targetlist[index] = 0;
         }
         else
         {
             //Rest
-            yield return box.DisplayText(unit.Base.Name + " rested up!");
+            yield return box.DisplayText(unit.unitBase.Name + " rested up!");
             unit.Unit.Rest();
             yield return unithuds[index].UpdateStaBar();
             targetlist[index] = 0;
-            
         }
-            
-        
 
         if (state == BattleState.PlayerAction1)
         {

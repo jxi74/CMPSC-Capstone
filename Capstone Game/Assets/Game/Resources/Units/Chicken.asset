@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Chicken
   description: bawk bawk.
-  model: {fileID: 1311290861401530, guid: 312b31977ed9b2d48a14849ebb8c7fb3, type: 3}
+  model: {fileID: 1678932645426997599, guid: 1bf60dc0463f17243a83f601c84e3aef, type: 3}
   type1: 8
   type2: 0
   max_hp: 32

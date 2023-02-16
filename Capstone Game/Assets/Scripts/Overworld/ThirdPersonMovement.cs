@@ -10,9 +10,13 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
+    public float jumpForce = 25f;
+    public float gravity = -19.81f;
 
     private float turnSmoothVelocity;
     private Vector3 velocity;
+    private bool isGrounded;
+    private bool canMove = true;
 
     void Start()
     {
@@ -48,6 +52,8 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Update()
     {
+        isGrounded = controller.isGrounded;
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -65,14 +71,44 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             velocity = Vector3.zero;
         }
+
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
     }
 
+    public void MovePlayer(Vector3 direction, float distance)
+    {
+        // Ignore any Y-axis changes
+        direction.y = 0f;
+    
+        Vector3 newPosition = transform.position + (direction.normalized * distance);
+        controller.Move(newPosition - transform.position);
+    }
+    
+    public void SetPlayerPosition(Vector3 position)
+    {
+        // Set the player's position to the given position
+        controller.enabled = false; // Disable the controller temporarily to set the position
+        transform.position = position;
+        controller.enabled = true; // Re-enable the controller
+    }
+    
     void FixedUpdate()
     {
-        // Apply gravity to the character controller
-        velocity.y += Physics.gravity.y * Time.deltaTime;
+        if (canMove)
+        {
+            // Apply gravity to the character controller
+            velocity.y += gravity * Time.deltaTime;
 
-        // Move the character controller using SimpleMove()
-        controller.SimpleMove(velocity);
+            // Move the character controller using SimpleMove()
+            controller.Move(velocity * Time.deltaTime);
+        }
+    }
+
+    void Jump()
+    {
+        velocity.y = jumpForce;
     }
 }
