@@ -27,7 +27,7 @@ public class EnemyInteractor : MonoBehaviour
 
             if (_interactable != null)
             {
-                if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
+                //if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
 
                 _interactable.Interact(this);
                 // Pass in "this" (player) because we are the interactor interactING with the interactable (object) 
@@ -36,7 +36,7 @@ public class EnemyInteractor : MonoBehaviour
         else
         {
             if (_interactable != null) _interactable = null;
-            if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
+            //if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
         }
     }
 
