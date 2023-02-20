@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24075fd21e4676a4dbb8f5636da8f9dd, type: 3}
+  m_Name: Civilian
+  m_EditorClassIdentifier: 
+  name: Civilian
+  description: A normal human. Nothing special
+  model: {fileID: 1678932645426997599, guid: 1bf60dc0463f17243a83f601c84e3aef, type: 3}
+  type1: 8
+  type2: 0
+  max_hp: 55
+  atk: 35
+  flx: 25
+  def: 45
+  res: 40
+  lck: 15
+  spd: 30
+  sta: 35
+  learnableskills:
+  - moveBase: {fileID: 11400000, guid: 755b173f53a92714aa6151fa3a97c0a1, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: cf5b7b9ab8dbbb246bd85e092e47fd67, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 6ce33fa82a1c1394b9b8229ceabb3f9d, type: 2}
+    level: 6
+  - moveBase: {fileID: 11400000, guid: 80fd9b7e897718b4d89e94342c0f26dc, type: 2}
+    level: 11

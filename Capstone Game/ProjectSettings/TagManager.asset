@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Player Controller
+  - Unit1
+  - Unit2
+  - Unit3
+  - Unit4
   layers:
   - Default
   - TransparentFX
@@ -12,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Interactable
-  - 
+  - EnemyInteractable
   - 
   - 
   - 
