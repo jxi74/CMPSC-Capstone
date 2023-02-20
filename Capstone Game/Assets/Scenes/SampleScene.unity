@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 349156028}
   - component: {fileID: 349156027}
   - component: {fileID: 349156029}
+  - component: {fileID: 349156031}
   - component: {fileID: 349156030}
   m_Layer: 0
   m_Name: Player character
@@ -566,6 +567,7 @@ Transform:
   - {fileID: 1978970862}
   - {fileID: 911822454}
   - {fileID: 1632244321}
+  - {fileID: 493777128}
   m_Father: {fileID: 905889918}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -640,6 +642,56 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &349156031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349156025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a637857a6860c041b949abcf8661a1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 493777128}
+  _interactionPointRadius: 4
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _interactionPromptUI: {fileID: 1632244325}
+  _numFound: 0
+--- !u!1 &493777127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493777128}
+  m_Layer: 0
+  m_Name: EnemyInteractionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &493777128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493777127}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.927, z: 3.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 349156026}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545854408
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movequeue: 00000000000000000000000000000000
   targetlist: 00000000000000000000000000000000
+  UI: {fileID: 849685565}
   battleUI: {fileID: 709490812}
   box: {fileID: 346940954}
   skillsSelect: {fileID: 636628787}
@@ -1255,7 +1308,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786588067}
-  m_LocalRotation: {x: 0.13291883, y: -0.000000008526854, z: 0.0000000011435262, w: 0.99112695}
+  m_LocalRotation: {x: 0.13291883, y: 0.000000008526854, z: -0.0000000011435262, w: 0.99112695}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1275,6 +1328,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e148ee0dc7d6fe40b1f789845b5e3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &849685565 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 2334109883352834614, guid: 6b960f07e03fac24cbb29fc063c0ccc9, type: 3}
+  m_PrefabInstance: {fileID: 1923360605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &905889916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,9 +2594,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle UI
       objectReference: {fileID: 0}
+    - target: {fileID: 2334109883352834611, guid: 6b960f07e03fac24cbb29fc063c0ccc9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2334109883352834614, guid: 6b960f07e03fac24cbb29fc063c0ccc9, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2334109883352834614, guid: 6b960f07e03fac24cbb29fc063c0ccc9, type: 3}
       propertyPath: m_RenderMode
@@ -2968,7 +3030,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25704
+  m_Name: pb_Mesh26114
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3311,6 +3373,10 @@ PrefabInstance:
     - target: {fileID: 8639686365612135300, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
       propertyPath: m_Name
       value: Overworld Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135300, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
       propertyPath: enemyEncounter.Array.size
