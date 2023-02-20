@@ -16,7 +16,6 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public List<int> targetlist;
 
     //UI
-    [SerializeField] private Canvas UI;
     [SerializeField] private BattleUI battleUI;
     [SerializeField] MessageBox box;
     [SerializeField] public SkillsSelect skillsSelect;
@@ -43,7 +42,6 @@ public class BattleSystem : MonoBehaviour
     {
         unithuds = new List<UnitUI> {unit1hud, unit2hud, unit3hud, unit4hud};
         StartCoroutine(BattleSetup());
-        UI.enabled = true;
         battleUI.SetupBattle();
     }
 
