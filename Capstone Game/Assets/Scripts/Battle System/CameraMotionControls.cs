@@ -88,7 +88,7 @@ public class CameraMotionControls : MonoBehaviour {
             yRotationAxis = ClampAngleBetweenMinAndMax(yRotationAxis, rotationLimit.x, rotationLimit.y);
 
             rotation = Quaternion.Euler(yRotationAxis, xRotationAxis * rotationSpeed, 0);
-            position = rotation * new Vector3(0f, 3f, -zAxisDistance) + target.position;
+            position = rotation * new Vector3(0f, 1f, -zAxisDistance) + target.position;
 
             transform.rotation = rotation;
             transform.position = position;

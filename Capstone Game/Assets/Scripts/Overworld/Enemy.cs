@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour, IInteractable
 
         BattleInitializer initializer = FindObjectOfType<BattleInitializer>();
         
+        //Initialize battle
         initializer.InitializeBattle(interactor.transform.position, transform.position, gameObject);
         
         playerMovement.enabled = true;

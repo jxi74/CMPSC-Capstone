@@ -10,12 +10,14 @@ public enum BattleState { Start, PlayerAction1, PlayerAction2, PerformSkills, Bu
 
 public class BattleSystem : MonoBehaviour
 {
+    [SerializeField] private GameController gamecontroller;
     //Battlestate
     private BattleState state;
     [SerializeField] public List<int> movequeue;
     [SerializeField] public List<int> targetlist;
 
     //UI
+    [SerializeField] private Canvas UI;
     [SerializeField] private BattleUI battleUI;
     [SerializeField] MessageBox box;
     [SerializeField] public SkillsSelect skillsSelect;
@@ -40,8 +42,10 @@ public class BattleSystem : MonoBehaviour
 
     public void StartBattle()
     {
+        gamecontroller.inBattle(true);
         unithuds = new List<UnitUI> {unit1hud, unit2hud, unit3hud, unit4hud};
         StartCoroutine(BattleSetup());
+        UI.enabled = true;
         battleUI.SetupBattle();
     }
 
@@ -59,13 +63,13 @@ public class BattleSystem : MonoBehaviour
         ResetMoveQueue();
         state = BattleState.Start;
 
-        unit1.Setup(party.GetFirstHealthyUnit());
+        unit1.Setup(party.GetFirstHealthyUnit(), true);
         unit1hud.Setdata(unit1.Unit);
-        unit2.Setup(party.GetNextHealthyUnit(party.GetFirstHealthyUnit()));
+        unit2.Setup(party.GetNextHealthyUnitStart(party.GetFirstHealthyUnit()), true);
         unit2hud.Setdata(unit2.Unit);
-        unit3.Setup(enemygenerator.GetRandomUnit());
+        unit3.Setup(enemygenerator.GetRandomUnit(), false);
         unit3hud.Setdata(unit3.Unit);
-        unit4.Setup(enemygenerator.GetRandomUnit());
+        unit4.Setup(enemygenerator.GetRandomUnit(), false);
         unit4hud.Setdata(unit4.Unit);
 
         inBattleUnits.Add(unit1);
@@ -82,15 +86,20 @@ public class BattleSystem : MonoBehaviour
     IEnumerator NewRound()
     {
         ResetMoveQueue();
+        skillsSelect.SetTargetNames();
         if (unit1.Unit.HP == 0 && unit2.Unit.HP == 0)
         {
             //game over
             yield return box.DisplayText("You lose :(");
             yield return box.DisplayText("Loser.");
+            gamecontroller.inBattle(false);
+            UI.enabled = false;
         }
         else if (unit3.Unit.HP == 0 && unit4.Unit.HP == 0)
         {
             yield return box.DisplayText("You win :)");
+            gamecontroller.inBattle(false);
+            UI.enabled = false;
             //win
         }
         else
@@ -109,7 +118,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                yield return box.DisplayText("I don't really know what happened, but the game broke.. Fuck.");
+                yield return box.DisplayText("I don't really know what happened, but the game broke.. Ow.");
             }
         }
         
@@ -182,8 +191,8 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 //yield return box.DisplayText($"{unitcontrol.Unit.Base.name} rested up!");
-                unitcontrol.Unit.Rest();
-                yield return unithuds[index].UpdateStaBar();
+                //unitcontrol.Unit.Rest();
+                //yield return unithuds[index].UpdateStaBar();
             }
         }
 
@@ -234,12 +243,43 @@ public class BattleSystem : MonoBehaviour
                     unitcontrol.Unit.UseMove(move);
                     yield return unithuds[index].UpdateStaBar();
                     yield return ShowDamageDetails(damageDetails);
-                
+                    
                     if (damageDetails.Fainted)
                     {
-                    
                         yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                        Debug.Log("Switching to nextUnit:" + unithuds[target - 1].unitName.text + "to be swapped.");
+                        if (targetUnit.isPlayer)
+                        {
+                            var nextUnit = party.GetNextHealthyUnit(targetUnit.Unit);
+                            //Debug.Log("Cycled to next healthy unit: " + nextUnit.Base.Name);
+                            while (nextUnit == unit1.Unit || nextUnit == unit2.Unit)
+                            {
+                                Debug.Log("nextUnit same as unit1/unit2.. selecting next");
+                                nextUnit = party.GetNextHealthyUnit(nextUnit);
+                                if (nextUnit == null)
+                                {
+                                    Debug.Log("Next null... no alive party unit, skipping swap");
+                                    break;
+                                }
+                            }
+
+                            if (nextUnit != null)
+                            {
+                                targetUnit.Setup(nextUnit, true);
+                                
+                                unithuds[target - 1].Setdata(nextUnit);
+
+                                yield return box.DisplayText($"{targetUnit.Unit.Base.Name} rises to the challenge!");
+                            }
+                            else
+                            {
+                                Debug.Log("No more healthy units left in the party");
+                                // Handle the case where there are no more healthy units left in the party
+                            }
+                        }
+
                     }
+
                 }
             
             
@@ -282,30 +322,48 @@ public class BattleSystem : MonoBehaviour
             {
                 target = targetlist[index];
                 var move = unitcontrol.Unit.GetRandomSKill();
-                yield return box.DisplayText(unitcontrol.unitBase.Name + $" used {move.Base.Name}");
-                BattleUnit targetUnit = inBattleUnits[target - 1];
-                
-                if (targetUnit.Unit.HP <= 0)
+                //enemy stamina check
+                if (unitcontrol.Unit.STA < move.StaminaCost)
                 {
-                    yield return box.DisplayText(
-                        $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
+                    yield return box.DisplayText($"{unitcontrol.unitBase.Name} rested up!");
+                    unitcontrol.Unit.Rest();
+                    yield return unithuds[index].UpdateStaBar();
                 }
                 else
                 {
-                    bool guardCheck = (movequeue[target - 1] == 7);
-                    var damageDetails = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
-                    
-                    //Display UI changes/update values
-                    yield return unithuds[targetlist[index] - 1].UpdateHpBar();
-                    unitcontrol.Unit.UseMove(move);
-                    yield return unithuds[index].UpdateStaBar();
-                    yield return ShowDamageDetails(damageDetails);
-                    
-                    if (damageDetails.Fainted)
+                    yield return box.DisplayText(unitcontrol.unitBase.Name + $" used {move.Base.Name}");
+                    BattleUnit targetUnit = inBattleUnits[target - 1];
+                
+                    if (targetUnit.Unit.HP <= 0)
                     {
-                        yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                        yield return box.DisplayText(
+                            $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
+                    }
+                    else
+                    {
+                        bool guardCheck = (movequeue[target - 1] == 7);
+                        var damageDetails = targetUnit.Unit.TakeDamage(move, unitcontrol.Unit, guardCheck);
+                    
+                        //Display UI changes/update values
+                        yield return unithuds[targetlist[index] - 1].UpdateHpBar();
+                        unitcontrol.Unit.UseMove(move);
+                        yield return unithuds[index].UpdateStaBar();
+                        yield return ShowDamageDetails(damageDetails);
+                    
+                        if (damageDetails.Fainted)
+                        {
+                            yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                        }
+
                     }
                 }
+                
+            }
+            else if (movequeue[index] == 8)
+            {
+                yield return box.DisplayText($"{unitcontrol.unitBase.Name} rested up!");
+                unitcontrol.Unit.Rest();
+                yield return unithuds[index].UpdateStaBar();
             }
             
         }
@@ -380,13 +438,13 @@ public class BattleSystem : MonoBehaviour
 
         if (state == BattleState.PlayerAction1)
         {
-            Debug.Log("Unit 1 turn");
+            //Debug.Log("Unit 1 turn");
             index = 0;
             unit = unit1;
         }
         else
         {
-            Debug.Log("Unit 2 turn");
+            //Debug.Log("Unit 2 turn");
             index = 1;
             unit = unit2;
         }
