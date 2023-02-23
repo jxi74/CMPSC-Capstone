@@ -13,6 +13,14 @@ public class SkillsSelect : MonoBehaviour
     [SerializeField] private List<Button> skillButtons;
     [SerializeField] private List<Button> targetButtons;
     [SerializeField] private List<Material> typeColor;
+    private BattleSystem battlesystem;
+    private List<BattleUnit> units;
+
+    private void Start()
+    {
+        battlesystem = FindObjectOfType<BattleSystem>();
+    }
+    
     public void SetSkillNames(List<Skill> skills)
     {
         Color color = Color.black;
@@ -79,14 +87,21 @@ public class SkillsSelect : MonoBehaviour
 
     public void SetTargetNames()
     {
-        BattleSystem battlesystem = FindObjectOfType<BattleSystem>();
         
+        units = new List<BattleUnit>();
+        units.Add(battlesystem.unit1);
+        units.Add(battlesystem.unit2);
+        units.Add(battlesystem.unit3);
+        units.Add(battlesystem.unit4);
         //Eventually gray out defeated unswapped units
-        targetButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = battlesystem.unit1.unitBase.Name;
-        targetButtons[1].GetComponentInChildren<TextMeshProUGUI>().text = battlesystem.unit2.unitBase.Name;
-        targetButtons[2].GetComponentInChildren<TextMeshProUGUI>().text = battlesystem.unit3.unitBase.Name;
-        targetButtons[3].GetComponentInChildren<TextMeshProUGUI>().text = battlesystem.unit4.unitBase.Name;
+        for (int i = 0; i < 4; i++)
+        {
+            targetButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = units[i].unitBase.Name;
+            targetButtons[i].interactable = (units[i].Unit.HP != 0);
+        }
+
     }
+    
     
     
 }

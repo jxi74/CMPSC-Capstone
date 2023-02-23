@@ -685,6 +685,7 @@ MonoBehaviour:
   gamecontroller: {fileID: 1869907571}
   movequeue: 00000000000000000000000000000000
   targetlist: 00000000000000000000000000000000
+  defeatedUnits: 00000000
   UI: {fileID: 1102867949}
   battleUI: {fileID: 709490812}
   box: {fileID: 346940954}
@@ -1335,6 +1336,8 @@ MonoBehaviour:
     level: 30
   - _base: {fileID: 11400000, guid: 36eee3851d5376d409fc853dcf1144e3, type: 2}
     level: 3
+  - _base: {fileID: 11400000, guid: ee66bac68fec2e14797a6a7d35905843, type: 2}
+    level: 2
   battlesystem: {fileID: 545854409}
 --- !u!4 &905889918
 Transform:

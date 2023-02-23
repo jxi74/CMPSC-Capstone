@@ -15,6 +15,7 @@ public class BattleSystem : MonoBehaviour
     private BattleState state;
     [SerializeField] public List<int> movequeue;
     [SerializeField] public List<int> targetlist;
+    [SerializeField] public List<bool> defeatedUnits;
 
     //UI
     [SerializeField] private Canvas UI;
@@ -49,18 +50,19 @@ public class BattleSystem : MonoBehaviour
         battleUI.SetupBattle();
     }
 
-    void ResetMoveQueue()
+    void ResetTurn()
     {
         for (int i = 0; i < movequeue.Count; i++)
         {
             movequeue[i] = 0;
             targetlist[i] = 0;
+            defeatedUnits[i] = false;
         }
     }
 
     public IEnumerator BattleSetup()
     {
-        ResetMoveQueue();
+        ResetTurn();
         state = BattleState.Start;
 
         unit1.Setup(party.GetFirstHealthyUnit(), true);
@@ -85,7 +87,7 @@ public class BattleSystem : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     IEnumerator NewRound()
     {
-        ResetMoveQueue();
+        ResetTurn();
         skillsSelect.SetTargetNames();
         if (unit1.Unit.HP == 0 && unit2.Unit.HP == 0)
         {
@@ -215,8 +217,8 @@ public class BattleSystem : MonoBehaviour
             index = 1;
         }
 
-        //check if alive
-        if (unitcontrol.Unit.HP > 0)
+        //check if alive and unit was not swapped
+        if (unitcontrol.Unit.HP > 0 && !defeatedUnits[index])
         {
         
             //Only perform if skill
@@ -247,7 +249,8 @@ public class BattleSystem : MonoBehaviour
                     if (damageDetails.Fainted)
                     {
                         yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
-                        Debug.Log("Switching to nextUnit:" + unithuds[target - 1].unitName.text + "to be swapped.");
+                        defeatedUnits[target - 1] = true;
+                        //Debug.Log("Switching to nextUnit:" + unithuds[target - 1].unitName.text + "to be swapped.");
                         if (targetUnit.isPlayer)
                         {
                             var nextUnit = party.GetNextHealthyUnit(targetUnit.Unit);
@@ -316,7 +319,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         //Debug.Log("Unit hp: " + unitcontrol.Unit.HP);
-        if (unitcontrol.Unit.HP > 0)
+        if (unitcontrol.Unit.HP > 0 && !defeatedUnits[index])
         {
             if (movequeue[index] <= 6)
             {
@@ -353,6 +356,38 @@ public class BattleSystem : MonoBehaviour
                         if (damageDetails.Fainted)
                         {
                             yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
+                            defeatedUnits[target - 1] = true;
+                            //Debug.Log("Switching to nextUnit:" + unithuds[target - 1].unitName.text + "to be swapped.");
+                            if (targetUnit.isPlayer)
+                            {
+                                var nextUnit = party.GetNextHealthyUnit(targetUnit.Unit);
+                                //Debug.Log("Cycled to next healthy unit: " + nextUnit.Base.Name);
+                                while (nextUnit == unit1.Unit || nextUnit == unit2.Unit)
+                                {
+                                    Debug.Log("nextUnit same as unit1/unit2.. selecting next");
+                                    nextUnit = party.GetNextHealthyUnit(nextUnit);
+                                    if (nextUnit == null)
+                                    {
+                                        Debug.Log("Next null... no alive party unit, skipping swap");
+                                        break;
+                                    }
+                                }
+
+                                if (nextUnit != null)
+                                {
+                                    targetUnit.Setup(nextUnit, true);
+                                
+                                    unithuds[target - 1].Setdata(nextUnit);
+
+                                    yield return box.DisplayText($"{targetUnit.Unit.Base.Name} rises to the challenge!");
+                                }
+                                else
+                                {
+                                    Debug.Log("No more healthy units left in the party");
+                                    // Handle the case where there are no more healthy units left in the party
+                                }
+                            }
+
                         }
 
                     }
