@@ -53,6 +53,5 @@ public class OverWorldBox : MonoBehaviour
        contButton.SetActive(true);
        //Delay to make text readable
        //Use this code to enable elements
-       //overworldbox.enabled = false;
     }
 }

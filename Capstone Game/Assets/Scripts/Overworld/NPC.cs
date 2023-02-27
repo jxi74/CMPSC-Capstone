@@ -12,14 +12,13 @@ public class NPC : MonoBehaviour, IInteractable
 
     public string InteractionPrompt => _prompt;
     
-    public bool Interact(Interactor interactor) //Could have a check for the player's inventory to see if player has a key to open
+    public bool Interact(Interactor interactor)
     {
-        Debug.Log("NPC Interaction"); // Logs message once you press "e" to open chest
+        Debug.Log("NPC Interaction"); // Logs message once you press "e" to interact
 
         foreach (String words in dialogue)
         {
             text.EnqueueSentence(words);
-            //yield return new WaitForSeconds(2);
         }
         text.DisplayNextSentences();
 
