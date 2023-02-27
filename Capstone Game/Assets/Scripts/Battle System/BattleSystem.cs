@@ -70,7 +70,7 @@ public class BattleSystem : MonoBehaviour
         unit1hud.Setdata(unit1.Unit);
         unit2.Setup(party.GetNextHealthyUnitStart(party.GetFirstHealthyUnit()), true);
         unit2hud.Setdata(unit2.Unit);
-        unit3.Setup(enemygenerator.GetRandomUnit(), false);
+        unit3.Setup(unit3.Unit, false);
         unit3hud.Setdata(unit3.Unit);
         unit4.Setup(enemygenerator.GetRandomUnit(), false);
         unit4hud.Setdata(unit4.Unit);
@@ -521,6 +521,12 @@ public class BattleSystem : MonoBehaviour
             unit.Unit.Rest();
             yield return unithuds[index].UpdateStaBar();
             targetlist[index] = 0;
+        }
+        else if (button == 10)
+        {
+            //swap unit
+            Debug.Log("Unit " + buttonval + " swap pressed");
+            yield return box.DisplayText($"Unit {buttonval} was selected to swap with Unit {index + 1}");
         }
         if (button == 9)
         {
