@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\InventoryGridScriptLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\CloseMenuScriptLITE.cs" />
+    <Compile Include="Assets\Scripts\PageNumberCounter.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\EquipItemScriptLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\InventoryScriptLITE.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />

@@ -360,6 +360,7 @@
 "Assets/Scripts/Item.cs"
 "Assets/Scripts/ItemDatabase.cs"
 "Assets/Scripts/ItemFollowMouse.cs"
+"Assets/Scripts/PageNumberCounter.cs"
 "Assets/Scripts/Tooltip.cs"
 "Assets/Scripts/UIInventory.cs"
 "Assets/Scripts/UIItem.cs"

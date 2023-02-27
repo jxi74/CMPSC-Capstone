@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //back end of the inventory which stores the data of what the character
@@ -17,19 +18,21 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        GiveItem(0);
-        GiveItem(1);
-        GiveItem(4);
-        GiveItem(0);
-        GiveItem(2);
-        GiveItem(3);
+        for (int i = 0; i < 64; i++)
+        {
+            if (i > 32)
+                GiveItem(0);
+            else
+                GiveItem(1);
+        }
+        
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
+          inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
         }
     }
 
