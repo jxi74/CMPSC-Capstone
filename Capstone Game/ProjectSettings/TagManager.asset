@@ -9,6 +9,7 @@ TagManager:
   - Unit2
   - Unit3
   - Unit4
+  - OverworldTextBox
   layers:
   - Default
   - TransparentFX

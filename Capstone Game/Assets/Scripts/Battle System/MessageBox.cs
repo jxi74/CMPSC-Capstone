@@ -36,6 +36,7 @@ public class MessageBox : MonoBehaviour
       
    }
    
+
    public IEnumerator DisplayText(String value)
    {
       contButton.SetActive(false);
