@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Party : MonoBehaviour
 {
-    [SerializeField] private List<Unit> units;
+    [SerializeField] public List<Unit> units;
     [SerializeField] private BattleSystem battlesystem;
     private void Start()
     {

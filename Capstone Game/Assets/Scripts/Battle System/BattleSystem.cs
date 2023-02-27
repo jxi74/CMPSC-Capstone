@@ -39,6 +39,7 @@ public class BattleSystem : MonoBehaviour
 
 
     [SerializeField] public Party party;
+    [SerializeField] public PartyHuds partyhuds;
     [SerializeField] public EnemyEncounter enemygenerator;
 
     public void StartBattle()
@@ -147,6 +148,7 @@ public class BattleSystem : MonoBehaviour
         
         StartCoroutine(box.DisplayText("Select an action for " + unitcontrol.unitBase.Name));
         skillsSelect.SetSkillNames(unitcontrol.Unit.Skills);
+        partyhuds.SetPartyNames();
         battleUI.SetDefaultButtons(true);
     }
 
@@ -486,6 +488,7 @@ public class BattleSystem : MonoBehaviour
 
         //Skill (1-6) or Guard/Rest (7/8)
         movequeue[index] = button;
+        battleUI.SetDefaultButtons(false);
         battleUI.SetActionButtons(false);
         battleUI.SetSelectButtons(false);
 
@@ -511,7 +514,7 @@ public class BattleSystem : MonoBehaviour
             yield return box.DisplayText(unit.unitBase.Name + " readied their guard!");
             targetlist[index] = 0;
         }
-        else
+        else if (button == 8)
         {
             //Rest
             yield return box.DisplayText(unit.unitBase.Name + " rested up!");
@@ -519,26 +522,68 @@ public class BattleSystem : MonoBehaviour
             yield return unithuds[index].UpdateStaBar();
             targetlist[index] = 0;
         }
-
-        if (state == BattleState.PlayerAction1)
+        if (button == 9)
         {
-            if (unit2.Unit.HP > 0)
+            //Debug.Log("Escape button");
+            //Escape
+            int chance = (((unit.Unit.Speed) * 64) / ((unit3.Unit.Speed + unit2.Unit.Speed) / 2) + 30 % 256);
+            int val = new Random().Next(1, 257);
+            Debug.Log("Chance: " + chance);
+            Debug.Log("Rolled: " + val);
+            if (chance >= val)
             {
-                PlayerAction(2);
+                //Success
+                yield return box.DisplayText("Successfully escaped!");
+                gamecontroller.inBattle(false);
+                UI.enabled = false;
             }
             else
             {
-                StartCoroutine(PerformBattle());
+                yield return box.DisplayText("Escape was unsuccessful!");
+                if (state == BattleState.PlayerAction1)
+                {
+                    if (unit2.Unit.HP > 0)
+                    {
+                        PlayerAction(2);
+                    }
+                    else
+                    {
+                        StartCoroutine(PerformBattle());
+                    }
+                }
+                else if (state == BattleState.PlayerAction2)
+                {
+                    StartCoroutine(PerformBattle());
+                }
+                else
+                {
+                    PlayerAction(index + 1);
+                }
             }
-        }
-        else if (state == BattleState.PlayerAction2)
-        {
-            StartCoroutine(PerformBattle());
         }
         else
         {
-            PlayerAction(index + 1);
+            if (state == BattleState.PlayerAction1)
+            {
+                if (unit2.Unit.HP > 0)
+                {
+                    PlayerAction(2);
+                }
+                else
+                {
+                    StartCoroutine(PerformBattle());
+                }
+            }
+            else if (state == BattleState.PlayerAction2)
+            {
+                StartCoroutine(PerformBattle());
+            }
+            else
+            {
+                PlayerAction(index + 1);
+            }
         }
+        
     }
 
 
