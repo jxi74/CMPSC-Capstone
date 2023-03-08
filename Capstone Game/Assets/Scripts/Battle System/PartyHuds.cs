@@ -13,7 +13,15 @@ public class PartyHuds : MonoBehaviour
             if (i < party.units.Count)
             {
                 partyhuds[i].Setdata(party.units[i]);
-                partyhuds[i].gameObject.SetActive(true);
+                if (party.units[i].HP > 0)
+                {
+                    partyhuds[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    partyhuds[i].gameObject.SetActive(false);
+                }
+                
             }
             else
             {

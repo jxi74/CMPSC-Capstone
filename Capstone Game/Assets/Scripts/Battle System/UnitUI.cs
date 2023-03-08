@@ -43,15 +43,33 @@ public class UnitUI : MonoBehaviour
         float currenthp = unitHp.value;
         float changeamt = (currenthp - newhp);
 
-        while (currenthp - newhp > Mathf.Epsilon)
+        if (_unit.HpChanged)
         {
-            currenthp -= changeamt * Time.deltaTime;
-            unitHptext.text = Mathf.FloorToInt(currenthp) + "/" + _unit.MaxHealth;
-            unitHp.value = currenthp;
-            yield return null;
+            if (currenthp > newhp)
+            {
+                while (currenthp - newhp > Mathf.Epsilon)
+                {
+                    currenthp -= changeamt * Time.deltaTime;
+                    unitHptext.text = Mathf.FloorToInt(currenthp) + "/" + _unit.MaxHealth;
+                    unitHp.value = currenthp;
+                    yield return null;
+                }
+            }
+            else
+            {
+                while (newhp - currenthp > Mathf.Epsilon)
+                {
+                    currenthp += newhp * Time.deltaTime;
+                    unitHptext.text = Mathf.FloorToInt(currenthp) + "/" + _unit.MaxHealth;
+                    unitHp.value = currenthp;
+                    yield return null;
+                }
+            }
+            unitHp.value = _unit.HP;
+            unitHptext.text = _unit.HP + "/" + _unit.MaxHealth;
+            _unit.HpChanged = false;
         }
-        unitHp.value = _unit.HP;
-        unitHptext.text = _unit.HP + "/" + _unit.MaxHealth;
+        
     }
     
     public IEnumerator UpdateStaBar()
@@ -60,29 +78,36 @@ public class UnitUI : MonoBehaviour
         float currentsta = unitSta.value;
         float changeamt = (currentsta - newhp);
 
-        if (currentsta > newhp)
+        if (_unit.StaChanged)
         {
-            while (currentsta - newhp > Mathf.Epsilon)
+            if (currentsta > newhp)
             {
-                currentsta -= changeamt * Time.deltaTime;
-                unitStatext.text = Mathf.FloorToInt(currentsta) + "/" + _unit.MaxStamina;
-                unitSta.value = currentsta;
-                yield return null;
+                while (currentsta - newhp > Mathf.Epsilon)
+                {
+                    currentsta -= changeamt * Time.deltaTime;
+                    unitStatext.text = Mathf.FloorToInt(currentsta) + "/" + _unit.MaxStamina;
+                    unitSta.value = currentsta;
+                    yield return null;
+                }
             }
-        }
-        else
-        {
-            while (newhp - currentsta > Mathf.Epsilon)
+            else
             {
-                currentsta += newhp * Time.deltaTime;
-                unitStatext.text = Mathf.FloorToInt(currentsta) + "/" + _unit.MaxStamina;
-                unitSta.value = currentsta;
-                yield return null;
+                while (newhp - currentsta > Mathf.Epsilon)
+                {
+                    currentsta += newhp * Time.deltaTime;
+                    unitStatext.text = Mathf.FloorToInt(currentsta) + "/" + _unit.MaxStamina;
+                    unitSta.value = currentsta;
+                    yield return null;
+                }
             }
+            unitSta.value = _unit.STA;
+            unitStatext.text = _unit.STA + "/" + _unit.MaxStamina;
+            _unit.StaChanged = false;
         }
         
-        unitSta.value = _unit.STA;
-        unitStatext.text = _unit.STA + "/" + _unit.MaxStamina;
+        
+        
+        
     }
 
 }

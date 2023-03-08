@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: Charge
   m_EditorClassIdentifier: 
   name: Charge
-  description: Uses body weight to charge into the enemy
+  description: Uses body weight to charge into the target. Fatigues itself after
+    use.
   type: 8
-  power: 60
+  power: 65
   accuracy: 80
-  stamina_cost: 9
+  category: 2
+  effects:
+    boosts: []
+    status: 4
+  target: 1
+  staminaCost: 9

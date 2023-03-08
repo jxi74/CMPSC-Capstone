@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24075fd21e4676a4dbb8f5636da8f9dd, type: 3}
+  m_Name: Wisp
+  m_EditorClassIdentifier: 
+  name: Wisp
+  description: A ball of pure energy. A little ominous...
+  model: {fileID: 1678932645426997599, guid: 1bf60dc0463f17243a83f601c84e3aef, type: 3}
+  type1: 5
+  type2: 10
+  max_hp: 35
+  atk: 26
+  flx: 42
+  def: 25
+  res: 48
+  lck: 20
+  spd: 40
+  sta: 37
+  learnableskills:
+  - moveBase: {fileID: 11400000, guid: 80fd9b7e897718b4d89e94342c0f26dc, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 5e2746608e5444f459cbb3a16640306a, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: 793a0bba0a3576f47ac5d8b2e9eb1dd2, type: 2}
+    level: 7
+  - moveBase: {fileID: 11400000, guid: d1851b96ca1e1d44abc6fd3eb64b7442, type: 2}
+    level: 13

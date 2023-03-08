@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0021f869b2635c248b3523b69657ded8, type: 3}
   m_Name: Vice Grip
   m_EditorClassIdentifier: 
-  name: 
+  name: Vice grip
   description: Approaches and wraps itself around enemy, suffocating them.
   type: 8
   power: 25
   accuracy: 70
-  stamina_cost: 2
+  category: 0
+  effects:
+    boosts: []
+    status: 0
+  target: 0
+  staminaCost: 2

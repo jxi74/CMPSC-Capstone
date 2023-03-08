@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24075fd21e4676a4dbb8f5636da8f9dd, type: 3}
+  m_Name: Snake
+  m_EditorClassIdentifier: 
+  name: Snake
+  description: It looks like a scaley rope
+  model: {fileID: 1678932645426997599, guid: 1bf60dc0463f17243a83f601c84e3aef, type: 3}
+  type1: 10
+  type2: 12
+  max_hp: 35
+  atk: 33
+  flx: 42
+  def: 25
+  res: 21
+  lck: 17
+  spd: 47
+  sta: 27
+  learnableskills:
+  - moveBase: {fileID: 11400000, guid: 98862c1bc8d7245439d3d820fd1e480d, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 9dd0f2f46a7b58b40a9f9b781712baff, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: 940b5b5e104602247b2b095671f7e31f, type: 2}
+    level: 7
+  - moveBase: {fileID: 11400000, guid: cf5b7b9ab8dbbb246bd85e092e47fd67, type: 2}
+    level: 12

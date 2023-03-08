@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0021f869b2635c248b3523b69657ded8, type: 3}
-  m_Name: Intimidate
+  m_Name: Soul swipe
   m_EditorClassIdentifier: 
-  name: Intimidate
-  description: Leers at the enemy with an intimidating aura. Lowers target attack
-  type: 8
+  name: Soul swipe
+  description: Unit stirs up a negative power to sap the target's strength. Lower's
+    attack, flux, and fatigues the target.
+  type: 10
   power: 0
-  accuracy: 95
+  accuracy: 70
   category: 2
   effects:
     boosts:
     - stat: 0
       boost: -1
-    status: 0
+    - stat: 1
+      boost: -1
+    status: 4
   target: 0
-  staminaCost: 5
+  staminaCost: 12

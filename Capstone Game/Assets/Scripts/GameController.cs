@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Camera cam;
     public BattleSystem battlesystem;
     private GameObject player;
+    [SerializeField] private Party party;
     private Transform playerchar;
     private Renderer a;
     private Renderer b;
@@ -36,6 +37,7 @@ public class GameController : MonoBehaviour
             thirdpersoncam.enabled = false;
             battlesystem.enabled = true;
             cam.transform.LookAt(movement.transform);
+            party.units.ForEach(p => p.OnBattleOver());
             
         }
         else

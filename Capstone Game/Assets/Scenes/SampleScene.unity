@@ -123,6 +123,116 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5062730104101095684, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
+  m_PrefabInstance: {fileID: 1381010622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ButtonPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ActionPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetUnitHUD
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetPartyButtons
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57444c075000242ea99e263cee940de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manageVisibility: 1
 --- !u!1 &42305724
 GameObject:
   m_ObjectHideFlags: 3
@@ -418,6 +528,7 @@ Transform:
   m_Children:
   - {fileID: 2017875462}
   - {fileID: 1402581311}
+  - {fileID: 858455001}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -769,19 +880,19 @@ MonoBehaviour:
   box: {fileID: 1014682263}
   skillsSelect: {fileID: 781573341}
   unit1: {fileID: 0}
-  unit1hud: {fileID: 1882105936}
   unit2: {fileID: 0}
-  unit2hud: {fileID: 672543335}
   unit3: {fileID: 0}
-  unit3hud: {fileID: 1364384778}
   unit4: {fileID: 0}
-  unit4hud: {fileID: 182095294}
   unithuds:
   - {fileID: 1882105936}
   - {fileID: 672543335}
   - {fileID: 1364384778}
   - {fileID: 182095294}
-  inBattleUnits: []
+  inBattleUnits:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   party: {fileID: 905889917}
   partyhuds: {fileID: 70722354}
   enemygenerator: {fileID: 0}
@@ -1345,7 +1456,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786588067}
-  m_LocalRotation: {x: 0.13291883, y: -0.000000008526854, z: 0.0000000011435262, w: 0.99112695}
+  m_LocalRotation: {x: 0.13291883, y: 0.000000008526854, z: -0.0000000011435262, w: 0.99112695}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1354,6 +1465,11 @@ Transform:
   m_Father: {fileID: 1714510696}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &858455001 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+  m_PrefabInstance: {fileID: 1755823572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &905889916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,12 +1500,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   units:
-  - _base: {fileID: 11400000, guid: 613d1156409fce64a93a5d60c473e56f, type: 2}
-    level: 30
-  - _base: {fileID: 11400000, guid: 36eee3851d5376d409fc853dcf1144e3, type: 2}
-    level: 3
+  - _base: {fileID: 11400000, guid: 9adf248f0a9f5564789ee99c4370d182, type: 2}
+    level: 6
+  - _base: {fileID: 11400000, guid: dde774bd7197de14fb41a85dd8710fc1, type: 2}
+    level: 12
   - _base: {fileID: 11400000, guid: ee66bac68fec2e14797a6a7d35905843, type: 2}
-    level: 2
+    level: 4
+  - _base: {fileID: 11400000, guid: a986afd4b5aa941468f2f7f96f142a15, type: 2}
+    level: 8
+  - _base: {fileID: 11400000, guid: 613d1156409fce64a93a5d60c473e56f, type: 2}
+    level: 12
+  - _base: {fileID: 11400000, guid: 36eee3851d5376d409fc853dcf1144e3, type: 2}
+    level: 5
   battlesystem: {fileID: 545854409}
 --- !u!4 &905889918
 Transform:
@@ -1617,6 +1739,116 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1008972757 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8317927818190307807, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
+  m_PrefabInstance: {fileID: 1381010622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1008972760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008972757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57444c075000242ea99e263cee940de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manageVisibility: 1
+--- !u!114 &1008972761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008972757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ButtonPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ActionPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetUnitHUD
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetPartyButtons
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1014682263 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4579831177435712362, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
@@ -1823,7 +2055,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25802
+  m_Name: pb_Mesh25808
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2434,7 +2666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579831177650003949, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4579831177714540281, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2623,6 +2855,116 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
   m_PrefabInstance: {fileID: 1938352853}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1411273786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2901722185777777508, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
+  m_PrefabInstance: {fileID: 1381010622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1411273789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411273786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ButtonPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ActionPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetUnitHUD
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetPartyButtons
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1411273790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411273786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57444c075000242ea99e263cee940de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manageVisibility: 1
 --- !u!1 &1545436393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2794,6 +3136,116 @@ MonoBehaviour:
   _uiPanel: {fileID: 1242511463}
   _promptText: {fileID: 1990835764}
   IsDisplayed: 0
+--- !u!1 &1639450880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6986050803839480861, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
+  m_PrefabInstance: {fileID: 1381010622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1639450883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639450880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ButtonPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ActionPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetUnitHUD
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetPartyButtons
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1639450884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639450880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57444c075000242ea99e263cee940de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manageVisibility: 1
 --- !u!1 &1714510694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2964,6 +3416,99 @@ MonoBehaviour:
   m_Damping: 0.6
   m_DampingWhenOccluded: 0.6
   m_OptimalTargetDistance: 0
+--- !u!1001 &1755823572
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 128327676}
+    m_Modifications:
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 30.41008
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.6493301
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.394688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135299, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135300, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: m_Name
+      value: Overworld Enemy 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[0]._base
+      value: 
+      objectReference: {fileID: 11400000, guid: 0877a52e272d556488fb2fd40eef26d4, type: 2}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[0].level
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[1]._base
+      value: 
+      objectReference: {fileID: 11400000, guid: a986afd4b5aa941468f2f7f96f142a15, type: 2}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[1].level
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[2]._base
+      value: 
+      objectReference: {fileID: 11400000, guid: 9adf248f0a9f5564789ee99c4370d182, type: 2}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[2].level
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[3]._base
+      value: 
+      objectReference: {fileID: 11400000, guid: 613d1156409fce64a93a5d60c473e56f, type: 2}
+    - target: {fileID: 8639686365612135309, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+      propertyPath: enemyEncounter.Array.data[3].level
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
 --- !u!1 &1786072161
 GameObject:
   m_ObjectHideFlags: 3
@@ -3076,6 +3621,7 @@ MonoBehaviour:
   battlecam: {fileID: 963194230}
   cam: {fileID: 963194227}
   battlesystem: {fileID: 545854409}
+  party: {fileID: 905889917}
 --- !u!4 &1869907572
 Transform:
   m_ObjectHideFlags: 0
@@ -3342,6 +3888,116 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9170dc81c9e6cf74ebbb9cfecafc9903, type: 3}
+--- !u!1 &1950001508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 703535906963333027, guid: 075ba58eb75a2c5459e6495146e8873c, type: 3}
+  m_PrefabInstance: {fileID: 1381010622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1950001511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950001508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ButtonPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 545854409}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: ActionPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetUnitHUD
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1632226062}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: SetPartyButtons
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1950001512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950001508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57444c075000242ea99e263cee940de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manageVisibility: 1
 --- !u!1 &1978970858
 GameObject:
   m_ObjectHideFlags: 0

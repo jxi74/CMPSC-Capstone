@@ -7,8 +7,14 @@ public class BattleUnit : MonoBehaviour
 {
     [FormerlySerializedAs("base")] // use this attribute to rename the 'base' field to 'unitBase'
     public UnitBase unitBase; // rename the field to 'unitBase'
+
+    public UnitUI hud;
     public int level;
-    public bool isPlayer;
+    private bool _isPlayer;
+    public bool isPlayer
+    {
+        get { return _isPlayer; }
+    }
 
     public Unit Unit { get; set; }
 
@@ -17,7 +23,9 @@ public class BattleUnit : MonoBehaviour
         Unit = unit;
         unitBase = unit.Base;
         level = unit.Level;
-        isPlayer = player;
+        _isPlayer = player;
+        
+        hud.Setdata(unit);
         //Display Unit model
     }
 }

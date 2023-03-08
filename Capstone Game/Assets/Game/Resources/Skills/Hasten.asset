@@ -17,4 +17,11 @@ MonoBehaviour:
   type: 8
   power: 0
   accuracy: 100
-  stamina_cost: 5
+  category: 2
+  effects:
+    boosts:
+    - stat: 5
+      boost: 1
+    status: 0
+  target: 1
+  staminaCost: 5

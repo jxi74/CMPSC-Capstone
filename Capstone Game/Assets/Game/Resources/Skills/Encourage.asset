@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0021f869b2635c248b3523b69657ded8, type: 3}
-  m_Name: Intimidate
+  m_Name: Encourage
   m_EditorClassIdentifier: 
-  name: Intimidate
-  description: Leers at the enemy with an intimidating aura. Lowers target attack
-  type: 8
+  name: Encourage
+  description: Encourages target and raises their attack and flux.
+  type: 0
   power: 0
-  accuracy: 95
+  accuracy: 100
   category: 2
   effects:
     boosts:
     - stat: 0
-      boost: -1
+      boost: 1
+    - stat: 1
+      boost: 1
     status: 0
   target: 0
   staminaCost: 5

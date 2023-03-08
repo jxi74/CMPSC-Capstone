@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0021f869b2635c248b3523b69657ded8, type: 3}
-  m_Name: Intimidate
+  m_Name: Relax
   m_EditorClassIdentifier: 
-  name: Intimidate
-  description: Leers at the enemy with an intimidating aura. Lowers target attack
+  name: Relax
+  description: User relaxes itself, raising its defense and energizes itself
   type: 8
   power: 0
-  accuracy: 95
+  accuracy: 100
   category: 2
   effects:
     boosts:
-    - stat: 0
-      boost: -1
-    status: 0
-  target: 0
-  staminaCost: 5
+    - stat: 2
+      boost: 1
+    status: 5
+  target: 1
+  staminaCost: 7
