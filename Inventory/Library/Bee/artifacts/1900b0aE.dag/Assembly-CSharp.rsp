@@ -364,6 +364,7 @@
 "Assets/Scripts/Tooltip.cs"
 "Assets/Scripts/UIInventory.cs"
 "Assets/Scripts/UIItem.cs"
+"Assets/Scripts/UIParty.cs"
 "Assets/SSI-BaseLite/Scripts/CloseMenuScriptLITE.cs"
 "Assets/SSI-BaseLite/Scripts/DropItemScriptLITE.cs"
 "Assets/SSI-BaseLite/Scripts/EquipItemScriptLITE.cs"

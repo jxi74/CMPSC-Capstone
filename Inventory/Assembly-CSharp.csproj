@@ -64,6 +64,7 @@
     <Compile Include="Assets\SSI-BaseLite\Scripts\inventoryPanelLITE.cs" />
     <Compile Include="Assets\Scripts\UIItem.cs" />
     <Compile Include="Assets\Scripts\ItemFollowMouse.cs" />
+    <Compile Include="Assets\Scripts\UIParty.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\DropItemScriptLITE.cs" />
     <Compile Include="Assets\SSI-BaseLite\Scripts\itemDragLITE.cs" />
     <Compile Include="Assets\Scripts\ItemDatabase.cs" />
