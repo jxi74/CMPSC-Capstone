@@ -10,6 +10,7 @@ public class OverWorldBox : MonoBehaviour
     [SerializeField] private int lettersPerSec;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject contButton;
+    [SerializeField] private GameObject exitButton;
     
     public Queue<String> Sentences = new Queue<string>();
     
@@ -33,7 +34,7 @@ public class OverWorldBox : MonoBehaviour
           overworldbox.enabled = false;
           return;
        }
-       
+
        StartCoroutine(DisplayText(Sentences.Dequeue()));
       
     }
@@ -42,6 +43,7 @@ public class OverWorldBox : MonoBehaviour
     {
        overworldbox.enabled = true;
        contButton.SetActive(false);
+       exitButton.SetActive(false);
        text.text = "";
        foreach (var letter in value.ToCharArray())
        {
@@ -50,7 +52,15 @@ public class OverWorldBox : MonoBehaviour
        }
  
        yield return new WaitForSeconds(1f);
-       contButton.SetActive(true);
+       
+       if (Sentences.Count == 0)
+       {
+          exitButton.SetActive(true);
+       }
+       else
+       {
+          contButton.SetActive(true);
+       }
        //Delay to make text readable
        //Use this code to enable elements
     }
