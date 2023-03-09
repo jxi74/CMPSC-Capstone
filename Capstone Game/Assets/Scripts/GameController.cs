@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private CinemachineBrain thirdpersoncam;
     [SerializeField] private CameraMotionControls battlecam;
     [SerializeField] private Camera cam;
+    [SerializeField] private Inventory inventory;
     public BattleSystem battlesystem;
     private GameObject player;
     [SerializeField] private Party party;
@@ -36,6 +37,8 @@ public class GameController : MonoBehaviour
             movement.enabled = false;
             thirdpersoncam.enabled = false;
             battlesystem.enabled = true;
+            inventory.canvas.enabled = false;
+            inventory.enabled = false;
             cam.transform.LookAt(movement.transform);
             party.units.ForEach(p => p.OnBattleOver());
             
@@ -49,6 +52,7 @@ public class GameController : MonoBehaviour
             movement.enabled = true;
             thirdpersoncam.enabled = true;
             battlesystem.enabled = false;
+            inventory.enabled = true;
             cam.fieldOfView = 40;
             Destroy(GameObject.FindWithTag("Unit1"));
             Destroy(GameObject.FindWithTag("Unit2"));
