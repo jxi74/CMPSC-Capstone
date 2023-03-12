@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8399857374798326470}
   - component: {fileID: 4256681202665533745}
   - component: {fileID: 6362631180417732620}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Display Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 2299930347249185217}
   - component: {fileID: 2104106134320272088}
   - component: {fileID: 6462700467912040091}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 8224159412889737489}
   - component: {fileID: 1685735496400875847}
   - component: {fileID: 5392621249575455470}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 8639686365612135309}
   - component: {fileID: 806322068956980748}
   - component: {fileID: 6358160935695981142}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Overworld Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,9 +501,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyEncounter: []
-  unit:
-    _base: {fileID: 0}
-    level: 0
 --- !u!114 &806322068956980748
 MonoBehaviour:
   m_ObjectHideFlags: 0

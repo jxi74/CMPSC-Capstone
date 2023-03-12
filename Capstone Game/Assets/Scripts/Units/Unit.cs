@@ -32,6 +32,8 @@ public class Unit
     public Dictionary<UnitBase.Stat, int> Stats { get; private set; }
     public Dictionary<UnitBase.Stat, int> StatBoosts { get; private set; }
     public Effect Status { get; private set; }
+    public int StatusTime { get; set; }
+    
     public bool HpChanged { get; set; }
     public bool StaChanged { get; set; }
     
@@ -225,14 +227,29 @@ public class Unit
         UpdateSTA(skill.StaminaCost);
     }
 
+    public void CureStatus()
+    {
+        Status = null;
+    }
+    
+    public bool OnBeforeMove()
+    {
+        if (Status?.OnBeforeTurn != null)
+        {
+            return Status.OnBeforeTurn(this);
+        }
+        return true;
+    }
+    
     public void OnAfterTurn()
     {
-        Status?.onAfterTurn?.Invoke(this);
+        Status?.OnAfterTurn?.Invoke(this);
     }
 
     public void SetStatus(ConditionID conditionid)
     {
         Status = ConditionsDB.Conditions[conditionid];
+        Status?.OnStart?.Invoke(this);
         StatusChanges.Enqueue($"{Base.Name} {Status.StartMsg}");
     }
     

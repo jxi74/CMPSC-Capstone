@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Enemy : MonoBehaviour, IInteractable
+public class Enemy : MonoBehaviour, IEnemyInteractable
 {
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     //[SerializeField] public ThirdPersonMovement playerMovement; // reference to ThirdPersonMovement script
     [SerializeField] public int distance;
 
-    public bool Interact(Interactor interactor)
+    public bool Interact(EnemyInteractor interactor)
     {
         Debug.Log("Interacting with enemy");
         ThirdPersonMovement playerMovement = interactor.GetComponent<ThirdPersonMovement>();
@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour, IInteractable
 
         BattleInitializer initializer = FindObjectOfType<BattleInitializer>();
         
-        //Initialize battle
         initializer.InitializeBattle(interactor.transform.position, transform.position, gameObject);
         
         playerMovement.enabled = true;

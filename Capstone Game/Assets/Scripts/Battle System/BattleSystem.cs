@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 //Battle States
@@ -156,6 +157,7 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.PlayerAction1;
             movequeue[0] = 0;
             unitcontrol = unit1;
+            unithuds[0].GetComponentInChildren<Image>();
         }
         else
         {
@@ -218,6 +220,15 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunSkill(BattleUnit sourceUnit, BattleUnit targetUnit)
     {
+        bool canRunSkill = sourceUnit.Unit.OnBeforeMove();
+        if (!canRunSkill)
+        {
+            yield return ShowStatusChange(sourceUnit.Unit);
+            yield break;
+        }
+
+        yield return ShowStatusChange(sourceUnit.Unit);
+        
         var move = sourceUnit.Unit.GetRandomSKill();
         int index = inBattleUnits.IndexOf(sourceUnit);
         int targetindex = inBattleUnits.IndexOf(targetUnit);

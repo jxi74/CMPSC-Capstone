@@ -26,9 +26,9 @@ MonoBehaviour:
   spd: 49
   sta: 42
   learnableskills:
-  - moveBase: {fileID: 11400000, guid: cf5b7b9ab8dbbb246bd85e092e47fd67, type: 2}
+  - moveBase: {fileID: 11400000, guid: 458d8671475cd5e439b1a6be3357a3ea, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: 0afdcc472f8ae0b49bdb73b6e5416981, type: 2}
+  - moveBase: {fileID: 11400000, guid: f08d54a60d433e44aa38ca9e16122fbf, type: 2}
     level: 3
   - moveBase: {fileID: 11400000, guid: 755b173f53a92714aa6151fa3a97c0a1, type: 2}
     level: 5

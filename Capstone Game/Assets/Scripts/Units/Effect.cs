@@ -9,5 +9,7 @@ public class Effect : MonoBehaviour
     public string Description { get; set; }
     public string StartMsg { get; set; }
 
-    public Action<Unit> onAfterTurn { get; set; }
+    public Action<Unit> OnStart { get; set; }
+    public Func<Unit, bool> OnBeforeTurn { get; set; }
+    public Action<Unit> OnAfterTurn { get; set; }
 }
