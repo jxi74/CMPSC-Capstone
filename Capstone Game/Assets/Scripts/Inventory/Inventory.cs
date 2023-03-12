@@ -7,6 +7,8 @@ using UnityEngine;
 //is currently holding
 public class Inventory : MonoBehaviour
 {
+
+    public int gold;
     //a list that contains all of the items that the character is holding
     public List<Item> characterItems = new List<Item>();
 
