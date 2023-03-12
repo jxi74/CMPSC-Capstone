@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Party : MonoBehaviour
 {
-    [SerializeField] private List<Unit> units;
+    [SerializeField] public List<Unit> units;
+    [SerializeField] private BattleSystem battlesystem;
     private void Start()
     {
         foreach (var unit in units)
@@ -22,7 +23,7 @@ public class Party : MonoBehaviour
         return units.Where(x => x.HP > 0).FirstOrDefault();
     }
 
-    public Unit GetNextHealthyUnit(Unit currentUnit)
+    public Unit GetNextHealthyUnitStart(Unit currentUnit)
     {
         int currentIndex = units.IndexOf(currentUnit);
         for (int i = 0; i < units.Count; i++)
@@ -33,6 +34,24 @@ public class Party : MonoBehaviour
                 return units[index];
             }
         }
+        return null;
+    }
+    public Unit GetNextHealthyUnit(Unit currentUnit)
+    {
+        int currentIndex = units.IndexOf(currentUnit);
+        int iterations = 0;
+        int maxIterations = units.Count;
+
+        while (iterations < maxIterations)
+        {
+            int index = (currentIndex + iterations + 1) % units.Count;
+            if (units[index].HP > 0 && units[index] != battlesystem.unit1.Unit && units[index] != battlesystem.unit2.Unit)
+            {
+                return units[index];
+            }
+            iterations++;
+        }
+
         return null;
     }
 }

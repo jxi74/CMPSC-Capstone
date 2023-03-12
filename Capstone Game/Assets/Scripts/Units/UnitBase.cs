@@ -135,6 +135,16 @@ public class UnitBase : ScriptableObject
         Moon
     }
 
+    public enum Stat
+    {
+        Attack,
+        Flux,
+        Defense,
+        Resistance,
+        Luck,
+        Speed
+    }
+    
     public class TypeChart
     {
         static float[][] chart =

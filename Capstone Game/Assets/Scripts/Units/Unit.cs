@@ -29,13 +29,18 @@ public class Unit
     public int STA { get; set; }
 
     public List<Skill> Skills { get; set; }
+    public Dictionary<UnitBase.Stat, int> Stats { get; private set; }
+    public Dictionary<UnitBase.Stat, int> StatBoosts { get; private set; }
+    public Effect Status { get; private set; }
+    public int StatusTime { get; set; }
+    
+    public bool HpChanged { get; set; }
+    public bool StaChanged { get; set; }
+    
+    public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
     
     public void Init()
     {
-        
-        HP = MaxHealth;
-        STA = MaxStamina;
-        
         Skills = new List<Skill>();
         
         //Move generator
@@ -48,50 +53,137 @@ public class Unit
                 Skills.Add(new Skill(skill.Base));
             }
         }
+        CalcStats();
+        HP = MaxHealth;
+        STA = MaxStamina;
+        ResetStatBoost();
+    }
+
+    void ResetStatBoost()
+    {
+        StatBoosts = new Dictionary<UnitBase.Stat, int>()
+        {
+            { UnitBase.Stat.Attack, 0 },
+            { UnitBase.Stat.Defense , 0},
+            { UnitBase.Stat.Flux , 0},
+            { UnitBase.Stat.Resistance , 0},
+            { UnitBase.Stat.Luck , 0},
+            { UnitBase.Stat.Speed , 0},
+        };
+    }
+
+    void CalcStats()
+    {
+        Stats = new Dictionary<UnitBase.Stat, int>();
+        Stats.Add(UnitBase.Stat.Attack, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Defense, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Flux, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Resistance, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Luck, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Speed, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
+
+
+        MaxHealth = Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + Level + 10;;
+        MaxStamina = Mathf.FloorToInt(2 * (Base.Sta * Level) / 100f) + 5;
+    }
+
+    int GetStat(UnitBase.Stat stat)
+    {
+        int statVal = Stats[stat];
+
+        //Stat boost calc
+        int boost = StatBoosts[stat];
+        var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
+
+        if (boost >= 0)
+        {
+            statVal = Mathf.FloorToInt(statVal * boostValues[boost]);
+        }
+        else
+        {
+            statVal = Mathf.FloorToInt(statVal / boostValues[-boost]);
+        }
+        
+        return statVal;
     }
 
     
+    public void ApplyBoost(List<StatBoost> statBoosts)
+    {
+        foreach (var statBoost in statBoosts)
+        {
+            var stat = statBoost.stat;
+            var boost = statBoost.boost;
+            StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
+
+            if (boost > 0)
+            {
+                StatusChanges.Enqueue($"{Base.Name}'s {stat} increased!");
+            }
+            else
+            {
+                StatusChanges.Enqueue($"{Base.Name}'s {stat} decreased!");
+            }
+            
+            Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
+        }
+
+        
+    }
 
     public int MaxHealth
     {
-        get { return Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + Level + 10; }
-    }
-    
-    public int Attack
-    {
-        get { return Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3; }
-    }
-    
-    public int Flux
-    {
-        get { return Mathf.FloorToInt(2 * (Base.Flx * Level) / 100f) + 3; }
-    }
-    
-    public int Defense
-    {
-        get { return Mathf.FloorToInt(2 * (Base.Def * Level) / 100f) + 3; }
-    }
-
-    public int Resistance
-    {
-        get { return Mathf.FloorToInt(2 * (Base.Res * Level) / 100f) + 3; }
-    }
-    
-    public int Luck
-    {
-        get { return Mathf.FloorToInt(2 * (Base.Lck * Level) / 100f) + 3; }
-    }
-    
-    public int Speed
-    {
-        get { return Mathf.FloorToInt(2 * (Base.Spd * Level) / 100f) + 3; }
+        get;
+        private set;
     }
     
     public int MaxStamina
     {
-        get { return Mathf.FloorToInt(2 * (Base.Sta * Level) / 100f) + 5; }
+        get;
+        private set;
+    }
+    
+    public int Attack
+    {
+        get { return GetStat(UnitBase.Stat.Attack); }
+    }
+    
+    public int Flux
+    {
+        get { return GetStat(UnitBase.Stat.Flux); }
+    }
+    
+    public int Defense
+    {
+        get { return GetStat(UnitBase.Stat.Defense); }
     }
 
+    public int Resistance
+    {
+        get { return GetStat(UnitBase.Stat.Resistance); }
+    }
+    
+    public int Luck
+    {
+        get { return GetStat(UnitBase.Stat.Luck); }
+    }
+    
+    public int Speed
+    {
+        get { return GetStat(UnitBase.Stat.Speed); }
+    }
+    
+    public void UpdateHP(int dmg)
+    {
+        HP = Mathf.Clamp(HP - dmg, 0, MaxHealth);
+        HpChanged = true;
+    }
+    
+    public void UpdateSTA(int dmg)
+    {
+        STA = Mathf.Clamp(STA - dmg, 0, MaxStamina);
+        StaChanged = true;
+    }
 
     //Determine if fainted
     public DamageDetails TakeDamage(Skill skill, Unit attacker, bool guard)
@@ -115,8 +207,8 @@ public class Unit
             Fainted = false
         };
 
-        float attack = skill.Base.IsSpecial ? attacker.Flux : attacker.Attack;
-        float defense = skill.Base.IsSpecial ? Resistance : Defense;
+        float attack = skill.Base.Category == SkillCategory.Special ? attacker.Flux : attacker.Attack;
+        float defense = skill.Base.Category == SkillCategory.Special ? Resistance : Defense;
         
         float modifier = Random.Range(.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
@@ -125,25 +217,42 @@ public class Unit
 
         HP -= dmg;
 
-        if (HP <= 0)
-        {
-            HP = 0;
-            damageDetails.Fainted = true;
-        }
+        UpdateHP(dmg);
         
         return damageDetails;
     }
 
     public void UseMove(Skill skill)
     {
-        STA -= skill.StaminaCost;
-
-        if (STA < 0)
-        {
-            STA = 0;
-        }
+        UpdateSTA(skill.StaminaCost);
     }
 
+    public void CureStatus()
+    {
+        Status = null;
+    }
+    
+    public bool OnBeforeMove()
+    {
+        if (Status?.OnBeforeTurn != null)
+        {
+            return Status.OnBeforeTurn(this);
+        }
+        return true;
+    }
+    
+    public void OnAfterTurn()
+    {
+        Status?.OnAfterTurn?.Invoke(this);
+    }
+
+    public void SetStatus(ConditionID conditionid)
+    {
+        Status = ConditionsDB.Conditions[conditionid];
+        Status?.OnStart?.Invoke(this);
+        StatusChanges.Enqueue($"{Base.Name} {Status.StartMsg}");
+    }
+    
     public Skill GetRandomSKill()
     {
         int r = Random.Range(0, Skills.Count);
@@ -152,11 +261,12 @@ public class Unit
 
     public void Rest()
     {
-        STA += Mathf.FloorToInt(STA * .15f + 4);
-        if (STA >= MaxStamina)
-        {
-            STA = MaxStamina;
-        }
+        UpdateSTA(-Mathf.FloorToInt(STA * .15f + 4));
+    }
+
+    public void OnBattleOver()
+    {
+        ResetStatBoost();
     }
 
     public class DamageDetails

@@ -14,7 +14,11 @@ public class MoveBase : ScriptableObject
     [SerializeField] private UnitBase.Type type;
     [SerializeField] public int power;
     [SerializeField] public int accuracy;
+    [SerializeField] private SkillCategory category;
+    [SerializeField] private SkillEffects effects;
+    [SerializeField] private SkillTarget target;
     [FormerlySerializedAs("stamina_cost")] [SerializeField] public int staminaCost;
+    
 
 
     public string Name
@@ -47,19 +51,56 @@ public class MoveBase : ScriptableObject
         get { return staminaCost; }
     }
 
-    public bool IsSpecial
+    public SkillCategory Category
     {
-        get
-        {
-            if (type == UnitBase.Type.Water || type == UnitBase.Type.Wind || type == UnitBase.Type.Fire || type == UnitBase.Type.Thunder || type == UnitBase.Type.Ice
-                || type == UnitBase.Type.Shadow || type == UnitBase.Type.Moon)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        get { return category; }
     }
+
+    public SkillEffects Effects
+    {
+        get { return effects; }
+    }
+
+    public SkillTarget Target
+    {
+        get { return target; }
+    }
+}
+
+[System.Serializable]
+public class SkillEffects
+{
+    [SerializeField] List<StatBoost> boosts;
+    [SerializeField] private ConditionID status;
+
+    public List<StatBoost> Boosts
+    {
+        get { return boosts; }
+    }
+
+    public ConditionID Status
+    {
+        get { return status; }
+    }
+    
+}
+
+[System.Serializable]
+public class StatBoost
+{
+    public UnitBase.Stat stat;
+    public int boost;
+
+}
+
+public enum SkillCategory
+{
+    Physical,
+    Special,
+    Status
+}
+
+public enum SkillTarget
+{
+    Foe, Self
 }

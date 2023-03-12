@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class BattleInitializer : MonoBehaviour
 {
+    public GameController gameController;
     public BattleSystem battlesystem;
     public GameObject unit1Prefab;
     public GameObject unit2Prefab;
@@ -30,20 +31,15 @@ public class BattleInitializer : MonoBehaviour
         unit4Prefab.tag = "Unit4";
         
         GameObject player = GameObject.Find("Player");
-        Transform playerchar = player.transform.Find("Player character");
-        Renderer a = playerchar.GetChild(0).GetComponent<Renderer>();
-        Renderer b = playerchar.GetChild(0).GetChild(0).GetComponent<Renderer>();
-        a.enabled = false;
-        b.enabled = false;
-
+        gameController.inBattle(true);
+        
         battlesystem.unit1 = GameObject.FindWithTag("Unit1").GetComponent<BattleUnit>();
         battlesystem.unit2 = GameObject.FindWithTag("Unit2").GetComponent<BattleUnit>();
         battlesystem.unit3 = GameObject.FindWithTag("Unit3").GetComponent<BattleUnit>();
         battlesystem.unit4 = GameObject.FindWithTag("Unit4").GetComponent<BattleUnit>();
         battlesystem.party = player.GetComponent<Party>();
         battlesystem.enemygenerator = enemy.GetComponent<EnemyEncounter>();
-
-        battlesystem.enabled = true;
+        
         battlesystem.StartBattle();
     }
 }

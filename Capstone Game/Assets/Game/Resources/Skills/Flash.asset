@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Flash
   m_EditorClassIdentifier: 
   name: Flash
-  description: SOLAR FLARE \o/.
+  description: SOLAR FLARE \o/. Lowers accuracy of target
   type: 11
   power: 25
   accuracy: 100
-  stamina_cost: 7
+  category: 1
+  effects:
+    boosts: []
+    status: 0
+  target: 0
+  staminaCost: 7

@@ -17,4 +17,9 @@ MonoBehaviour:
   type: 3
   power: 45
   accuracy: 85
+  category: 1
+  effects:
+    boosts: []
+    status: 0
+  target: 0
   staminaCost: 6

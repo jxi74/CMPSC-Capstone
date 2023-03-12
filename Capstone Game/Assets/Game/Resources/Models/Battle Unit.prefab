@@ -111,4 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase: {fileID: 11400000, guid: ee66bac68fec2e14797a6a7d35905843, type: 2}
+  hud: {fileID: 0}
   level: 4
