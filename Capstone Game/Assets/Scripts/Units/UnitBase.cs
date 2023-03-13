@@ -26,8 +26,15 @@ public class UnitBase : ScriptableObject
     [SerializeField] private int spd;
     [SerializeField] private int sta;
 
+    [SerializeField] private int xpgain;
+
     //learnable moves
     [SerializeField] public List<LearnableSkill> learnableskills;
+
+    public int GetExpForLevel(int level)
+    {
+        return level * level * level;
+    }
     
     //grab value functions
     public string Name
@@ -94,6 +101,11 @@ public class UnitBase : ScriptableObject
     {
         get { return sta; }
     }
+    
+    public int ExpGain
+    {
+        get { return xpgain; }
+    }
 
     public List<LearnableSkill> LearnableSkills
     {
@@ -142,7 +154,11 @@ public class UnitBase : ScriptableObject
         Defense,
         Resistance,
         Luck,
-        Speed
+        Speed,
+        
+        Accuracy,
+        Evasion
+        
     }
     
     public class TypeChart

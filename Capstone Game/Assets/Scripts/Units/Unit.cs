@@ -31,7 +31,7 @@ public class Unit
     public List<Skill> Skills { get; set; }
     public Dictionary<UnitBase.Stat, int> Stats { get; private set; }
     public Dictionary<UnitBase.Stat, int> StatBoosts { get; private set; }
-    public Effect Status { get; private set; }
+    public Effect Status { get; set; }
     public int StatusTime { get; set; }
     
     public bool HpChanged { get; set; }
@@ -53,10 +53,14 @@ public class Unit
                 Skills.Add(new Skill(skill.Base));
             }
         }
+
+        Exp = Base.GetExpForLevel(level);
         CalcStats();
         HP = MaxHealth;
         STA = MaxStamina;
+        
         ResetStatBoost();
+        // Add debug statement to check status after initialization
     }
 
     void ResetStatBoost()
@@ -69,6 +73,8 @@ public class Unit
             { UnitBase.Stat.Resistance , 0},
             { UnitBase.Stat.Luck , 0},
             { UnitBase.Stat.Speed , 0},
+            { UnitBase.Stat.Accuracy , 0},
+            { UnitBase.Stat.Evasion , 0},
         };
     }
 
@@ -130,48 +136,24 @@ public class Unit
 
         
     }
+    
+    public int Exp { get; set; }
 
-    public int MaxHealth
-    {
-        get;
-        private set;
-    }
+    public int MaxHealth { get; private set; }
     
-    public int MaxStamina
-    {
-        get;
-        private set;
-    }
+    public int MaxStamina { get; private set; }
     
-    public int Attack
-    {
-        get { return GetStat(UnitBase.Stat.Attack); }
-    }
+    public int Attack { get { return GetStat(UnitBase.Stat.Attack); } }
     
-    public int Flux
-    {
-        get { return GetStat(UnitBase.Stat.Flux); }
-    }
+    public int Flux { get { return GetStat(UnitBase.Stat.Flux); } }
     
-    public int Defense
-    {
-        get { return GetStat(UnitBase.Stat.Defense); }
-    }
+    public int Defense { get { return GetStat(UnitBase.Stat.Defense); } }
 
-    public int Resistance
-    {
-        get { return GetStat(UnitBase.Stat.Resistance); }
-    }
+    public int Resistance { get { return GetStat(UnitBase.Stat.Resistance); } }
     
-    public int Luck
-    {
-        get { return GetStat(UnitBase.Stat.Luck); }
-    }
+    public int Luck { get { return GetStat(UnitBase.Stat.Luck); } }
     
-    public int Speed
-    {
-        get { return GetStat(UnitBase.Stat.Speed); }
-    }
+    public int Speed { get { return GetStat(UnitBase.Stat.Speed); } }
     
     public void UpdateHP(int dmg)
     {

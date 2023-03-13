@@ -18,9 +18,15 @@ MonoBehaviour:
   type: 10
   power: 15
   accuracy: 95
-  category: 2
+  alwaysHits: 0
+  category: 1
   effects:
     boosts: []
+    status: 0
+  secondaryEffects:
+  - boosts: []
     status: 1
+    chance: 75
+    target: 0
   target: 0
   staminaCost: 6

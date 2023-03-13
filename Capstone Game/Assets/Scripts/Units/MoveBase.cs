@@ -14,8 +14,10 @@ public class MoveBase : ScriptableObject
     [SerializeField] private UnitBase.Type type;
     [SerializeField] public int power;
     [SerializeField] public int accuracy;
+    [SerializeField] public bool alwaysHits;
     [SerializeField] private SkillCategory category;
     [SerializeField] private SkillEffects effects;
+    [SerializeField] private List<SecondaryEffects> secondaryEffects;
     [SerializeField] private SkillTarget target;
     [FormerlySerializedAs("stamina_cost")] [SerializeField] public int staminaCost;
     
@@ -45,6 +47,11 @@ public class MoveBase : ScriptableObject
     {
         get { return accuracy; }
     }
+    
+    public bool AlwaysHits
+    {
+        get { return alwaysHits; }
+    }
 
     public int Stamina
     {
@@ -59,6 +66,11 @@ public class MoveBase : ScriptableObject
     public SkillEffects Effects
     {
         get { return effects; }
+    }
+
+    public List<SecondaryEffects> Secondary
+    {
+        get { return secondaryEffects; }
     }
 
     public SkillTarget Target
@@ -83,6 +95,23 @@ public class SkillEffects
         get { return status; }
     }
     
+}
+
+[System.Serializable]
+public class SecondaryEffects : SkillEffects
+{
+    [SerializeField] private int chance;
+    [SerializeField] private SkillTarget target;
+
+    public int Chance
+    {
+        get { return chance; }
+    }
+
+    public SkillTarget Target
+    {
+        get { return target; }
+    }
 }
 
 [System.Serializable]

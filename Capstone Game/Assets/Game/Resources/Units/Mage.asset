@@ -10,28 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24075fd21e4676a4dbb8f5636da8f9dd, type: 3}
-  m_Name: Slime
+  m_Name: Mage
   m_EditorClassIdentifier: 
-  name: Slime
-  description: A blob of goo.
+  name: Mage
+  description: We love casting spells ;)
   model: {fileID: 1678932645426997599, guid: 1bf60dc0463f17243a83f601c84e3aef, type: 3}
-  type1: 2
-  type2: 0
-  max_hp: 33
+  type1: 4
+  type2: 5
+  max_hp: 75
   atk: 27
-  flx: 43
-  def: 22
-  res: 45
-  lck: 30
-  spd: 27
-  sta: 23
-  xpgain: 39
+  flx: 52
+  def: 23
+  res: 43
+  lck: 15
+  spd: 20
+  sta: 40
+  xpgain: 52
   learnableskills:
-  - moveBase: {fileID: 11400000, guid: 50eaf578e47782b4e8def556443564c4, type: 2}
+  - moveBase: {fileID: 11400000, guid: 84bbc27ffedca6f4ab8dc7f3178513ec, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: 9dd0f2f46a7b58b40a9f9b781712baff, type: 2}
-    level: 3
   - moveBase: {fileID: 11400000, guid: 80fd9b7e897718b4d89e94342c0f26dc, type: 2}
-    level: 7
-  - moveBase: {fileID: 11400000, guid: 5e2746608e5444f459cbb3a16640306a, type: 2}
-    level: 11
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 8882794e312a9394ea50b154667cc750, type: 2}
+    level: 6
+  - moveBase: {fileID: 11400000, guid: a231f908cfe19974b917435e62223307, type: 2}
+    level: 10
+  - moveBase: {fileID: 11400000, guid: 50092317eed61b343bfc353cf923cd11, type: 2}
+    level: 14

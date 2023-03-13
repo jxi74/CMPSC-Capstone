@@ -6,9 +6,20 @@ using UnityEngine.ProBuilder;
 
 public class ConditionsDB : MonoBehaviour
 {
-
+    public static void Init() 
+    {
+        foreach (var kvp in Conditions)
+        {
+            var conditionID = kvp.Key;
+            var condition = kvp.Value;
+            condition.id = conditionID;
+        }
+    }
+    
     public static Dictionary<ConditionID, Effect> Conditions { get; set; } = new Dictionary<ConditionID, Effect>()
     {
+        
+        
         {
             ConditionID.Poisoned,
             // ReSharper disable once Unity.IncorrectMonoBehaviourInstantiation
@@ -34,7 +45,7 @@ public class ConditionsDB : MonoBehaviour
                 OnAfterTurn = (Unit unit) =>
                 {
                     //Regenerate
-                    unit.UpdateHP(-Mathf.FloorToInt(unit.MaxHealth * .075f + 1));
+                    unit.UpdateHP(-Mathf.FloorToInt(unit.MaxHealth * .1f + 1));
                     unit.StatusChanges.Enqueue($"{unit.Base.name} is feeling rejuvenated!");
                 }
             }
@@ -92,8 +103,18 @@ public class ConditionsDB : MonoBehaviour
             {
                 Name = "Dizzy",
                 StartMsg = "feels dizzy!",
+                OnStart = (Unit unit) =>
+                {
+                    unit.StatusTime = Random.Range(1,4);
+                },
                 OnBeforeTurn = (Unit unit) =>
                 {
+                    if (unit.StatusTime <= 0)
+                    {
+                        unit.CureStatus();
+                        unit.StatusChanges.Enqueue($"{unit.Base.name} is no longer dizzy!");
+                        return true;
+                    }
                     if (Random.Range(1, 4) == 1)
                     {
                         unit.StatusChanges.Enqueue($"{unit.Base.name} is too dizzy to perform an action!");

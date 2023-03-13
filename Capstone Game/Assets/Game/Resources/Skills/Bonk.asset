@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Bonk
   m_EditorClassIdentifier: 
   name: Bonk
-  description: BONK. Immediately makes the target fall asleep.
-  type: 7
+  description: BONK. Immediately makes the target dizzy.
+  type: 12
   power: 0
-  accuracy: 90
+  accuracy: 65
+  alwaysHits: 0
   category: 2
   effects:
     boosts: []
-    status: 6
+    status: 8
+  secondaryEffects: []
   target: 0
   staminaCost: 6

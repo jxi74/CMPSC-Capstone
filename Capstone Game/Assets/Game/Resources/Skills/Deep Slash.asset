@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: Deep Slash
   m_EditorClassIdentifier: 
   name: Deep Slash
-  description: User slices into target, causing a deep gash into the target. Causes
-    bleeding
+  description: User slices into target, causing a deep gash into the target. May
+    cause bleeding
   type: 7
   power: 55
   accuracy: 85
-  category: 2
+  alwaysHits: 0
+  category: 0
   effects:
     boosts: []
+    status: 0
+  secondaryEffects:
+  - boosts: []
     status: 3
+    chance: 50
+    target: 0
   target: 0
   staminaCost: 8

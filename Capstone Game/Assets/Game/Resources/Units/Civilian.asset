@@ -25,6 +25,7 @@ MonoBehaviour:
   lck: 15
   spd: 30
   sta: 35
+  xpgain: 45
   learnableskills:
   - moveBase: {fileID: 11400000, guid: 755b173f53a92714aa6151fa3a97c0a1, type: 2}
     level: 1

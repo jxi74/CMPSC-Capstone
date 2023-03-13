@@ -21,7 +21,7 @@ public class CameraMotionControls : MonoBehaviour {
     [Tooltip("The object the camera will focus on.")]
     public Transform target;
     [Tooltip("How sensative the camera-panning is when the user pans -- the speed of panning.")]
-    public float rotationSensitivity = 1f;
+    public float rotationSensitivity = 0f;
     [Tooltip("The min and max distance along the Y-axis the camera is allowed to move when panning.")]
     public Vector2 rotationLimit = new Vector2(5, 80);
     [Tooltip("The position along the Z-axis the camera game object is.")]
@@ -61,12 +61,12 @@ public class CameraMotionControls : MonoBehaviour {
     }
 
     private void Update () {
-        Zoom();
+        if (Application.isFocused) {
+            Zoom();
+        }
     }
 
     private void LateUpdate () {
-        //If auto rotation is enabled, just increment the xVelocity value by the rotationSensitivity.
-        //As that value's tied to the camera's rotation, it'll rotate automatically.
         if (autoRotate) {
             xVelocity += rotationSensitivity * Time.deltaTime;
         }
@@ -75,16 +75,9 @@ public class CameraMotionControls : MonoBehaviour {
             Vector3 position;
             float deltaTime = Time.deltaTime;
 
-            //We only really want to capture the position of the cursor when the screen when the user is holding down left click/touching the screen
-            //That's why we're checking for that before campturing the mouse/finger position.
-            //Otherwise, on a computer, the camera would move whenever the cursor moves. 
-
-
             xRotationAxis += xVelocity;
             yRotationAxis += yVelocity;
 
-            //Clamp the rotation along the y-axis between the limits we set. 
-            //Limits of 360 or -360 on any axis will allow the camera to rotate unrestricted
             yRotationAxis = ClampAngleBetweenMinAndMax(yRotationAxis, rotationLimit.x, rotationLimit.y);
 
             rotation = Quaternion.Euler(yRotationAxis, xRotationAxis * rotationSpeed, 0);

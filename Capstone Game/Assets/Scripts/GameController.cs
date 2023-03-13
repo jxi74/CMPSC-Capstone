@@ -18,8 +18,15 @@ public class GameController : MonoBehaviour
     private Transform playerchar;
     private Renderer a;
     private Renderer b;
+
+    private void Awake()
+    {
+        ConditionsDB.Init();
+    }
+    
     private void Start()
     {
+        battlecam.enabled = false;
         player = GameObject.Find("Player");
         playerchar = player.transform.Find("Player character");
         a = playerchar.GetChild(0).GetComponent<Renderer>();

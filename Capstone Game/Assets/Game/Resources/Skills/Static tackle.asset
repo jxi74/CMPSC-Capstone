@@ -13,13 +13,20 @@ MonoBehaviour:
   m_Name: Static tackle
   m_EditorClassIdentifier: 
   name: Static tackle
-  description: Generates static energy by spinning really fast and tackling the target
+  description: Generates static energy by spinning really fast and tackling the target.
+    May stun the target
   type: 5
   power: 30
   accuracy: 80
+  alwaysHits: 0
   category: 1
   effects:
     boosts: []
     status: 0
+  secondaryEffects:
+  - boosts: []
+    status: 7
+    chance: 75
+    target: 0
   target: 0
   staminaCost: 6

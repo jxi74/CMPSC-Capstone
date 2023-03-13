@@ -136,11 +136,13 @@ public class BattleSystem : MonoBehaviour
             {
                 // Perform the player's move.
                 yield return StartCoroutine(PerformPlayerMove(unit == unit1 ? 1 : 2));
+                
             }
             else
             {
                 // Perform the enemy's move.
                 yield return StartCoroutine(PerformEnemyMove(unit == unit3 ? 3 : 4));
+                
             }
         }
 
@@ -254,111 +256,90 @@ public class BattleSystem : MonoBehaviour
                 {
                     //Perform skill
                     yield return box.DisplayText(sourceUnit.unitBase.Name + $" used {move.Base.Name}");
-                    
-                    
-                    
-                    if (move.Base.Category == SkillCategory.Status)
+
+                    if (CheckIfSkillHits(move, sourceUnit, targetUnit))
                     {
-                        
-                        if (targetUnit.Unit.HP <= 0)
+                        if (move.Base.Category == SkillCategory.Status)
                         {
-                            yield return box.DisplayText(
-                                $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
+                        
+                            if (targetUnit.Unit.HP <= 0)
+                            {
+                                yield return box.DisplayText(
+                                    $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
+                            }
+                            else
+                            {
+                                sourceUnit.Unit.UseMove(move);
+                                yield return sourceUnit.hud.UpdateStaBar();
+                                yield return RunSkillEffects(move.Base.Effects, sourceUnit, targetUnit, move.Base.Target);
+                            }
+                        
                         }
+                        //Regular attack
                         else
                         {
-                            
-                            //Deal dmg if status also has power
-                            if (move.Power > 0)
+                            if (targetUnit.Unit.HP <= 0)
+                            {
+                                yield return box.DisplayText(
+                                    $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
+                                yield break;
+                            }
+                            else
                             {
                                 bool guardCheck = (movequeue[targetindex] == 7);
                                 var damageDetails = targetUnit.Unit.TakeDamage(move, sourceUnit.Unit, guardCheck);
-                
+                    
                                 //Display UI changes/update values
                                 yield return targetUnit.hud.UpdateHpBar();
                                 sourceUnit.Unit.UseMove(move);
                                 yield return sourceUnit.hud.UpdateStaBar();
                                 yield return ShowDamageDetails(damageDetails);
-                                if (targetUnit.Unit.HP <= 0)
-                                {
-                                    yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
-                                    defeatedUnits[targetindex] = true;
-                                    yield return CheckForSwap(targetUnit);
-                                }
-                                else
-                                {
-                                    //Eventually negate run skill effect if target is not self
-                                    yield return RunSkillEffects(move, sourceUnit, targetUnit);
-                                }
+                                
                             }
-                            //non damaging status effect
-                            else
+                            
+                            if (targetUnit.Unit.HP <= 0)
                             {
-                                sourceUnit.Unit.UseMove(move);
-                                yield return sourceUnit.hud.UpdateStaBar();
-                                yield return RunSkillEffects(move, sourceUnit, targetUnit);
+                                yield return HandleDefeatedUnit(targetUnit);
+                            }
+                        }
+
+                        if (move.Base.Secondary != null && move.Base.Secondary.Count > 0 && targetUnit.Unit.HP > 0)
+                        {
+                            foreach (var secondary in move.Base.Secondary)
+                            {
+                                var chance = new Random().Next(1, 100);
+                                if (chance <= secondary.Chance)
+                                {
+                                    yield return RunSkillEffects(secondary, sourceUnit, targetUnit, secondary.Target);
+                                }
                             }
                         }
                         
                     }
-                    //Regular attack
                     else
                     {
-                        if (targetUnit.Unit.HP <= 0)
-                        {
-                            yield return box.DisplayText(
-                                $"{targetUnit.Unit.Base.Name} is already defeated, the attack misses!");
-                        }
-                        else
-                        {
-                            bool guardCheck = (movequeue[targetindex] == 7);
-                            var damageDetails = targetUnit.Unit.TakeDamage(move, sourceUnit.Unit, guardCheck);
-                
-                            //Display UI changes/update values
-                            yield return targetUnit.hud.UpdateHpBar();
-                            sourceUnit.Unit.UseMove(move);
-                            yield return sourceUnit.hud.UpdateStaBar();
-                            yield return ShowDamageDetails(damageDetails);
-                            
-                        }
-                        
-                        if (targetUnit.Unit.HP <= 0)
-                        {
-                            yield return box.DisplayText($"{targetUnit.Unit.Base.Name} was defeated!");
-                            defeatedUnits[targetindex] = true;
-                            yield return CheckForSwap(targetUnit);
-                        }
+                        yield return box.DisplayText($"{sourceUnit.Unit.Base.Name} missed!");
                     }
+                    
                 }
                 
             }
+
             
-            //Status effect checks
-            //Debug.Log($"{sourceUnit.Unit.Base.Name} health before status: " + sourceUnit.Unit.HP);
-            sourceUnit.Unit.OnAfterTurn();
-            yield return StartCoroutine(ShowStatusChange(sourceUnit.Unit));
-            yield return sourceUnit.hud.UpdateHpBar();
-            yield return sourceUnit.hud.UpdateStaBar();
-            //Debug.Log($"{sourceUnit.Unit.Base.Name} health after status: " + sourceUnit.Unit.HP);
-            if (sourceUnit.Unit.HP <= 0)
-            {
-                yield return box.DisplayText($"{sourceUnit.Unit.Base.Name} was defeated!");
-                defeatedUnits[targetindex] = true;
-                yield return CheckForSwap(sourceUnit);
-            }
         }
     }
 
-    IEnumerator RunSkillEffects(Skill skill, BattleUnit sourceUnit, BattleUnit targetUnit)
+    
+    
+    IEnumerator RunSkillEffects(SkillEffects effects, BattleUnit sourceUnit, BattleUnit targetUnit, SkillTarget skillTarget)
     {
-        var effects = skill.Base.Effects;
         //sourceUnit.Unit.UseMove(skill);
         //yield return sourceUnit.hud.UpdateStaBar();
 
         //Stat changes
         if (effects.Boosts != null)
         {
-            if (skill.Base.Target == SkillTarget.Self)
+            if (skillTarget == SkillTarget.Self)
             {
                 sourceUnit.Unit.ApplyBoost(effects.Boosts);
             }
@@ -381,13 +362,97 @@ public class BattleSystem : MonoBehaviour
         yield return ShowStatusChange(targetUnit.Unit);
         
     }
+    
+    IEnumerator RunAfterTurn(int index)
+    {
+        index -= 1;
+        BattleUnit sourceUnit = inBattleUnits[index];
+        //index = inBattleUnits.IndexOf(sourceUnit);
+        int tindex = targetlist[index];
+        
+        //Negate performing effect if unit dead
+        if (inBattleUnits[index].Unit.HP <= 0)
+        {
+            yield break;
+        }
+        //Status effect checks
+        //Debug.Log($"{sourceUnit.Unit.Base.Name} health before status: " + sourceUnit.Unit.HP);
+        sourceUnit.Unit.OnAfterTurn();
+        yield return StartCoroutine(ShowStatusChange(sourceUnit.Unit));
+        yield return sourceUnit.hud.UpdateHpBar();
+        yield return sourceUnit.hud.UpdateStaBar();
+        //Debug.Log($"{sourceUnit.Unit.Base.Name} health after status: " + sourceUnit.Unit.HP);
+        if (sourceUnit.Unit.HP <= 0)
+        {
+            HandleDefeatedUnit(sourceUnit);
+        }
+    }
 
+    bool CheckIfSkillHits(Skill skill, BattleUnit sourceUnit, BattleUnit targetUnit)
+    {
+        if (skill.Base.AlwaysHits)
+        {
+            return true;
+        }
+        
+        float skillAccuracy = skill.Accuracy;
+
+        int accuracy = sourceUnit.Unit.StatBoosts[UnitBase.Stat.Accuracy];
+        int evasion = targetUnit.Unit.StatBoosts[UnitBase.Stat.Evasion];
+        
+        var boostValues = new float[] { 1f, 4f / 3f, 5f / 3f, 2f,  7f/3f, 8f/3f, 3f};
+
+        if (accuracy > 0)
+        {
+            skillAccuracy *= boostValues[accuracy];
+        }
+        else
+        {
+            skillAccuracy /= boostValues[-accuracy];
+        }
+        
+        if (evasion > 0)
+        {
+            skillAccuracy /= boostValues[evasion];
+        }
+        else
+        {
+            skillAccuracy *= boostValues[-evasion];
+        }
+        return (new Random().Next(1, 101) <= skillAccuracy);
+    }
+    
     IEnumerator ShowStatusChange(Unit unit)
     {
         while (unit.StatusChanges.Count > 0)
         {
             var msg = unit.StatusChanges.Dequeue();
             yield return box.DisplayText(msg);
+        }
+    }
+
+    IEnumerator HandleDefeatedUnit(BattleUnit defeatedUnit)
+    {
+        yield return box.DisplayText($"{defeatedUnit.Unit.Base.Name} was defeated!");
+        defeatedUnits[inBattleUnits.IndexOf(defeatedUnit)] = true;
+        yield return CheckForSwap(defeatedUnit);
+
+        if (!defeatedUnit.isPlayer)
+        {
+            //Gain xp
+            int expGain = defeatedUnit.Unit.Base.ExpGain;
+            int unitLevel = defeatedUnit.Unit.Level;
+
+            int expEarned = Mathf.FloorToInt(expGain * unitLevel) / 7;
+
+            BattleUnit unit1 = inBattleUnits[0];
+            BattleUnit unit2 = inBattleUnits[1];
+                
+            unit1.Unit.Exp += expEarned;
+            yield return box.DisplayText($"{unit1.Unit.Base.Name} and {unit2.Unit.Base.Name} gained {expEarned} exp!");
+            unit2.Unit.Exp += expEarned;
+            
+            //check level up
         }
     }
 
@@ -446,6 +511,7 @@ public class BattleSystem : MonoBehaviour
         {
             targetUnit = inBattleUnits[target - 1];
             yield return RunSkill(unitcontrol, targetUnit);
+            yield return RunAfterTurn(unit);
         }
         
         
@@ -473,6 +539,7 @@ public class BattleSystem : MonoBehaviour
         {
             targetUnit = inBattleUnits[target - 1];
             yield return RunSkill(unitcontrol, targetUnit);
+            yield return RunAfterTurn(unit);
         }
         
         
