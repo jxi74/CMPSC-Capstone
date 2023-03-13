@@ -12,6 +12,8 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Canvas selectButtons;
     [SerializeField] private Canvas partyButtons;
     [SerializeField] private Canvas unitHuds;
+    [SerializeField] private Canvas statView;
+    [SerializeField] private Canvas skillView;
     
     public void SetDefaultButtons(bool set)
     {
@@ -42,6 +44,16 @@ public class BattleUI : MonoBehaviour
     {
         unitHuds.enabled = set;
     }
+
+    public void SetStatView(bool set)
+    {
+        statView.enabled = set;
+    }
+    
+    public void SetSkillView(bool set)
+    {
+        skillView.enabled = set;
+    }
     
     public void SetupBattle()
     {
@@ -49,5 +61,7 @@ public class BattleUI : MonoBehaviour
         skillButtons.enabled = false;
         defaultButtons.enabled = false;
         selectButtons.enabled = false;
+        statView.enabled = false;
+        skillView.enabled = false;
     }
 }
