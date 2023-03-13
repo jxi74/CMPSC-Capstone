@@ -13,6 +13,8 @@ public class SkillsSelect : MonoBehaviour
     [SerializeField] private List<Button> skillButtons;
     [SerializeField] private List<Button> targetButtons;
     [SerializeField] private List<Material> typeColor;
+    private List<Skill> skills;
+    [SerializeField] private SkillsView skillsView;
     private BattleSystem battlesystem;
     private List<BattleUnit> units;
 
@@ -21,8 +23,9 @@ public class SkillsSelect : MonoBehaviour
         battlesystem = FindObjectOfType<BattleSystem>();
     }
     
-    public void SetSkillNames(List<Skill> skills)
+    public void SetSkillNames(List<Skill> skillslist)
     {
+        skills = skillslist;
         Color color = Color.black;
         for (int i = 0; i < 6; i++)
         {
@@ -85,6 +88,19 @@ public class SkillsSelect : MonoBehaviour
         
     }
 
+    public void SetSkillView(int index)
+    {
+        if (index <= skills.Count)
+        {
+            skillsView.SetData(skills[index - 1]);
+        }
+        else
+        {
+            skillsView.Empty();
+        }
+
+    }
+    
     public void SetTargetNames()
     {
         

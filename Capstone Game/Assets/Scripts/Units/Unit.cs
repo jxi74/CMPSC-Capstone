@@ -76,14 +76,14 @@ public class Unit
     {
         Stats = new Dictionary<UnitBase.Stat, int>();
         Stats.Add(UnitBase.Stat.Attack, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
-        Stats.Add(UnitBase.Stat.Defense, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
-        Stats.Add(UnitBase.Stat.Flux, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
-        Stats.Add(UnitBase.Stat.Resistance, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
-        Stats.Add(UnitBase.Stat.Luck, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
-        Stats.Add(UnitBase.Stat.Speed, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Defense, Mathf.FloorToInt(2 * (Base.Def * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Flux, Mathf.FloorToInt(2 * (Base.Flx * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Resistance, Mathf.FloorToInt(2 * (Base.Res * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Luck, Mathf.FloorToInt(2 * (Base.Lck * Level) / 100f) + 3);
+        Stats.Add(UnitBase.Stat.Speed, Mathf.FloorToInt(2 * (Base.Spd * Level) / 100f) + 3);
 
 
-        MaxHealth = Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + Level + 10;;
+        MaxHealth = Mathf.FloorToInt(2 * (Base.MaxHp * Level) / 100f) + Level + 10;;
         MaxStamina = Mathf.FloorToInt(2 * (Base.Sta * Level) / 100f) + 5;
     }
 

@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class UnitUI : MonoBehaviour
 {
     private Unit _unit;
+    public StatView statview;
     
     public Slider unitHp;
     public Slider unitSta;
@@ -33,7 +34,10 @@ public class UnitUI : MonoBehaviour
         
     }
 
-   
+    public void SetStatView()
+    {
+        statview.SetData(_unit);
+    }
 
     
 
