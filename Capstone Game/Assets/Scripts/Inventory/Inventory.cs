@@ -7,17 +7,14 @@ using UnityEngine;
 //is currently holding
 public class Inventory : MonoBehaviour
 {
-
-    public int gold;
     //a list that contains all of the items that the character is holding
     public List<Item> characterItems = new List<Item>();
-
+    [SerializeField] PartyHuds partyHud;
     //a database that contains all possible items
     public ItemDatabase itemDatabase;
 
     //the display of the inventory that the player can see
     public UIInventory inventoryUI;
-    public UIParty partyUI;
     public Canvas canvas;
     [SerializeField] Tooltip tp;
     private void Start()
@@ -25,8 +22,6 @@ public class Inventory : MonoBehaviour
         canvas = inventoryUI.GetComponentInParent<Canvas>();
         tp.enabled = false;
         canvas.enabled = false;
-        //inventoryUI.gameObject.SetActive(false);
-        //partyUI.gameObject.SetActive(false);
         
         for (int i = 0; i < 64; i++)
         {
@@ -43,6 +38,10 @@ public class Inventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.I))
         {
             canvas.enabled = (!canvas.isActiveAndEnabled);
+            if (canvas.enabled)
+            {
+                partyHud.SetPartyNamesParty();
+            }
             //inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
             //partyUI.gameObject.SetActive(!partyUI.gameObject.activeSelf);
         }
@@ -55,7 +54,6 @@ public class Inventory : MonoBehaviour
         Item itemToAdd = itemDatabase.GetItem(id);
         characterItems.Add(itemToAdd);
         inventoryUI.AddNewItem(itemToAdd);
-        Debug.Log("Added item: " + itemToAdd.title);
     }
 
     //adds the item to the player's Inventory and UIInventoryy using
@@ -65,7 +63,6 @@ public class Inventory : MonoBehaviour
         Item itemToAdd = itemDatabase.GetItem(itemName);
         characterItems.Add(itemToAdd);
         inventoryUI.AddNewItem(itemToAdd);
-        Debug.Log("Added item: " + itemToAdd.title);
     }
 
     //returns whether the character is currently holding a specific

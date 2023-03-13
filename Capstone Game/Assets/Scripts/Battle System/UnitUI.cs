@@ -34,6 +34,18 @@ public class UnitUI : MonoBehaviour
         
     }
 
+    public void SetdataParty(Unit unit)
+    {
+        _unit = unit;
+
+        //Initialize Stats
+        unitHp.maxValue = unit.MaxHealth;
+        unitHp.value = unit.HP;
+        unitSta.maxValue = unit.MaxStamina;
+        unitSta.value = unit.STA;
+        unitName.text = unit.Base.Name;
+    }
+    
     public void SetStatView()
     {
         statview.SetData(_unit);
