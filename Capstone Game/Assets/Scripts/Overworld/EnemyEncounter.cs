@@ -16,7 +16,7 @@ public class EnemyEncounter : MonoBehaviour
         //Assign random enemy encounter unit for parent object (to display in overworld)
         unit = GetRandomUnit();
         GetComponent<BattleUnit>().Unit = unit;
-        GetComponent<unithud>().setName(unit.Base.Name, unit.Level);
+        GetComponentInChildren<unithud>().setName(unit.Base.Name, unit.Level);
     }
 
     public Unit GetRandomUnit()

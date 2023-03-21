@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 //back end of the inventory which stores the data of what the character
 //is currently holding
 public class Inventory : MonoBehaviour
 {
+
+    [SerializeField] public int balance;
     //a list that contains all of the items that the character is holding
     public List<Item> characterItems = new List<Item>();
     [SerializeField] PartyHuds partyHud;
@@ -23,13 +26,9 @@ public class Inventory : MonoBehaviour
         tp.enabled = false;
         canvas.enabled = false;
         
-        for (int i = 0; i < 64; i++)
-        {
-            if (i > 32)
-                GiveItem(0);
-            else
-                GiveItem(1);
-        }
+        //Give dummy items
+        GiveItem(4);
+        GiveItem(1);
         
     }
 
@@ -40,6 +39,7 @@ public class Inventory : MonoBehaviour
             canvas.enabled = (!canvas.isActiveAndEnabled);
             if (canvas.enabled)
             {
+                inventoryUI.UpdateBalance(balance);
                 partyHud.SetPartyNamesParty();
             }
             //inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
@@ -81,6 +81,7 @@ public class Inventory : MonoBehaviour
         {
             characterItems.Remove(itemToRemove);
             inventoryUI.RemoveItem(itemToRemove);
+            
             Debug.Log("Item removed: " + itemToRemove.title);
         }
     }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
+
 public enum GameState { FreeRoam, Battle}
 
 public class GameController : MonoBehaviour
@@ -9,7 +11,8 @@ public class GameController : MonoBehaviour
     private GameState state;
     [SerializeField] private ThirdPersonMovement movement;
     [SerializeField] private CinemachineBrain thirdpersoncam;
-    [SerializeField] private CameraMotionControls battlecam;
+    
+    //[SerializeField] private CameraMotionControls battlecam;
     [SerializeField] private Camera cam;
     [SerializeField] private Inventory inventory;
     public BattleSystem battlesystem;
@@ -26,7 +29,7 @@ public class GameController : MonoBehaviour
     
     private void Start()
     {
-        battlecam.enabled = false;
+        //battlecam.enabled = false;
         player = GameObject.Find("Player");
         playerchar = player.transform.Find("Player character");
         a = playerchar.GetChild(0).GetComponent<Renderer>();
@@ -40,7 +43,7 @@ public class GameController : MonoBehaviour
             //disable movement and hide player
             a.enabled = false;
             b.enabled = false;
-            battlecam.enabled = true;
+            //battlecam.enabled = true;
             movement.enabled = false;
             thirdpersoncam.enabled = false;
             battlesystem.enabled = true;
@@ -55,7 +58,7 @@ public class GameController : MonoBehaviour
             //enable movement and show player
             a.enabled = true;
             b.enabled = true;
-            battlecam.enabled = false;
+            //battlecam.enabled = false;
             movement.enabled = true;
             thirdpersoncam.enabled = true;
             battlesystem.enabled = false;

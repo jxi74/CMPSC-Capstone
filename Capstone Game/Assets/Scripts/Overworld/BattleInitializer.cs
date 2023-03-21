@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class BattleInitializer : MonoBehaviour
 {
+    [SerializeField] private CharacterController charcontroller;
     public GameController gameController;
     public BattleSystem battlesystem;
     public GameObject unit1Prefab;
@@ -15,6 +16,7 @@ public class BattleInitializer : MonoBehaviour
 
     public void InitializeBattle(Vector3 position, Vector3 position2, GameObject enemy)
     {
+        charcontroller.enabled = false;
         Vector3 playerpos = position;
         Instantiate(unit1Prefab, playerpos, Quaternion.identity);
         unit1Prefab.tag = "Unit1";
@@ -30,7 +32,10 @@ public class BattleInitializer : MonoBehaviour
         Instantiate(unit4Prefab, rightSpawnPosition, Quaternion.identity);
         unit4Prefab.tag = "Unit4";
         
-        GameObject player = GameObject.Find("Player");
+        // Teleport the player to the average position of the four units
+        Vector3 averagePosition = (playerpos + playerpos2 + rightSpawnPosition + enemy.transform.position) / 4f;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = averagePosition;
         gameController.inBattle(true);
         
         battlesystem.unit1 = GameObject.FindWithTag("Unit1").GetComponent<BattleUnit>();
@@ -40,6 +45,7 @@ public class BattleInitializer : MonoBehaviour
         battlesystem.party = player.GetComponent<Party>();
         battlesystem.enemygenerator = enemy.GetComponent<EnemyEncounter>();
         
+        charcontroller.enabled = true;
         battlesystem.StartBattle();
     }
 }

@@ -453,6 +453,16 @@ public class BattleSystem : MonoBehaviour
             unit2.Unit.Exp += expEarned;
             
             //check level up
+            while (unit1.Unit.CheckLevelUp())
+            {
+                yield return box.DisplayText($"{unit1.Unit.Base.Name} leveled up to {unit1.level}!");
+            }
+            while (unit2.Unit.CheckLevelUp())
+            {
+                yield return box.DisplayText($"{unit2.Unit.Base.Name} leveled up to {unit2.level}!");
+            }
+
+            yield return new WaitForSeconds(1f);
         }
     }
 

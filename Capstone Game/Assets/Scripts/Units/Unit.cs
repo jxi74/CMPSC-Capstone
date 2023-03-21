@@ -136,7 +136,17 @@ public class Unit
 
         
     }
-    
+
+    public bool CheckLevelUp()
+    {
+        if (Exp > Base.GetExpForLevel(level + 1))
+        {
+            ++level;
+            return true;
+        }
+
+        return false;
+    }
     public int Exp { get; set; }
 
     public int MaxHealth { get; private set; }

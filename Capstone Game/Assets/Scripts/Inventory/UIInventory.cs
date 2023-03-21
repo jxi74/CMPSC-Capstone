@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 //UI display of what the player currently holds in their inventory
 public class UIInventory : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI balanceText;
+    
     //list of all items currently in player's inventory
     public List<UIItem> uIItems = new List<UIItem>();
 
@@ -41,6 +44,11 @@ public class UIInventory : MonoBehaviour
         previousPageButton.GetComponent<Button>().interactable = false;
     }
 
+    public void UpdateBalance(int balance)
+    {
+        balanceText.text = string.Format("{0:#,###0}", balance);
+    }
+    
     //updates the desired slot of the uIItems list with the desired item on the current page
     public void UpdateSlot(int slot, Item item)
     {

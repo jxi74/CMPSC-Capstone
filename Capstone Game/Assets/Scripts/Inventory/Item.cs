@@ -18,7 +18,7 @@ public class Item
         this.description = description;
         this.item_type = item_type;
         this.effect = effect;
-        this.icon = Resources.Load<Sprite>("Sprites/Items/" + title);
+        this.icon = Resources.Load<Sprite>("Assets/Sprites/" + title);
         this.stats = stats;
     }
     public Item(Item item)
@@ -28,7 +28,7 @@ public class Item
         this.description = item.description;
         this.item_type = item.item_type;
         this.effect = item.effect;
-        this.icon = Resources.Load<Sprite>("Sprites/Items/" + item.title);
+        this.icon = Resources.Load<Sprite>("Assets/Sprites/" + item.title);
         this.stats = item.stats;
     }
 }
