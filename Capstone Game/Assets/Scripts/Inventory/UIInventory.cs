@@ -50,19 +50,19 @@ public class UIInventory : MonoBehaviour
     }
     
     //updates the desired slot of the uIItems list with the desired item on the current page
-    public void UpdateSlot(int slot, Item item)
+    public void UpdateSlot(int slot, ItemBase item)
     {
         uIItems[(currentPage - 1) * numberOfSlotsPerPage + slot].UpdateItem(item);
     }
 
     //adds a new item to the next open slot in the inventory on the current page
-    public void AddNewItem(Item item)
+    public void AddNewItem(ItemBase item)
     {
         UpdateSlot(uIItems.FindIndex((i) => i.item == null), item);
     }
 
     //removes the first instance of an item from the current inventory page
-    public void RemoveItem(Item item)
+    public void RemoveItem(ItemBase item)
     {
         UpdateSlot(uIItems.FindIndex((i) => i.item == item), null);
     }

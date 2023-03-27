@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
-
+using TMPro;
 
 public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    //an item that can be place in a players inventory
-    public Item item;
-
-    //image that will be used for an item
+    public ItemBase item;
     private Image spriteImage;
-
-
     private UIItem selectedItem;
     private Tooltip tooltip;
-
 
     private void Awake()
     {
@@ -27,13 +20,13 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
     }
 
-    public void UpdateItem(Item item)
+    public void UpdateItem(ItemBase item)
     {
         this.item = item;
         if(this.item != null)
         {
             spriteImage.color = Color.white;
-            spriteImage.sprite = this.item.icon;
+            spriteImage.sprite = this.item.Icon;
         }
         else
         {
@@ -47,7 +40,10 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             if (selectedItem.item != null)
             {
-                Item clone = new Item(selectedItem.item);
+                ItemBase clone = ScriptableObject.CreateInstance<ItemBase>();
+                clone.name = selectedItem.item.name;
+                clone.description = selectedItem.item.description;
+                clone.icon = selectedItem.item.icon;
                 selectedItem.UpdateItem(this.item);
                 UpdateItem(clone);
             }
@@ -66,9 +62,10 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tooltip.gameObject.SetActive(true);
+        
         if(this.item != null)
         {
+            tooltip.gameObject.SetActive(true);
             tooltip.GenerateTooltip(this.item);
         }
     }

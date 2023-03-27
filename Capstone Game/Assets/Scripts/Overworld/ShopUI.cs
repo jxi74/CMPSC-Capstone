@@ -28,7 +28,7 @@ public class ShopUI : MonoBehaviour
     {
         if (id == 1)
         {
-            BuyItem(4, 250);
+            BuyItem("String", 250);
         }
         else
         {
@@ -36,12 +36,12 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    public void BuyItem(int id, int price)
+    public void BuyItem(string name, int price)
     {
         if (inventory.balance >= price)
         {
             inventory.balance -= price;
-            inventory.GiveItem(id);
+            inventory.GiveItem(name);
             balance.text = string.Format("{0:#,###0}", inventory.balance);
         }
         else

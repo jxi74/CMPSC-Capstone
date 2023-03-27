@@ -30,7 +30,7 @@ public class ConditionsDB : MonoBehaviour
                 OnAfterTurn = (Unit unit) =>
                 {
                     //PoisonEffect
-                    unit.UpdateHP(Mathf.FloorToInt(unit.MaxHealth * .15f + 1));
+                    unit.DecreaseHp(Mathf.FloorToInt(unit.MaxHealth * .15f + 1));
                     unit.StatusChanges.Enqueue($"{unit.Base.name} gets sapped by poison!");
                 }
             }
@@ -45,7 +45,7 @@ public class ConditionsDB : MonoBehaviour
                 OnAfterTurn = (Unit unit) =>
                 {
                     //Regenerate
-                    unit.UpdateHP(-Mathf.FloorToInt(unit.MaxHealth * .1f + 1));
+                    unit.DecreaseHp(-Mathf.FloorToInt(unit.MaxHealth * .1f + 1));
                     unit.StatusChanges.Enqueue($"{unit.Base.name} is feeling rejuvenated!");
                 }
             }
@@ -60,7 +60,7 @@ public class ConditionsDB : MonoBehaviour
                 OnAfterTurn = (Unit unit) =>
                 {
                     //Bleed
-                    unit.UpdateHP(Mathf.FloorToInt(unit.MaxHealth * .1f + 1));
+                    unit.DecreaseHp(Mathf.FloorToInt(unit.MaxHealth * .1f + 1));
                     unit.StatusChanges.Enqueue($"{unit.Base.name} is bleeding out!");
                 }
             }
@@ -75,7 +75,7 @@ public class ConditionsDB : MonoBehaviour
                 OnAfterTurn = (Unit unit) =>
                 {
                     //Lose Sta
-                    unit.UpdateSTA(Mathf.FloorToInt(unit.MaxStamina * .2f + 1));
+                    unit.DecreaseSTA(Mathf.FloorToInt(unit.MaxStamina * .2f + 1));
                     unit.StatusChanges.Enqueue($"{unit.Base.name} is feeling fatigued!");
                 }
             }
@@ -90,7 +90,7 @@ public class ConditionsDB : MonoBehaviour
                 OnAfterTurn = (Unit unit) =>
                 {
                     //Regen Sta
-                    unit.UpdateSTA(-Mathf.FloorToInt(unit.MaxStamina * .1f + 1));
+                    unit.IncreaseSTA(Mathf.FloorToInt(unit.MaxStamina * .1f + 1));
                     Debug.Log("Energize: " + Mathf.FloorToInt(unit.MaxStamina * .1f + 1));
                     unit.StatusChanges.Enqueue($"{unit.Base.name} is feeling energized!");
                 }

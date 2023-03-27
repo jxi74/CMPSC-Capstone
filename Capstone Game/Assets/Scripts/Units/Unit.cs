@@ -165,15 +165,27 @@ public class Unit
     
     public int Speed { get { return GetStat(UnitBase.Stat.Speed); } }
     
-    public void UpdateHP(int dmg)
+    public void DecreaseHp(int dmg)
     {
         HP = Mathf.Clamp(HP - dmg, 0, MaxHealth);
         HpChanged = true;
     }
     
-    public void UpdateSTA(int dmg)
+    public void IncreaseHp(int dmg)
+    {
+        HP = Mathf.Clamp(HP + dmg, 0, MaxHealth);
+        HpChanged = true;
+    }
+    
+    public void DecreaseSTA(int dmg)
     {
         STA = Mathf.Clamp(STA - dmg, 0, MaxStamina);
+        StaChanged = true;
+    }
+    
+    public void IncreaseSTA(int dmg)
+    {
+        STA = Mathf.Clamp(STA + dmg, 0, MaxStamina);
         StaChanged = true;
     }
 
@@ -209,14 +221,14 @@ public class Unit
 
         HP -= dmg;
 
-        UpdateHP(dmg);
+        DecreaseHp(dmg);
         
         return damageDetails;
     }
 
     public void UseMove(Skill skill)
     {
-        UpdateSTA(skill.StaminaCost);
+        DecreaseSTA(skill.StaminaCost);
     }
 
     public void CureStatus()
@@ -253,7 +265,7 @@ public class Unit
 
     public void Rest()
     {
-        UpdateSTA(-Mathf.FloorToInt(STA * .15f + 4));
+        IncreaseSTA(Mathf.FloorToInt(STA * .15f + 4));
     }
 
     public void OnBattleOver()

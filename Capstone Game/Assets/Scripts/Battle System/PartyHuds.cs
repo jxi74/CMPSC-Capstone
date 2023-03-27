@@ -5,7 +5,7 @@ using UnityEngine;
 public class PartyHuds : MonoBehaviour
 {
     [SerializeField] Party party;
-    [SerializeField] List<UnitUI> partyhuds;
+    [SerializeField] public List<UnitUI> partyhuds;
     public void SetPartyNames()
     {
         for (int i = 0; i < partyhuds.Count; i++)
@@ -38,15 +38,8 @@ public class PartyHuds : MonoBehaviour
             if (i < party.units.Count)
             {
                 partyhuds[i].SetdataParty(party.units[i]);
-                if (party.units[i].HP > 0)
-                {
-                    partyhuds[i].gameObject.SetActive(true);
-                }
-                else
-                {
-                    partyhuds[i].gameObject.SetActive(false);
-                }
-
+                partyhuds[i].gameObject.SetActive(true);
+                
             }
             else
             {
