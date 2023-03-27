@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3c4a0337-799d-4887-a578-38e159d63afe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/Enemy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/Enemy.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/EnemyEncounter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/EnemyEncounter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/EnemyInteractor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/EnemyInteractor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/IEnemyInteractable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Enemy Interaction/IEnemyInteractable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/Chest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/Chest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/Door.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/Door.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/IInteractable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/IInteractable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/InteractionPromptUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/InteractionPromptUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/Interactor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/Interactor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/NPC.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Overworld/Object Interaction/NPC.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Arc4.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Barrel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Barrel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Barrel2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Barrel2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Bench.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Bench.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Door2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Door2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower12.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower12.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower20.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower20.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower21.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower21.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower22.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower22.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower30.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower30.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower31.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tower31.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/TownHall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/TownHall.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tree.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tree.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tree2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tree2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tree3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Tree3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Wall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Wall.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Wall2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Wall2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Wall3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Wall3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Well.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Well.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Window.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Castle Assets/Prefabs/Window.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Clutter/Tree_Branch.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Clutter/Tree_Branch.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Clutter/Wineglass.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Clutter/Wineglass.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Furniture/WeaponRack_Big.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Furniture/WeaponRack_Big.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Furniture/WeaponRack_Small.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Resources/Assets/Environment Assets/Dungeon/LowPolyDungeon/Prefabs/Furniture/WeaponRack_Small.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/New Terrain 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/New Terrain 1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/First Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/First Level.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Chest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Chest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Door.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Door.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Enemy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Enemy.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/EnemyEncounter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/EnemyEncounter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/EnemyInteractor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/EnemyInteractor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/IEnemyInteractable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/IEnemyInteractable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/IInteractable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/IInteractable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/InteractionPromptUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/InteractionPromptUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Interactor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/Interactor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/NPC.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Overworld/NPC.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserSettings/Search.settings" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/Search.settings" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2NRd9u2rP4ja53gjospenG9FLX3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c4a0337-799d-4887-a578-38e159d63afe" name="Changes" comment="" />
+      <created>1679630681758</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679630681758</updated>
+      <workItem from="1679630684540" duration="31000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

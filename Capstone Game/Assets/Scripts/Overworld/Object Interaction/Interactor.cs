@@ -15,6 +15,7 @@ public class Interactor : MonoBehaviour
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
 
+    private bool ePressed = false;
     private IInteractable _interactable;
     private void Update()
     {
@@ -24,17 +25,26 @@ public class Interactor : MonoBehaviour
         if (_numFound > 0) // If we actually found object (num will go up)
         {
             _interactable = _colliders[0].GetComponent<IInteractable>(); // Will find any mono behavior that is implementing IInteractable interface
-
             if (_interactable != null)
             {
                 if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
 
-                if (Keyboard.current.eKey.wasPressedThisFrame) _interactable.Interact(this);
-                // Pass in "this" (player) because we are the interactor interactING with the interactable (object) 
+                if (ePressed == false)
+                {
+                    if (Keyboard.current.eKey.wasPressedThisFrame)
+                    {
+                        //thirdPersonMovement.enabled = false;
+                        _interactable.Interact(this);
+                        ePressed = true;
+                    }
+                    // Pass in "this" (player) because we are the interactor interactING with the interactable (object)
+                }
             }
         }
         else
         {
+            //thirdPersonMovement.enabled = true;
+            ePressed = false;
             if (_interactable != null) _interactable = null;
             if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
         }

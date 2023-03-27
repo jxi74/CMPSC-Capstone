@@ -11,7 +11,7 @@ public class OverWorldBox : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject contButton;
     [SerializeField] private GameObject exitButton;
-    
+    [SerializeField] private ThirdPersonMovement thirdPersonMovement;
     public Queue<String> Sentences = new Queue<string>();
     
     public void SetText(String value)
@@ -27,9 +27,11 @@ public class OverWorldBox : MonoBehaviour
 
     public void DisplayNextSentences()
     {
-      
+       thirdPersonMovement.enabled = false;
+       
        if (Sentences.Count == 0)
        {
+          thirdPersonMovement.enabled = true;
           //Debug.Log("No more");
           overworldbox.enabled = false;
           return;
