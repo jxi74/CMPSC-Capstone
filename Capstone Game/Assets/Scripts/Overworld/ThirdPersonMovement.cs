@@ -1,4 +1,5 @@
 
+using System.Data;
 using UnityEngine;
 using Cinemachine;
 
@@ -106,11 +107,12 @@ public class ThirdPersonMovement : MonoBehaviour
         controller.Move(newPosition - transform.position);
     }
     
-    public void SetPlayerPosition(Vector3 position)
+    public void SetPlayerPosition(Vector3 position, Quaternion rotation)
     {
         // Set the player's position to the given position
         controller.enabled = false; // Disable the controller temporarily to set the position
         transform.position = position;
+        transform.rotation = rotation;
         controller.enabled = true; // Re-enable the controller
     }
     

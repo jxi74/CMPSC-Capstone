@@ -6,6 +6,7 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
+    [SerializeField] private LevelLoader levelLoader;
 
     public string InteractionPrompt => _prompt;
     
