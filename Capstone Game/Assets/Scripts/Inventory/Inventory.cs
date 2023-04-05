@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        inventoryUI.PrepareInventory();
         canvas = inventoryUI.GetComponentInParent<Canvas>();
         tp.enabled = false;
         canvas.enabled = false;
@@ -34,6 +35,7 @@ public class Inventory : MonoBehaviour
             canvas.enabled = (!canvas.isActiveAndEnabled);
             if (canvas.enabled)
             {
+                
                 inventoryUI.UpdateBalance(balance);
                 partyHud.SetPartyNamesParty();
             }

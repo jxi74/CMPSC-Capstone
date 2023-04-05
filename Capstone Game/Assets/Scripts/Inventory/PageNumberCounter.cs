@@ -10,16 +10,16 @@ public class PageNumberCounter : MonoBehaviour
 
     void Start()
     {
-        pageCounter.text = counter + "/4";
+        pageCounter.text = counter + "/10";
     }
     public void NextClick()
     {
         counter++;
-        pageCounter.text = counter + "/4";
+        pageCounter.text = counter + "/10";
     }
     public void PrevClick()
     {
         counter--;
-        pageCounter.text = counter + "/4";
+        pageCounter.text = counter + "/10";
     }
 }

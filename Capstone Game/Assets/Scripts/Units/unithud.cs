@@ -10,8 +10,7 @@ using TMPro;
 public class unithud : MonoBehaviour
 {
     private Camera cam;
-
-    public Unit unit;
+    
     public TextMeshProUGUI entity_name;
     public TextMeshProUGUI level;
     //public Slider ui_max_hp;

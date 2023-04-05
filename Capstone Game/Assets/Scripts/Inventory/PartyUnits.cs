@@ -14,10 +14,15 @@ public class PartyUnits : MonoBehaviour
     [SerializeField] private UIItem selectedItem;
     [SerializeField] private Party party;
     [SerializeField] private Inventory inventory;
-
-    public void ClickHandler(int box)
+    [SerializeField] private Canvas canvas;
+    
+    
+        public void ClickHandler(int box)
     {
-        
+        if (!canvas.isActiveAndEnabled)
+        {
+            return;
+        }
         if (selectedItem != null && selectedItem.item != null)
         {
             //Cancel swap inputs
@@ -27,8 +32,13 @@ public class PartyUnits : MonoBehaviour
             //Use item
             if (selectedItem.item.Use(party.units[box]))
             {
+                GameObject.Find("GameController").GetComponent<GameController>().Success();
                 selectedItem.UpdateItem(null);
                 partyhuds.SetPartyNamesParty();
+            }
+            else
+            {
+                GameObject.Find("GameController").GetComponent<GameController>().Fail();
             }
             
         }
@@ -53,7 +63,7 @@ public class PartyUnits : MonoBehaviour
                     //handle 2nd unit to swap
                     //Swap the two units
                     _second = box;
-
+                    GameObject.Find("GameController").GetComponent<GameController>().UnitSwap();
                     Unit tempUnit = party.units[_first];
                     party.units[_first] = party.units[_second];
                     party.units[_second] = tempUnit;
@@ -74,9 +84,6 @@ public class PartyUnits : MonoBehaviour
         
     }
 
-    public void UseItem() {
-        
-    }
     
     public void reset()
     {

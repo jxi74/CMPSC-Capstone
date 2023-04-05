@@ -21,6 +21,23 @@ public class GameController : MonoBehaviour
     private Transform playerchar;
     private Renderer a;
     private Renderer b;
+    
+    
+    [SerializeField] private AudioSource buttonAudioSource;
+    [SerializeField] private AudioSource unitSwapAudioSource;
+    [SerializeField] private AudioSource failAudioSource;
+    [SerializeField] private AudioSource successAudioSource;
+    [SerializeField] private AudioSource misc;
+    [SerializeField] private AudioSource bgm;
+    [SerializeField] private AudioSource unitNoises;
+    [SerializeField] private AudioSource battleEffects;
+    [SerializeField] private AudioSource statusEffects;
+    [SerializeField] private AudioSource hitEffects;
+    [SerializeField] private AudioClip overworldMusic;
+    [SerializeField] private AudioClip battleMusic;
+    [SerializeField] private AudioClip victoryAudio;
+    [SerializeField] private AudioClip lossAudio;
+    
 
     private void Awake()
     {
@@ -35,17 +52,58 @@ public class GameController : MonoBehaviour
         a = playerchar.GetChild(0).GetComponent<Renderer>();
         b = playerchar.GetChild(0).GetChild(0).GetComponent<Renderer>();
     }
+
+    public void Skill(AudioClip clip)
+    {
+        battleEffects.clip = clip;
+        battleEffects.Play();
+    }
+    
+    public void ButtonPress()
+    {
+        buttonAudioSource.Play();
+    }
+
+    public void UnitSwap()
+    {
+        unitSwapAudioSource.Play();
+    }
+    
+    public void Fail()
+    {
+        failAudioSource.Play();
+    }
+    
+    public void Success()
+    {
+        successAudioSource.Play();
+    }
+
+    public void Loss()
+    {
+        misc.clip = lossAudio;
+        misc.Play();
+    }
+
+    public void Victory()
+    {
+        misc.clip = victoryAudio;
+        misc.Play();
+    }
     
     public void inBattle(bool inBattle)
     {
         if (inBattle)
         {
+            bgm.clip = battleMusic;
+            bgm.Play();
+            state = GameState.Battle;
             //disable movement and hide player
             a.enabled = false;
             b.enabled = false;
             //battlecam.enabled = true;
             movement.enabled = false;
-            thirdpersoncam.enabled = false;
+            //thirdpersoncam.enabled = false;
             battlesystem.enabled = true;
             inventory.canvas.enabled = false;
             inventory.enabled = false;
@@ -55,12 +113,15 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            bgm.clip = overworldMusic;
+            bgm.Play();
+            state = GameState.FreeRoam;
             //enable movement and show player
             a.enabled = true;
             b.enabled = true;
             //battlecam.enabled = false;
             movement.enabled = true;
-            thirdpersoncam.enabled = true;
+            //thirdpersoncam.enabled = true;
             battlesystem.enabled = false;
             inventory.enabled = true;
             cam.fieldOfView = 40;

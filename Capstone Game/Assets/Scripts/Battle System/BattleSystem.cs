@@ -69,6 +69,11 @@ public class BattleSystem : MonoBehaviour
         unit2.Setup(party.GetNextHealthyUnitStart(party.GetFirstHealthyUnit()), true);
         unit3.Setup(unit3.Unit, false);
         unit4.Setup(enemygenerator.GetRandomUnit(), false);
+        yield return new WaitForSeconds(.25f);
+        unit1 = GameObject.FindWithTag("Unit1").GetComponent<BattleUnit>();
+        unit2 = GameObject.FindWithTag("Unit2").GetComponent<BattleUnit>();
+        unit3 = GameObject.FindWithTag("Unit3").GetComponent<BattleUnit>();
+        unit4 = GameObject.FindWithTag("Unit4").GetComponent<BattleUnit>();
 
         inBattleUnits[0] = unit1;
         inBattleUnits[1] = unit2;
@@ -89,15 +94,16 @@ public class BattleSystem : MonoBehaviour
         if (unit1.Unit.HP == 0 && unit2.Unit.HP == 0)
         {
             //game over
-            yield return box.DisplayText("You lose :(");
-            yield return box.DisplayText("Loser.");
+            yield return box.DisplayText("You lose!");
             gamecontroller.inBattle(false);
+            gamecontroller.Loss();
             UI.enabled = false;
         }
         else if (unit3.Unit.HP == 0 && unit4.Unit.HP == 0)
         {
-            yield return box.DisplayText("You win :)");
+            yield return box.DisplayText("You win!");
             gamecontroller.inBattle(false);
+            gamecontroller.Victory();
             UI.enabled = false;
             //win
         }
@@ -259,6 +265,7 @@ public class BattleSystem : MonoBehaviour
 
                     if (CheckIfSkillHits(move, sourceUnit, targetUnit))
                     {
+                        //Status move
                         if (move.Base.Category == SkillCategory.Status)
                         {
                         
@@ -269,8 +276,9 @@ public class BattleSystem : MonoBehaviour
                             }
                             else
                             {
+                                GameObject.Find("GameController").GetComponent<GameController>().Skill(move.Base.Audio);
                                 sourceUnit.Unit.UseMove(move);
-                                yield return sourceUnit.hud.UpdateStaBar();
+                                StartCoroutine(sourceUnit.hud.UpdateStaBar());
                                 yield return RunSkillEffects(move.Base.Effects, sourceUnit, targetUnit, move.Base.Target);
                             }
                         
@@ -290,9 +298,14 @@ public class BattleSystem : MonoBehaviour
                                 var damageDetails = targetUnit.Unit.TakeDamage(move, sourceUnit.Unit, guardCheck);
                     
                                 //Display UI changes/update values
-                                yield return targetUnit.hud.UpdateHpBar();
+                                GameObject.Find("GameController").GetComponent<GameController>().Skill(move.Base.Audio);
+                                TriggerVFX(move, sourceUnit, targetUnit);
+                                targetUnit.TakeDamage((int)(targetUnit.hud.unitHp.value - targetUnit.Unit.HP));
+                                StartCoroutine(targetUnit.hud.UpdateHpBar());
+                                StartCoroutine(sourceUnit.hud.UpdateStaBar());
+                                
                                 sourceUnit.Unit.UseMove(move);
-                                yield return sourceUnit.hud.UpdateStaBar();
+                                
                                 yield return ShowDamageDetails(damageDetails);
                                 
                             }
@@ -329,7 +342,30 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    
+    public void TriggerVFX(Skill move, BattleUnit source, BattleUnit target)
+    {
+        GameObject vfx;
+        if (move.Base.VFXTarget == SkillTargetVFX.Foe)
+        {
+            //Trigger only on foe
+            vfx = Instantiate(move.Base.VFX, target.transform.position, Quaternion.identity);
+        }
+        else if (move.Base.VFXTarget == SkillTargetVFX.Self)
+        {
+            vfx = Instantiate(move.Base.VFX, source.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            //FAILSAFE
+            //Trigger only on foe
+            vfx = Instantiate(move.Base.VFX, target.transform.position, Quaternion.identity);
+        }
+        
+
+        // Destroy the VFX after its duration has passed
+        ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
+        Destroy(vfx, ps.main.duration);
+    }
     
     IEnumerator RunSkillEffects(SkillEffects effects, BattleUnit sourceUnit, BattleUnit targetUnit, SkillTarget skillTarget)
     {
@@ -379,6 +415,10 @@ public class BattleSystem : MonoBehaviour
         //Debug.Log($"{sourceUnit.Unit.Base.Name} health before status: " + sourceUnit.Unit.HP);
         sourceUnit.Unit.OnAfterTurn();
         yield return StartCoroutine(ShowStatusChange(sourceUnit.Unit));
+        if (sourceUnit.hud.unitHp.value != sourceUnit.Unit.HP)
+        {
+            sourceUnit.TakeDamage((int)(sourceUnit.hud.unitHp.value - sourceUnit.Unit.HP));
+        }
         yield return sourceUnit.hud.UpdateHpBar();
         yield return sourceUnit.hud.UpdateStaBar();
         //Debug.Log($"{sourceUnit.Unit.Base.Name} health after status: " + sourceUnit.Unit.HP);
@@ -484,11 +524,15 @@ public class BattleSystem : MonoBehaviour
 
             if (nextUnit != null)
             {
+                int tag = inBattleUnits.IndexOf(defeatedUnit);
                 defeatedUnit.Setup(nextUnit, true);
+                inBattleUnits[tag] = GameObject.FindWithTag($"Unit{tag + 1}").GetComponent<BattleUnit>();
                                 
                 defeatedUnit.hud.Setdata(nextUnit);
 
+                GameObject.Find("GameController").GetComponent<GameController>().UnitSwap();
                 yield return StartCoroutine(box.DisplayText($"{defeatedUnit.Unit.Base.Name} rises to the challenge!"));
+                
                 
             }
             else
@@ -665,10 +709,14 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
+                GameObject.Find("GameController").GetComponent<GameController>().UnitSwap();
+                int tag = inBattleUnits.IndexOf(unit);
+                //defeatedUnit.Setup(nextUnit, true);
                 yield return box.DisplayText($"{unit.unitBase.Name} fell back and swapped with {party.units[buttonval - 1].Base.Name}!");
                 //Update swaps
                 skillsSelect.SetTargetNames();
                 unit.Setup(party.units[buttonval - 1], true);
+                inBattleUnits[tag] = GameObject.FindWithTag($"Unit{tag + 1}").GetComponent<BattleUnit>();
                 unit.hud.Setdata(party.units[buttonval - 1]);
                 
             }

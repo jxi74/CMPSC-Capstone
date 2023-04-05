@@ -36,6 +36,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        GameObject.Find("GameController").GetComponent<GameController>().ButtonPress();
         if (this.item != null)
         {
             if (selectedItem.item != null)
@@ -58,6 +59,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             UpdateItem(selectedItem.item);
             selectedItem.UpdateItem(null);
         }
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 
@@ -8,6 +9,7 @@ public class Unit
 {
     [SerializeField] private UnitBase _base;
     [SerializeField] private int level;
+    
 
     public UnitBase Base
     {
@@ -220,7 +222,7 @@ public class Unit
         int dmg = Mathf.FloorToInt(d * modifier);
 
         HP -= dmg;
-
+        
         DecreaseHp(dmg);
         
         return damageDetails;

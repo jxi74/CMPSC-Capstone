@@ -19,6 +19,10 @@ public class MoveBase : ScriptableObject
     [SerializeField] private SkillEffects effects;
     [SerializeField] private List<SecondaryEffects> secondaryEffects;
     [SerializeField] private SkillTarget target;
+
+    [SerializeField] private GameObject vfx;
+    [SerializeField] private SkillTargetVFX vfxTarget;
+    [SerializeField] private AudioClip sfx;
     [FormerlySerializedAs("stamina_cost")] [SerializeField] public int staminaCost;
     
 
@@ -77,6 +81,21 @@ public class MoveBase : ScriptableObject
     {
         get { return target; }
     }
+
+    public AudioClip Audio
+    {
+        get { return sfx; }
+    }
+    
+    public GameObject VFX
+    {
+        get { return vfx; }
+    }
+    
+    public SkillTargetVFX VFXTarget
+    {
+        get { return vfxTarget; }
+    }
 }
 
 [System.Serializable]
@@ -133,3 +152,9 @@ public enum SkillTarget
 {
     Foe, Self
 }
+
+public enum SkillTargetVFX
+{
+    Foe, Self, SelfToFoe
+}
+

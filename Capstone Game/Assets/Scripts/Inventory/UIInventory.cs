@@ -24,7 +24,7 @@ public class UIInventory : MonoBehaviour
     //the current page the player is on
     private int currentPage = 1;
 
-    private void Awake()
+    public void PrepareInventory()
     {
         //instantiates the layout of all four inventory pages
         for (int p = 0; p < slotPanels.Length; p++)

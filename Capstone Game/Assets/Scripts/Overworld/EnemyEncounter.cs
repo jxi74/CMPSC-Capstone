@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,7 +17,9 @@ public class EnemyEncounter : MonoBehaviour
         //Assign random enemy encounter unit for parent object (to display in overworld)
         unit = GetRandomUnit();
         GetComponent<BattleUnit>().Unit = unit;
+        GetComponent<BattleUnit>().unitBase = unit.Base;
         GetComponentInChildren<unithud>().setName(unit.Base.Name, unit.Level);
+        GetComponent<BattleUnit>().ModelSetup(true);
     }
 
     public Unit GetRandomUnit()

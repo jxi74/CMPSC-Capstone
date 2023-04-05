@@ -7,14 +7,22 @@ public class Shop : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
     [SerializeField] private ShopUI shopUi;
+    [SerializeField] public List<ShopItem> items;
+    
     
 
     public string InteractionPrompt => _prompt;
     
     public bool Interact(Interactor interactor)
     {
-        Debug.Log("Opening Shop");
-        shopUi.OpenUI();
+        if (!shopUi.GetComponent<Canvas>().enabled)
+        {
+            transform.GetComponent<AudioSource>().Play();
+            Debug.Log("Opening Shop");
+        
+            shopUi.OpenUI(items);
+        }
+        
         return true;
     }
 }

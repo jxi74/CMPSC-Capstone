@@ -11,6 +11,7 @@ public class OverWorldBox : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject contButton;
     [SerializeField] private GameObject exitButton;
+    private Coroutine currentCoroutine;
     
     public Queue<String> Sentences = new Queue<string>();
     
@@ -19,24 +20,34 @@ public class OverWorldBox : MonoBehaviour
        text.text = value;
     }
     
-    public void EnqueueSentence(String value)
+    
+
+    public void EnqueueSentence(string value)
     {
        Sentences.Enqueue(value);
-       //Debug.Log("Sentence Enqueued!");
+
+       // If there isn't a sentence currently being displayed, start displaying the next sentence.
+       if (currentCoroutine == null)
+       {
+          DisplayNextSentences();
+       }
     }
 
     public void DisplayNextSentences()
     {
-      
        if (Sentences.Count == 0)
        {
-          //Debug.Log("No more");
           overworldbox.enabled = false;
           return;
        }
 
-       StartCoroutine(DisplayText(Sentences.Dequeue()));
-      
+       // Stop the current typing coroutine if one is running.
+       if (currentCoroutine != null)
+       {
+          StopCoroutine(currentCoroutine);
+       }
+
+       currentCoroutine = StartCoroutine(DisplayText(Sentences.Dequeue()));
     }
     
     public IEnumerator DisplayText(String value)

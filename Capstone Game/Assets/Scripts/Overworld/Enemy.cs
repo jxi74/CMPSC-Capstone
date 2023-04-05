@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour, IEnemyInteractable
         
         initializer.InitializeBattle(interactor.transform.position, transform.position, gameObject);
         
-        playerMovement.enabled = true;
+        //playerMovement.enabled = true;
 
         return true;
     }

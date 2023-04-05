@@ -17,6 +17,7 @@ public class Chest : MonoBehaviour, IInteractable
     
     public bool Interact(Interactor interactor) //Could have a check for the player's inventory to see if player has a key to open
     {
+        transform.GetComponent<AudioSource>().Play();
         if (!opened)
         {
             Debug.Log("Opening chest!"); // Logs message once you press "e" to open chest
