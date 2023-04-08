@@ -16,6 +16,7 @@ public class BattleInitializer : MonoBehaviour
 
     public void InitializeBattle(Vector3 position, Vector3 position2, GameObject enemy)
     {
+        
         charcontroller.enabled = false;
         // Unit 4
         Vector3 playerpos = position + Vector3.up * 2f;
@@ -38,6 +39,8 @@ public class BattleInitializer : MonoBehaviour
         Vector3 averagePosition = (playerpos + playerpos2 + rightSpawnPosition + enemy.transform.position) / 4f  + Vector3.up * 1.5f;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = averagePosition;
+        GameObject.FindGameObjectWithTag("Player Controller").transform.localPosition = Vector3.zero;
+        
         gameController.inBattle(true);
         
         unit1Prefab.transform.LookAt(player.transform);

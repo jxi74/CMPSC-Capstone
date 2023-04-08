@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+
+using System.Data;
 using UnityEngine;
 using Cinemachine;
 
@@ -11,12 +11,16 @@ public class ThirdPersonMovement : MonoBehaviour
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
     public float jumpForce = 25f;
-    public float gravity = -19.81f;
+    public float gravity = -9.81f;
+    public float jumpHeight = 3;
 
-    private float turnSmoothVelocity;
-    private Vector3 velocity;
+    float turnSmoothVelocity;
+    Vector3 velocity;
     private bool isGrounded;
     private bool canMove = true;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
 
     void Start()
     {
@@ -52,8 +56,23 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = controller.isGrounded;
+        //jump
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+        
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        }
+        //gravity
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
+        //walk
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -65,17 +84,18 @@ public class ThirdPersonMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            velocity = moveDir.normalized * speed;
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            //velocity = moveDir.normalized * speed;
         }
-        else
-        {
-            velocity = Vector3.zero;
-        }
+        //else
+        //{
+        //    velocity = Vector3.zero;
+       // }
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
+       // if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+       // {
+       //     Jump();
+        //}
     }
 
     public void MovePlayer(Vector3 direction, float distance)
@@ -87,28 +107,29 @@ public class ThirdPersonMovement : MonoBehaviour
         controller.Move(newPosition - transform.position);
     }
     
-    public void SetPlayerPosition(Vector3 position)
+    public void SetPlayerPosition(Vector3 position, Quaternion rotation)
     {
         // Set the player's position to the given position
         controller.enabled = false; // Disable the controller temporarily to set the position
         transform.position = position;
+        transform.rotation = rotation;
         controller.enabled = true; // Re-enable the controller
     }
     
-    void FixedUpdate()
-    {
-        if (canMove)
-        {
+    //void FixedUpdate()
+   // {
+    //    if (canMove)
+   //     {
             // Apply gravity to the character controller
-            velocity.y += gravity * Time.deltaTime;
+   //         velocity.y += gravity * Time.deltaTime;
 
             // Move the character controller using SimpleMove()
-            controller.Move(velocity * Time.deltaTime);
-        }
-    }
+   //         controller.Move(velocity * Time.deltaTime);
+     //   }
+   // }
 
-    void Jump()
-    {
-        velocity.y = jumpForce;
-    }
+   // void Jump()
+   // {
+   //     velocity.y = jumpForce;
+   // }
 }

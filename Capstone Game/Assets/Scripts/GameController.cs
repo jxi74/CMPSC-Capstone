@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     private GameState state;
     [SerializeField] private ThirdPersonMovement movement;
     [SerializeField] private CinemachineBrain thirdpersoncam;
+    [SerializeField] private GameObject interactionpoint;
     
     //[SerializeField] private CameraMotionControls battlecam;
     [SerializeField] private Camera cam;
@@ -95,6 +96,7 @@ public class GameController : MonoBehaviour
     {
         if (inBattle)
         {
+            interactionpoint.SetActive(false);
             bgm.clip = battleMusic;
             bgm.Play();
             state = GameState.Battle;
@@ -113,6 +115,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            interactionpoint.SetActive(true);
             bgm.clip = overworldMusic;
             bgm.Play();
             state = GameState.FreeRoam;

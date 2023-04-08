@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour, IEnemyInteractable
 
         // Move the player backwards in the XZ plane
         interactor.GetComponent<ThirdPersonMovement>().MovePlayer(-direction, distance);
-
+        
         BattleInitializer initializer = FindObjectOfType<BattleInitializer>();
         
         initializer.InitializeBattle(interactor.transform.position, transform.position, gameObject);

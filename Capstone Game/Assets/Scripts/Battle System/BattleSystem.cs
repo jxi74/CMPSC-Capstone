@@ -278,7 +278,7 @@ public class BattleSystem : MonoBehaviour
                             {
                                 GameObject.Find("GameController").GetComponent<GameController>().Skill(move.Base.Audio);
                                 sourceUnit.Unit.UseMove(move);
-                                StartCoroutine(sourceUnit.hud.UpdateStaBar());
+                                yield return (sourceUnit.hud.UpdateStaBar());
                                 yield return RunSkillEffects(move.Base.Effects, sourceUnit, targetUnit, move.Base.Target);
                             }
                         
@@ -302,7 +302,7 @@ public class BattleSystem : MonoBehaviour
                                 TriggerVFX(move, sourceUnit, targetUnit);
                                 targetUnit.TakeDamage((int)(targetUnit.hud.unitHp.value - targetUnit.Unit.HP));
                                 StartCoroutine(targetUnit.hud.UpdateHpBar());
-                                StartCoroutine(sourceUnit.hud.UpdateStaBar());
+                                yield return(sourceUnit.hud.UpdateStaBar());
                                 
                                 sourceUnit.Unit.UseMove(move);
                                 
@@ -348,17 +348,17 @@ public class BattleSystem : MonoBehaviour
         if (move.Base.VFXTarget == SkillTargetVFX.Foe)
         {
             //Trigger only on foe
-            vfx = Instantiate(move.Base.VFX, target.transform.position, Quaternion.identity);
+            vfx = Instantiate(move.Base.VFX, target.transform.position + Vector3.up * 1.3f, Quaternion.identity);
         }
         else if (move.Base.VFXTarget == SkillTargetVFX.Self)
         {
-            vfx = Instantiate(move.Base.VFX, source.transform.position, Quaternion.identity);
+            vfx = Instantiate(move.Base.VFX, source.transform.position + Vector3.up * 1.3f, Quaternion.identity);
         }
         else
         {
             //FAILSAFE
             //Trigger only on foe
-            vfx = Instantiate(move.Base.VFX, target.transform.position, Quaternion.identity);
+            vfx = Instantiate(move.Base.VFX, target.transform.position + Vector3.up * 1.3f, Quaternion.identity);
         }
         
 
@@ -419,7 +419,7 @@ public class BattleSystem : MonoBehaviour
         {
             sourceUnit.TakeDamage((int)(sourceUnit.hud.unitHp.value - sourceUnit.Unit.HP));
         }
-        yield return sourceUnit.hud.UpdateHpBar();
+        StartCoroutine(sourceUnit.hud.UpdateHpBar());
         yield return sourceUnit.hud.UpdateStaBar();
         //Debug.Log($"{sourceUnit.Unit.Base.Name} health after status: " + sourceUnit.Unit.HP);
         if (sourceUnit.Unit.HP <= 0)
