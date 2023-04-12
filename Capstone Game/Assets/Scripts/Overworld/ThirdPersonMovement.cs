@@ -3,7 +3,7 @@ using System.Data;
 using UnityEngine;
 using Cinemachine;
 
-public class ThirdPersonMovement : MonoBehaviour
+public class ThirdPersonMovement : MonoBehaviour, IDataPersistence
 {
     public CharacterController controller;
     public Transform cam;
@@ -132,4 +132,16 @@ public class ThirdPersonMovement : MonoBehaviour
    // {
    //     velocity.y = jumpForce;
    // }
+
+   // Gets saved position from json file and puts player there
+   public void LoadData(GameData data)
+   {
+       this.transform.position = data.playerPosition;
+   }
+
+   // Gets current position of player and saves to json file
+   public void SaveData(GameData data)
+   {
+       data.playerPosition = this.transform.position;
+   }
 }

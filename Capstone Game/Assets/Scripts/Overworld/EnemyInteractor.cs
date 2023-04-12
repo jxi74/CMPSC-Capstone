@@ -21,7 +21,7 @@ public class EnemyInteractor : MonoBehaviour
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, 
             _colliders, _interactableMask);
 
-        if (_numFound > 0) // If we actually found object (num will go up)
+        if (_numFound == 1) // If we actually found object (num will go up)
         {
             _interactable = _colliders[0].GetComponent<IEnemyInteractable>(); // Will find any mono behavior that is implementing IInteractable interface
 
