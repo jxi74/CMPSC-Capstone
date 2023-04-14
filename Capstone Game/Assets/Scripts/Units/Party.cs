@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Party : MonoBehaviour
+public class Party : MonoBehaviour, IDataPersistence
 {
-    [SerializeField] public List<Unit> units;
+    [SerializeField] public List<Unit> units; //Units the player has
     [SerializeField] private BattleSystem battlesystem;
     private void Start()
     {
@@ -53,5 +53,15 @@ public class Party : MonoBehaviour
         }
 
         return null;
+    }
+    
+    public void LoadData(GameData data)
+    {
+        this.units = data.party;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.party = this.units;
     }
 }

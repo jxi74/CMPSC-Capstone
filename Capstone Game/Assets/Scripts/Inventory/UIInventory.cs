@@ -26,7 +26,7 @@ public class UIInventory : MonoBehaviour
 
     public void PrepareInventory()
     {
-        //instantiates the layout of all four inventory pages
+        //instantiates the layout of all ten inventory pages
         for (int p = 0; p < slotPanels.Length; p++)
         {
             for (int i = 0; i < numberOfSlotsPerPage; i++)
@@ -124,4 +124,5 @@ public class UIInventory : MonoBehaviour
             }
         }
     }
+    
 }
