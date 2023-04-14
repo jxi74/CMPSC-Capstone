@@ -18,9 +18,14 @@ MonoBehaviour:
   type: 11
   power: 0
   accuracy: 95
+  alwaysHits: 0
   category: 2
   effects:
     boosts: []
     status: 2
+  secondaryEffects: []
   target: 1
+  vfx: {fileID: 9017484664307500583, guid: 5bf583ad95effb540a22dc1826292c2d, type: 3}
+  vfxTarget: 1
+  sfx: {fileID: 8300000, guid: 9a624eb218d2f4a7fab8586ecef513d5, type: 3}
   staminaCost: 6

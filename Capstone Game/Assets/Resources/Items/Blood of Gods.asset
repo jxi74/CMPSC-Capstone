@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a666e587225145469e63d5e8403f8277, type: 3}
+  m_Name: Blood of Gods
+  m_EditorClassIdentifier: 
+  name: Blood of the Gods
+  description: Fully restore HP and STA
+  icon: {fileID: 21300000, guid: cdaa567182ed083478a22c59a29d66f4, type: 3}
+  hpHeal: 0
+  restoreHp: 1
+  staHeal: 0
+  restoreSta: 1
+  status: 0
+  restoreAllStatus: 0
+  revive: 0
+  maxRevive: 0

@@ -33,7 +33,7 @@ public class UnitBase : ScriptableObject
 
     public int GetExpForLevel(int level)
     {
-        return level * level * level;
+        return level * level * 4;
     }
     
     //grab value functions

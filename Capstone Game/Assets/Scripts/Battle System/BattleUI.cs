@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+
 public class BattleUI : MonoBehaviour
 {
     //UI Buttons
@@ -63,5 +66,20 @@ public class BattleUI : MonoBehaviour
         selectButtons.enabled = false;
         statView.enabled = false;
         skillView.enabled = false;
+        unitHuds.enabled = true;
+    }
+    
+    public void EndBattle()
+    {
+        actionButtons.enabled = false;
+        skillButtons.enabled = false;
+        defaultButtons.enabled = false;
+        selectButtons.enabled = false;
+        statView.enabled = false;
+        skillView.enabled = false;
+        partyButtons.enabled = false;
+        unitHuds.enabled = false;
+        statView.enabled = false;
+        //skillView.enabled = false;
     }
 }

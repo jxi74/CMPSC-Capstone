@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0021f869b2635c248b3523b69657ded8, type: 3}
+  m_Name: Soul siphon
+  m_EditorClassIdentifier: 
+  name: Soul siphon
+  description: Unit stirs up a negative power to sap the target's strength. Lower's
+    attack, flux, and fatigues the target.
+  type: 10
+  power: 0
+  accuracy: 70
+  alwaysHits: 0
+  category: 1
+  effects:
+    boosts: []
+    status: 0
+  secondaryEffects:
+  - boosts:
+    - stat: 0
+      boost: -1
+    - stat: 1
+      boost: -1
+    status: 4
+    chance: 100
+    target: 0
+  target: 0
+  vfx: {fileID: 4903989986093316332, guid: 849b03e43ad78d7418fc3b58eced523d, type: 3}
+  vfxTarget: 0
+  sfx: {fileID: 8300000, guid: 469bce518dcbd4f48bc3706bc7202c2e, type: 3}
+  staminaCost: 12

@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.I))
         {
             canvas.enabled = (!canvas.isActiveAndEnabled);
+            canvas.GetComponent<CanvasGroup>().interactable = (canvas.isActiveAndEnabled);
             if (canvas.enabled)
             {
                 

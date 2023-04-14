@@ -10,16 +10,22 @@ public class EnemyEncounter : MonoBehaviour
 {
     [SerializeField] public List<Unit> enemyEncounter;
     public Unit unit;
-    private List<int> usedUnitIndices = new List<int>(); // List of indices of units that have already been returned
+    public List<int> usedUnitIndices = new List<int>(); // List of indices of units that have already been returned
+    public bool a;
 
     private void Start()
     {
-        //Assign random enemy encounter unit for parent object (to display in overworld)
-        unit = GetRandomUnit();
-        GetComponent<BattleUnit>().Unit = unit;
-        GetComponent<BattleUnit>().unitBase = unit.Base;
-        GetComponentInChildren<unithud>().setName(unit.Base.Name, unit.Level);
+        if (!a)
+        {
+            //Assign random enemy encounter unit for parent object (to display in overworld)
+            unit = GetRandomUnit();
+            GetComponent<BattleUnit>().Unit = unit;
+            GetComponent<BattleUnit>().unitBase = unit.Base;
+            GetComponentInChildren<unithud>().setName(unit.Base.Name, unit.Level);
+            a = true;
+        }
         GetComponent<BattleUnit>().ModelSetup(true);
+        
     }
 
     public Unit GetRandomUnit()

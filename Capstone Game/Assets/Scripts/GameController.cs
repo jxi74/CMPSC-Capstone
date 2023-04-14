@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Inventory inventory;
     public BattleSystem battlesystem;
+    public Canvas battleUI;
     private GameObject player;
     [SerializeField] private Party party;
     private Transform playerchar;
@@ -107,6 +108,7 @@ public class GameController : MonoBehaviour
             movement.enabled = false;
             //thirdpersoncam.enabled = false;
             battlesystem.enabled = true;
+            battleUI.GetComponent<CanvasGroup>().interactable = true;
             inventory.canvas.enabled = false;
             inventory.enabled = false;
             cam.transform.LookAt(movement.transform);
@@ -126,6 +128,7 @@ public class GameController : MonoBehaviour
             movement.enabled = true;
             //thirdpersoncam.enabled = true;
             battlesystem.enabled = false;
+            battleUI.GetComponent<CanvasGroup>().interactable = false;
             inventory.enabled = true;
             cam.fieldOfView = 40;
             Destroy(GameObject.FindWithTag("Unit1"));

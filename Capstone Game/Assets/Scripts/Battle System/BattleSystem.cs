@@ -57,6 +57,19 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    public void SafeAssign()
+    {
+        unit1 = GameObject.FindWithTag("Unit1").GetComponent<BattleUnit>();
+        unit2 = GameObject.FindWithTag("Unit2").GetComponent<BattleUnit>();
+        unit3 = GameObject.FindWithTag("Unit3").GetComponent<BattleUnit>();
+        unit4 = GameObject.FindWithTag("Unit4").GetComponent<BattleUnit>();
+
+        inBattleUnits[0] = unit1;
+        inBattleUnits[1] = unit2;
+        inBattleUnits[2] = unit3;
+        inBattleUnits[3] = unit4;
+    }
+    
     public IEnumerator BattleSetup()
     {
         ResetTurn();
@@ -131,6 +144,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PerformMoves()
     {
+        SafeAssign();
         // Create a list of all units in the battle and sort them by speed.
         List<BattleUnit> allUnits = new List<BattleUnit> { unit1, unit2, unit3, unit4 };
         allUnits.Sort((a, b) => b.Unit.Speed.CompareTo(a.Unit.Speed));
@@ -277,6 +291,7 @@ public class BattleSystem : MonoBehaviour
                             else
                             {
                                 GameObject.Find("GameController").GetComponent<GameController>().Skill(move.Base.Audio);
+                                TriggerVFX(move, sourceUnit, targetUnit);
                                 sourceUnit.Unit.UseMove(move);
                                 yield return (sourceUnit.hud.UpdateStaBar());
                                 yield return RunSkillEffects(move.Base.Effects, sourceUnit, targetUnit, move.Base.Target);
@@ -302,9 +317,10 @@ public class BattleSystem : MonoBehaviour
                                 TriggerVFX(move, sourceUnit, targetUnit);
                                 targetUnit.TakeDamage((int)(targetUnit.hud.unitHp.value - targetUnit.Unit.HP));
                                 StartCoroutine(targetUnit.hud.UpdateHpBar());
-                                yield return(sourceUnit.hud.UpdateStaBar());
-                                
                                 sourceUnit.Unit.UseMove(move);
+                                StartCoroutine(sourceUnit.hud.UpdateStaBar());
+                                
+                                
                                 
                                 yield return ShowDamageDetails(damageDetails);
                                 
@@ -348,17 +364,23 @@ public class BattleSystem : MonoBehaviour
         if (move.Base.VFXTarget == SkillTargetVFX.Foe)
         {
             //Trigger only on foe
-            vfx = Instantiate(move.Base.VFX, target.transform.position + Vector3.up * 1.3f, Quaternion.identity);
+            vfx = Instantiate(move.Base.VFX, target.transform.position + Vector3.up * 1.3f, move.Base.VFX.transform.rotation);
         }
         else if (move.Base.VFXTarget == SkillTargetVFX.Self)
         {
-            vfx = Instantiate(move.Base.VFX, source.transform.position + Vector3.up * 1.3f, Quaternion.identity);
+            vfx = Instantiate(move.Base.VFX, source.transform.position + Vector3.up * 1.3f, move.Base.VFX.transform.rotation);
+        }
+        else if (move.Base.VFXTarget == SkillTargetVFX.SelfToFoe)
+        {
+            vfx = Instantiate(move.Base.VFX, source.transform.position + source.transform.forward * 5f + Vector3.up * 1.3f, move.Base.VFX.transform.rotation);
+            vfx.transform.LookAt(target.transform.position +
+                                 Vector3.up * target.GetComponent<Collider>().bounds.extents.y);
         }
         else
         {
             //FAILSAFE
             //Trigger only on foe
-            vfx = Instantiate(move.Base.VFX, target.transform.position + Vector3.up * 1.3f, Quaternion.identity);
+            vfx = Instantiate(move.Base.VFX, target.transform.position + Vector3.up * 1.3f, move.Base.VFX.transform.rotation);
         }
         
 
@@ -495,11 +517,13 @@ public class BattleSystem : MonoBehaviour
             //check level up
             while (unit1.Unit.CheckLevelUp())
             {
-                yield return box.DisplayText($"{unit1.Unit.Base.Name} leveled up to {unit1.level}!");
+                yield return box.DisplayText($"{unit1.Unit.Base.Name} leveled up!");
+                unit1.GetComponentInChildren<unithud>().setName(unit1.Unit.Base.Name, unit1.Unit.Level);
             }
             while (unit2.Unit.CheckLevelUp())
             {
-                yield return box.DisplayText($"{unit2.Unit.Base.Name} leveled up to {unit2.level}!");
+                yield return box.DisplayText($"{unit2.Unit.Base.Name} leveled up!");
+                unit2.GetComponentInChildren<unithud>().setName(unit2.Unit.Base.Name, unit2.Unit.Level);
             }
 
             yield return new WaitForSeconds(1f);
@@ -718,7 +742,6 @@ public class BattleSystem : MonoBehaviour
                 unit.Setup(party.units[buttonval - 1], true);
                 inBattleUnits[tag] = GameObject.FindWithTag($"Unit{tag + 1}").GetComponent<BattleUnit>();
                 unit.hud.Setdata(party.units[buttonval - 1]);
-                
             }
             
 

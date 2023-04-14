@@ -22,6 +22,10 @@ public class ItemDatabase : MonoBehaviour
         // Add the Bandage item to the items list.
         items.Add(Resources.Load<ItemBase>("Items/Bandage"));
         items.Add(Resources.Load<ItemBase>("Items/Energy Drink"));
+        items.Add(Resources.Load<ItemBase>("Items/Elixir"));
+        items.Add(Resources.Load<ItemBase>("Items/Small Elixir"));
+        items.Add(Resources.Load<ItemBase>("Items/Yggdrasil drop"));
+        items.Add(Resources.Load<ItemBase>("Items/Blood of Gods"));
 
         // Add any other items to the items list here.
     }

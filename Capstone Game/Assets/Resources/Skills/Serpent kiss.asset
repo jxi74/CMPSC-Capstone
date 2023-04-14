@@ -29,4 +29,7 @@ MonoBehaviour:
     chance: 75
     target: 0
   target: 0
+  vfx: {fileID: 100006, guid: a933174828b1b4843896b5e85ac0fc60, type: 3}
+  vfxTarget: 0
+  sfx: {fileID: 8300000, guid: 64b33a616b0dd4a438303cf0fff81edf, type: 3}
   staminaCost: 6

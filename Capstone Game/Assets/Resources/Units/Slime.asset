@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Slime
   description: A blob of goo.
-  model: {fileID: 1678932645426997599, guid: 1bf60dc0463f17243a83f601c84e3aef, type: 3}
+  model: {fileID: 1534918691782510483, guid: 9acb171455c26394c849a579c3e8f35f, type: 3}
   type1: 2
   type2: 0
   max_hp: 33

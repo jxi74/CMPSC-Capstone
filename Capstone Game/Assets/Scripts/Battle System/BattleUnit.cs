@@ -62,6 +62,8 @@ public class BattleUnit : MonoBehaviour
             EnemyEncounter newEnemyEncounter = newModel.AddComponent<EnemyEncounter>();
             newEnemyEncounter.enemyEncounter = GetComponent<EnemyEncounter>().enemyEncounter;
             newEnemyEncounter.unit = GetComponent<EnemyEncounter>().unit;
+            newEnemyEncounter.usedUnitIndices = GetComponent<EnemyEncounter>().usedUnitIndices;
+            newEnemyEncounter.a = GetComponent<EnemyEncounter>().a;
             model.layer = 7;
         }
         else
@@ -98,7 +100,7 @@ public class BattleUnit : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         
-        DamageIndictator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndictator>();
+        DamageIndictator indicator = Instantiate(damageText, transform.position + Vector3.up * 1.5f, Quaternion.identity).GetComponent<DamageIndictator>();
         indicator.SetDamageText(dmg);
     }
 }
