@@ -8,6 +8,12 @@ using System.Linq;
 // This class keeps track of current state of game's data
 public class DataPersistenceManager : MonoBehaviour
 {
+    [Header("Debugging")]
+    [SerializeField] private bool disableDataPersistence = false;
+    [SerializeField] private bool initializeDataIfNull = false;
+    [SerializeField] private bool overrideSelectedProfileId = false;
+    [SerializeField] private string testSelectedProfileId = "test";
+    
     [Header("File Storage Config")]
     [SerializeField] private string fileName; //File name that can be set in inspector
     [SerializeField] private bool useEncryption; //Checkbox if you want the data encrypted or not in inspector
@@ -15,6 +21,9 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
+
+    //Used to keep track of profile (current save slot)
+    private string selectedProfileId = "";
 
     // One instance of this class, get publicly, but can only set privately in this class
     public static DataPersistenceManager instance { get; private set; }
@@ -25,12 +34,31 @@ public class DataPersistenceManager : MonoBehaviour
         {
             //Throw error because by design there should only be one DPM
             Debug.LogError("Found more than one Data Persistence Manager in the scene.");
+            Destroy(this.gameObject);
+            return;
         }
         instance = this;
+        DontDestroyOnLoad(this.gameObject);
+        
+        if (disableDataPersistence) 
+        {
+            Debug.LogWarning("Data Persistence is currently disabled!");
+        }
+
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+
+        this.selectedProfileId = dataHandler.GetMostRecentlyUpdatedProfileId();
+        if (overrideSelectedProfileId) 
+        {
+            this.selectedProfileId = testSelectedProfileId;
+            Debug.LogWarning("Overrode selected profile id with test id: " + testSelectedProfileId);
+        }
     }
 
     private void Start() 
     {
+        //DontDestroyOnLoad(gameObject);
+        //SelectSaveSlot();
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
@@ -50,8 +78,8 @@ public class DataPersistenceManager : MonoBehaviour
     public void LoadGame()
     {
         // load any saved data from a file using the data handler
-        this.gameData = dataHandler.Load();
-        
+        this.gameData = dataHandler.Load(selectedProfileId);
+    
         // if no data can be loaded, initialize to a new game, TODO Might want to change this for multiple saves
         if (this.gameData == null) 
         {
@@ -75,7 +103,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         // save that data to a file using the data handler
-        dataHandler.Save(gameData);
+        dataHandler.Save(gameData, selectedProfileId);
     }
 
     private void OnApplicationQuit() 
@@ -92,4 +120,19 @@ public class DataPersistenceManager : MonoBehaviour
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
+
+    
+    public Dictionary<string, GameData> GetAllProfilesGameData() 
+    {
+        return dataHandler.LoadAllProfiles();
+    }
+    // Method to select the current save slot
+    //public void SelectSaveSlot()
+    //{
+        // Update the data handler with the new file name
+   //     dataHandler = new FileDataHandler(Application.persistentDataPath, fileNames[currentSaveSlot], useEncryption);
+   //     this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        // Reload the game data for the new save slot
+   //     LoadGame();
+    //}
 }
