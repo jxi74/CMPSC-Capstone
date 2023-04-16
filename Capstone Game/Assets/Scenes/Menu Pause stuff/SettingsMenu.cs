@@ -4,20 +4,24 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class SettingsMenu : MonoBehaviour
+public class SettingsMenu : MonoBehaviour, IDataPersistence
 {
 
     public AudioMixer audioMixer;
 
-    public TMPro.TMP_Dropdown resolutionDropdown;
+    //public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
+
+    public float vol;
+
+    public Slider volSlider;
 
     void Start()
     {
         resolutions = Screen.resolutions;
 
-        resolutionDropdown.ClearOptions();
+       // resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
@@ -34,9 +38,9 @@ public class SettingsMenu : MonoBehaviour
             }
         }
 
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
+       // resolutionDropdown.AddOptions(options);
+      //  resolutionDropdown.value = currentResolutionIndex;
+       // resolutionDropdown.RefreshShownValue();
     }
 
     public void SetResolution(int resolutionIndex)
@@ -47,7 +51,10 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        //audioMixer.SetFloat("volume", volume);
+        this.vol = volume;
+        this.volSlider.value = volume;
+        AudioListener.volume = volume;
     }
 
     public void SetQuality(int qualityIndex)
@@ -58,5 +65,17 @@ public class SettingsMenu : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+    }
+    
+    public void LoadData(GameData data)
+    {
+        this.vol = data.volume;
+        this.volSlider.value = data.volume;
+        AudioListener.volume = this.vol;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.volume = this.vol;
     }
 }
