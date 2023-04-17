@@ -85,7 +85,8 @@ public class BattleUnit : MonoBehaviour
         unitBase = unit.Base;
         level = unit.Level;
         _isPlayer = player;
-        
+
+        hud.gameObject.SetActive(true);
         hud.Setdata(unit);
         //Display Unit model
         //Debug.Log($"{Unit.Base.name} setup");

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24075fd21e4676a4dbb8f5636da8f9dd, type: 3}
+  m_Name: Amalgram
+  m_EditorClassIdentifier: 
+  name: Amalgram
+  description: 'Girthstone
+
+'
+  model: {fileID: 5525981122707118618, guid: da314e68c903d24458622642da73f042, type: 3}
+  type1: 9
+  type2: 1
+  max_hp: 32
+  atk: 22
+  flx: 22
+  def: 27
+  res: 27
+  lck: 30
+  spd: 49
+  sta: 42
+  xpgain: 42
+  goldgain: 32
+  learnableskills:
+  - moveBase: {fileID: 11400000, guid: cf5b7b9ab8dbbb246bd85e092e47fd67, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 84bbc27ffedca6f4ab8dc7f3178513ec, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: 50eaf578e47782b4e8def556443564c4, type: 2}
+    level: 7
+  - moveBase: {fileID: 11400000, guid: 5e2746608e5444f459cbb3a16640306a, type: 2}
+    level: 10
+  - moveBase: {fileID: 11400000, guid: d1851b96ca1e1d44abc6fd3eb64b7442, type: 2}
+    level: 15

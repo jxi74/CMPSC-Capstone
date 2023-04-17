@@ -111,8 +111,26 @@ public class SkillsSelect : MonoBehaviour
         //Eventually gray out defeated unswapped units
         for (int i = 0; i < 4; i++)
         {
-            targetButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = units[i].unitBase.Name;
-            targetButtons[i].interactable = (units[i].Unit.HP != 0);
+            Debug.Log(units[i].Unit);
+            if (units[i].Unit != null)
+            {
+                if (units[i].Unit.HP != 0)
+                {
+                    targetButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = units[i].unitBase.Name;
+                }
+                else
+                {
+                    targetButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = "";
+                }
+                
+                targetButtons[i].interactable = (units[i].Unit.HP != 0);
+            }
+            else
+            {
+                targetButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = "";
+                targetButtons[i].interactable = false;
+            }
+            
         }
 
     }

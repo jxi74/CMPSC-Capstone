@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24075fd21e4676a4dbb8f5636da8f9dd, type: 3}
+  m_Name: Swordsman
+  m_EditorClassIdentifier: 
+  name: Swordsman
+  description: 'KlinkClank
+
+'
+  model: {fileID: 5626988897713376881, guid: 3aa6dfaa8cfc788469980bb04f6d92d9, type: 3}
+  type1: 7
+  type2: 0
+  max_hp: 50
+  atk: 50
+  flx: 20
+  def: 47
+  res: 35
+  lck: 15
+  spd: 25
+  sta: 30
+  xpgain: 60
+  goldgain: 75
+  learnableskills:
+  - moveBase: {fileID: 11400000, guid: 755b173f53a92714aa6151fa3a97c0a1, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 955deb64a61174043ac7c69766ef1b60, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: cf5b7b9ab8dbbb246bd85e092e47fd67, type: 2}
+    level: 9
+  - moveBase: {fileID: 11400000, guid: f08d54a60d433e44aa38ca9e16122fbf, type: 2}
+    level: 13
+  - moveBase: {fileID: 11400000, guid: 940b5b5e104602247b2b095671f7e31f, type: 2}
+    level: 15
+  - moveBase: {fileID: 11400000, guid: 4c9c6109138d7564e8ec8891300a0e1c, type: 2}
+    level: 18

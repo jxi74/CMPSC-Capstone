@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0021f869b2635c248b3523b69657ded8, type: 3}
+  m_Name: Sharpen
+  m_EditorClassIdentifier: 
+  name: Sharpen
+  description: Increases Self's attack
+  type: 7
+  power: 0
+  accuracy: 100
+  alwaysHits: 0
+  category: 2
+  effects:
+    boosts:
+    - stat: 0
+      boost: 2
+    status: 0
+  secondaryEffects: []
+  target: 1
+  vfx: {fileID: 395031058680739610, guid: 59b5a9fb3cb24f1448f3a9a16fd2c982, type: 3}
+  vfxTarget: 1
+  sfx: {fileID: 8300000, guid: df7b1808617e14e8fafcc804f30b5521, type: 3}
+  staminaCost: 5

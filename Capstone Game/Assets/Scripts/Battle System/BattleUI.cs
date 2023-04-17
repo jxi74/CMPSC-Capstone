@@ -14,9 +14,11 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Canvas skillButtons;
     [SerializeField] private Canvas selectButtons;
     [SerializeField] private Canvas partyButtons;
-    [SerializeField] private Canvas unitHuds;
+    [SerializeField] public Canvas unitHuds;
     [SerializeField] private Canvas statView;
     [SerializeField] private Canvas skillView;
+    [SerializeField] private Canvas inventoryView;
+    [SerializeField] private Inventory inv;
     
     public void SetDefaultButtons(bool set)
     {
@@ -57,6 +59,26 @@ public class BattleUI : MonoBehaviour
     {
         skillView.enabled = set;
     }
+
+    public void SetInventoryView(bool set)
+    {
+        inventoryView.enabled = set;
+        if (set)
+        {
+            inv.OpenUI();
+        }
+        else
+        {
+            inv.CloseUI();
+        }
+
+        StartCoroutine(FindObjectOfType<BattleSystem>().unit1.hud.UpdateHpBar());
+        StartCoroutine(FindObjectOfType<BattleSystem>().unit1.hud.UpdateStaBar());
+        StartCoroutine(FindObjectOfType<BattleSystem>().unit2.hud.UpdateHpBar());
+        StartCoroutine(FindObjectOfType<BattleSystem>().unit2.hud.UpdateStaBar());
+        
+    } 
+    
     
     public void SetupBattle()
     {
@@ -67,6 +89,7 @@ public class BattleUI : MonoBehaviour
         statView.enabled = false;
         skillView.enabled = false;
         unitHuds.enabled = true;
+        inventoryView.enabled = false;
     }
     
     public void EndBattle()
@@ -80,6 +103,7 @@ public class BattleUI : MonoBehaviour
         partyButtons.enabled = false;
         unitHuds.enabled = false;
         statView.enabled = false;
+        inventoryView.enabled = false;
         //skillView.enabled = false;
     }
 }

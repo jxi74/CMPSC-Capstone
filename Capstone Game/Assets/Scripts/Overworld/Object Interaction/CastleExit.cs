@@ -14,6 +14,7 @@ public class CastleExit : MonoBehaviour, IInteractable
     {
         Debug.Log("Opening door!"); // Logs message once you press "e" to open door
         levelLoader.LoadNextArea("ExitCastle");
+        GameObject.Find("GameController").GetComponent<GameController>().ResetUnits();
         return true;
     }
 }

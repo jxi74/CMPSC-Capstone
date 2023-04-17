@@ -27,6 +27,7 @@ public class UnitBase : ScriptableObject
     [SerializeField] private int sta;
 
     [SerializeField] private int xpgain;
+    [SerializeField] private int goldgain;
 
     //learnable moves
     [SerializeField] public List<LearnableSkill> learnableskills;
@@ -105,6 +106,11 @@ public class UnitBase : ScriptableObject
     public int ExpGain
     {
         get { return xpgain; }
+    }
+    
+    public int GoldGain
+    {
+        get { return goldgain; }
     }
 
     public List<LearnableSkill> LearnableSkills

@@ -42,6 +42,24 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    public void OpenUI()
+    {
+        canvas.enabled = true;
+        canvas.GetComponent<CanvasGroup>().interactable = (canvas.isActiveAndEnabled);
+        if (canvas.enabled)
+        {
+                
+            inventoryUI.UpdateBalance(balance);
+            partyHud.SetPartyNamesParty();
+        }
+    }
+
+    public void CloseUI()
+    {
+        canvas.enabled = false;
+        canvas.GetComponent<CanvasGroup>().interactable = (canvas.isActiveAndEnabled);
+    }
     
     public void GiveItem(string itemName)
     {

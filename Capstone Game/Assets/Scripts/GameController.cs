@@ -9,6 +9,7 @@ public enum GameState { FreeRoam, Battle}
 public class GameController : MonoBehaviour
 {
     private GameState state;
+    [SerializeField] private GameObject enemyPool1;
     [SerializeField] private ThirdPersonMovement movement;
     [SerializeField] private CinemachineBrain thirdpersoncam;
     [SerializeField] private GameObject interactionpoint;
@@ -23,6 +24,8 @@ public class GameController : MonoBehaviour
     private Transform playerchar;
     private Renderer a;
     private Renderer b;
+    private GameObject emptyInstance;
+    
     
     
     [SerializeField] private AudioSource buttonAudioSource;
@@ -48,6 +51,8 @@ public class GameController : MonoBehaviour
     
     private void Start()
     {
+        emptyInstance = Instantiate(enemyPool1, enemyPool1.transform.position, Quaternion.identity);
+        // Loop through all child objects and instantiate them
         //battlecam.enabled = false;
         player = GameObject.Find("Player");
         playerchar = player.transform.Find("Player character");
@@ -55,6 +60,18 @@ public class GameController : MonoBehaviour
         b = playerchar.GetChild(0).GetChild(0).GetComponent<Renderer>();
     }
 
+    public void ResetUnits()
+    {
+        // Destroy the existing instance of enemyPool1
+        Destroy(emptyInstance);
+
+        // Create a new instance of the prefab
+        GameObject newEnemyPool1 = Instantiate(enemyPool1, enemyPool1.transform.position, Quaternion.identity);
+
+        // Set the reference to the new instance
+        emptyInstance = newEnemyPool1;
+    }
+    
     public void Skill(AudioClip clip)
     {
         battleEffects.clip = clip;

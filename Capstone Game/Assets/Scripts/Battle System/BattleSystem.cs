@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = System.Random;
 
@@ -36,6 +37,7 @@ public class BattleSystem : MonoBehaviour
 
 
     [SerializeField] public Party party;
+    [SerializeField] public Inventory inventory;
     [SerializeField] public PartyHuds partyhuds;
     [SerializeField] public EnemyEncounter enemygenerator;
 
@@ -72,14 +74,34 @@ public class BattleSystem : MonoBehaviour
     
     public IEnumerator BattleSetup()
     {
+        battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
         ResetTurn();
         state = BattleState.Start;
         unit1.hud = unithuds[0];
         unit2.hud = unithuds[1];
         unit3.hud = unithuds[2];
         unit4.hud = unithuds[3];
+        unit1.hud.gameObject.SetActive(false);
+        unit2.hud.gameObject.SetActive(false);
+        unit3.hud.gameObject.SetActive(false);
+        unit4.hud.gameObject.SetActive(false);
         unit1.Setup(party.GetFirstHealthyUnit(), true);
-        unit2.Setup(party.GetNextHealthyUnitStart(party.GetFirstHealthyUnit()), true);
+        if (party.GetNextHealthyUnitStart(party.GetFirstHealthyUnit()) != null) 
+        {
+            unit2.Setup(party.GetNextHealthyUnitStart(party.GetFirstHealthyUnit()), true);
+        }
+        else
+        {
+            foreach (var renderer in unit2.GetComponentsInChildren<Renderer>())
+            {
+                if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
+                {
+                    renderer.enabled = false;
+                }
+            }
+            unit2.GetComponentInChildren<Canvas>().enabled = false;
+            unithuds[1].gameObject.SetActive(false);
+        }
         unit3.Setup(unit3.Unit, false);
         unit4.Setup(enemygenerator.GetRandomUnit(), false);
         yield return new WaitForSeconds(.25f);
@@ -94,7 +116,16 @@ public class BattleSystem : MonoBehaviour
         inBattleUnits[3] = unit4;
         
         yield return box.DisplayText($"A random {unit3.unitBase.Name} and {unit4.unitBase.Name} approaches!");
-        yield return box.DisplayText(unit1.unitBase.Name + " and " + unit2.unitBase.Name + " went into action!");
+        if (party.GetNextHealthyUnitStart(party.GetFirstHealthyUnit()) == null)
+        {
+            yield return box.DisplayText($"{unit1.unitBase.Name} went into action!");
+        }
+        else
+        {
+            yield return box.DisplayText(unit1.unitBase.Name + " and " + unit2.unitBase.Name + " went into action!");
+        }
+        
+        
 
         StartCoroutine(NewRound());
     }
@@ -104,10 +135,11 @@ public class BattleSystem : MonoBehaviour
     {
         ResetTurn();
         skillsSelect.SetTargetNames();
-        if (unit1.Unit.HP == 0 && unit2.Unit.HP == 0)
+        if ((unit2.Unit == null && unit1.Unit.HP == 0) || (unit1.Unit.HP == 0 && unit2.Unit.HP == 0))
         {
             //game over
             yield return box.DisplayText("You lose!");
+            SceneManager.LoadScene("MainMenu");
             gamecontroller.inBattle(false);
             gamecontroller.Loss();
             UI.enabled = false;
@@ -127,12 +159,12 @@ public class BattleSystem : MonoBehaviour
             if (unit1.Unit.HP > 0)
             {
                 //Debug.Log("Unit1 turn");
-                PlayerAction(1);
+                StartCoroutine(PlayerAction(1));
             }
             else if (unit2.Unit.HP > 0)
             {
                 //Debug.Log("Unit2 turn");
-                PlayerAction(2);
+                StartCoroutine(PlayerAction(2));
             }
             else
             {
@@ -146,7 +178,15 @@ public class BattleSystem : MonoBehaviour
     {
         SafeAssign();
         // Create a list of all units in the battle and sort them by speed.
-        List<BattleUnit> allUnits = new List<BattleUnit> { unit1, unit2, unit3, unit4 };
+        List<BattleUnit> allUnits;
+        if (unit2.Unit != null)
+        {
+            allUnits = new List<BattleUnit> { unit1, unit2, unit3, unit4 };
+        }
+        else
+        {
+            allUnits = new List<BattleUnit> { unit1, unit3, unit4 };
+        }
         allUnits.Sort((a, b) => b.Unit.Speed.CompareTo(a.Unit.Speed));
 
         // Iterate over the units and perform their moves in turn.
@@ -171,7 +211,7 @@ public class BattleSystem : MonoBehaviour
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    void PlayerAction(int unit)
+    IEnumerator PlayerAction(int unit)
     {
         BattleUnit unitcontrol;
         if (unit == 1)
@@ -188,7 +228,8 @@ public class BattleSystem : MonoBehaviour
             unitcontrol = unit2;
         }
         
-        StartCoroutine(box.DisplayText("Select an action for " + unitcontrol.unitBase.Name));
+        yield return box.DisplayText("Select an action for " + unitcontrol.unitBase.Name);
+        battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = true;
         skillsSelect.SetSkillNames(unitcontrol.Unit.Skills);
         partyhuds.SetPartyNames();
         battleUI.SetDefaultButtons(true);
@@ -215,7 +256,15 @@ public class BattleSystem : MonoBehaviour
         if (new Random().Next(0,4) != 0)
         {
             movequeue[index] = new Random().Next(1, 7);
-            targetlist[index] = new Random().Next(1, 3);
+            if (unit2.Unit == null)
+            {
+                targetlist[index] = 1;
+            }
+            else
+            {
+                targetlist[index] = new Random().Next(1, 3);
+            }
+            
         }
         else
         {
@@ -511,21 +560,36 @@ public class BattleSystem : MonoBehaviour
             BattleUnit unit2 = inBattleUnits[1];
                 
             unit1.Unit.Exp += expEarned;
-            yield return box.DisplayText($"{unit1.Unit.Base.Name} and {unit2.Unit.Base.Name} gained {expEarned} exp!");
-            unit2.Unit.Exp += expEarned;
+            if (unit2.Unit != null)
+            {
+                yield return box.DisplayText($"{unit1.Unit.Base.Name} and {unit2.Unit.Base.Name} gained {expEarned} exp!");
+                unit2.Unit.Exp += expEarned;
+                //check level up
+                while (unit1.Unit.CheckLevelUp())
+                {
+                    yield return box.DisplayText($"{unit1.Unit.Base.Name} leveled up!");
+                    unit1.GetComponentInChildren<unithud>().setName(unit1.Unit.Base.Name, unit1.Unit.Level);
+                }
+                while (unit2.Unit.CheckLevelUp())
+                {
+                    yield return box.DisplayText($"{unit2.Unit.Base.Name} leveled up!");
+                    unit2.GetComponentInChildren<unithud>().setName(unit2.Unit.Base.Name, unit2.Unit.Level);
+                }
+            }
+            else
+            {
+                yield return box.DisplayText($"{unit1.Unit.Base.Name} gained {expEarned} exp!");
+                while (unit1.Unit.CheckLevelUp())
+                {
+                    yield return box.DisplayText($"{unit1.Unit.Base.Name} leveled up!");
+                    unit1.GetComponentInChildren<unithud>().setName(unit1.Unit.Base.Name, unit1.Unit.Level);
+                }
+            }
             
-            //check level up
-            while (unit1.Unit.CheckLevelUp())
-            {
-                yield return box.DisplayText($"{unit1.Unit.Base.Name} leveled up!");
-                unit1.GetComponentInChildren<unithud>().setName(unit1.Unit.Base.Name, unit1.Unit.Level);
-            }
-            while (unit2.Unit.CheckLevelUp())
-            {
-                yield return box.DisplayText($"{unit2.Unit.Base.Name} leveled up!");
-                unit2.GetComponentInChildren<unithud>().setName(unit2.Unit.Base.Name, unit2.Unit.Level);
-            }
-
+            inventory.balance += Mathf.FloorToInt(defeatedUnit.level * defeatedUnit.unitBase.GoldGain * 1.5f);
+            yield return box.DisplayText(
+                $"Your party earned {Mathf.FloorToInt(defeatedUnit.level * defeatedUnit.unitBase.GoldGain * 1.5f)} gold!");
+            
             yield return new WaitForSeconds(1f);
         }
     }
@@ -534,36 +598,70 @@ public class BattleSystem : MonoBehaviour
     {
         if (defeatedUnit.isPlayer)
         {
-            var nextUnit = party.GetNextHealthyUnit(defeatedUnit.Unit);
-            while (nextUnit == unit1.Unit || nextUnit == unit2.Unit)
+            if (party.GetNextHealthyUnit(defeatedUnit.Unit) != null)
             {
-                Debug.Log("nextUnit same as unit1/unit2.. selecting next");
-                nextUnit = party.GetNextHealthyUnit(nextUnit);
-                if (nextUnit == null)
+                var nextUnit = party.GetNextHealthyUnit(defeatedUnit.Unit);
+                while (nextUnit == unit1.Unit || nextUnit == unit2.Unit)
                 {
-                    Debug.Log("Next null... no alive party unit, skipping swap");
-                    break;
+                    Debug.Log("nextUnit same as unit1/unit2.. selecting next");
+                    nextUnit = party.GetNextHealthyUnit(nextUnit);
+                    if (nextUnit == null)
+                    {
+                        Debug.Log("Next null... no alive party unit, skipping swap");
+                        defeatedUnit.hud.gameObject.SetActive(false);
+                        foreach (var renderer in defeatedUnit.GetComponentsInChildren<Renderer>())
+                        {
+                            if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
+                            {
+                                renderer.enabled = false;
+                            }
+                        }
+                        defeatedUnit.GetComponentInChildren<Canvas>().enabled = false;
+                        break;
+                    }
+                }
+
+                if (nextUnit != null)
+                {
+                    int tag = inBattleUnits.IndexOf(defeatedUnit);
+                    defeatedUnit.Setup(nextUnit, true);
+                    inBattleUnits[tag] = GameObject.FindWithTag($"Unit{tag + 1}").GetComponent<BattleUnit>();
+                                
+                    defeatedUnit.hud.Setdata(nextUnit);
+
+                    GameObject.Find("GameController").GetComponent<GameController>().UnitSwap();
+                    yield return StartCoroutine(box.DisplayText($"{defeatedUnit.Unit.Base.Name} rises to the challenge!"));
                 }
             }
-
-            if (nextUnit != null)
-            {
-                int tag = inBattleUnits.IndexOf(defeatedUnit);
-                defeatedUnit.Setup(nextUnit, true);
-                inBattleUnits[tag] = GameObject.FindWithTag($"Unit{tag + 1}").GetComponent<BattleUnit>();
-                                
-                defeatedUnit.hud.Setdata(nextUnit);
-
-                GameObject.Find("GameController").GetComponent<GameController>().UnitSwap();
-                yield return StartCoroutine(box.DisplayText($"{defeatedUnit.Unit.Base.Name} rises to the challenge!"));
-                
-                
-            }
+            
             else
             {
                 Debug.Log("No more healthy units left in the party");
+                defeatedUnit.hud.gameObject.SetActive(false);
+                foreach (var renderer in defeatedUnit.GetComponentsInChildren<Renderer>())
+                {
+                    if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
+                    {
+                        renderer.enabled = false;
+                    }
+                }
                 // Handle the case where there are no more healthy units left in the party
             }
+        }
+        else
+        {
+            defeatedUnit.hud.gameObject.SetActive(false);
+            foreach (var renderer in defeatedUnit.GetComponentsInChildren<Renderer>())
+            {
+                if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
+                {
+                    renderer.enabled = false;
+                }
+            }
+
+            defeatedUnit.GetComponentInChildren<Canvas>().enabled = false;
+            
+
         }
     }
     
@@ -698,11 +796,13 @@ public class BattleSystem : MonoBehaviour
 
             if (unit.Unit.STA < move.StaminaCost)
             {
+                battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
                 yield return box.DisplayText($"{move.Base.Name} costs too much stamina to use!");
                 state = BattleState.Busy;
             }
             else
             {
+                battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
                 movename = unit.Unit.Skills[button - 1].Base.Name;
                 yield return box.DisplayText(unit.unitBase.Name + " readied up with " + movename + "!");
                 targetlist[index] = target;
@@ -711,20 +811,24 @@ public class BattleSystem : MonoBehaviour
         else if (button == 7)
         {
             //Guard
+            battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
             yield return box.DisplayText(unit.unitBase.Name + " readied their guard!");
             targetlist[index] = 0;
         }
         else if (button == 8)
         {
             //Rest
+            battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
             yield return box.DisplayText(unit.unitBase.Name + " rested up!");
             unit.Unit.Rest();
             yield return unit.hud.UpdateStaBar();
             targetlist[index] = 0;
+            
         }
         else if (button == 10)
         {
             //swap unit
+            battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
             if (unit1.Unit == party.units[buttonval - 1] || unit2.Unit == party.units[buttonval - 1])
             {
                 yield return box.DisplayText($"You cannot swap with already in-battle units!");
@@ -733,6 +837,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
+                battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
                 GameObject.Find("GameController").GetComponent<GameController>().UnitSwap();
                 int tag = inBattleUnits.IndexOf(unit);
                 //defeatedUnit.Setup(nextUnit, true);
@@ -748,9 +853,13 @@ public class BattleSystem : MonoBehaviour
         }
         if (button == 9)
         {
+            battleUI.unitHuds.GetComponent<CanvasGroup>().interactable = false;
             //Escape
-            int chance = (((unit.Unit.Speed) * 64) / ((unit3.Unit.Speed + unit2.Unit.Speed) / 2) + 30 % 256);
+            
+            int chance = (((unit.Unit.Speed) * 64) / ((unit3.Unit.Speed + unit4.Unit.Speed) / 2) + 30 % 256);
+            Debug.Log($"chance: {chance}");
             int val = new Random().Next(1, 257);
+            Debug.Log($"odds: {val}");
             if (chance >= val)
             {
                 //Success
@@ -763,9 +872,9 @@ public class BattleSystem : MonoBehaviour
                 yield return box.DisplayText("Escape was unsuccessful!");
                 if (state == BattleState.PlayerAction1)
                 {
-                    if (unit2.Unit.HP > 0)
+                    if (unit2.Unit != null && unit2.Unit.HP > 0)
                     {
-                        PlayerAction(2);
+                        StartCoroutine(PlayerAction(2));
                     }
                     else
                     {
@@ -778,7 +887,7 @@ public class BattleSystem : MonoBehaviour
                 }
                 else
                 {
-                    PlayerAction(index + 1);
+                    StartCoroutine(PlayerAction(index + 1));
                 }
             }
         }
@@ -786,9 +895,9 @@ public class BattleSystem : MonoBehaviour
         {
             if (state == BattleState.PlayerAction1)
             {
-                if (unit2.Unit.HP > 0)
+                if (unit2.Unit != null && unit2.Unit.HP > 0)
                 {
-                    PlayerAction(2);
+                    StartCoroutine(PlayerAction(2));
                 }
                 else
                 {
@@ -801,7 +910,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                PlayerAction(index + 1);
+                StartCoroutine(PlayerAction(index + 1));
             }
         }
         
