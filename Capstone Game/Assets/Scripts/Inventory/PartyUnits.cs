@@ -72,6 +72,7 @@ public class PartyUnits : MonoBehaviour
                     // Reset the first unit selection
                 
 
+                    GameObject.Find("GameController").GetComponent<GameController>().PlayerModelReset();
                     Debug.Log("Units were swapped");
                 }
                 

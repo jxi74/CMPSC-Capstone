@@ -8,9 +8,16 @@ public class MainMenu2 : MonoBehaviour
 {
     [SerializeField] private LevelLoader levelLoader;
 
-    public void PlayGame()
+    public void MainMenuNewGame()
     {
         levelLoader.LoadNextLevel();
+        DataPersistenceManager.instance.NewGame();
+    }
+
+    public void MainMenuLoadGame()
+    {
+        levelLoader.LoadNextLevel();
+        DataPersistenceManager.instance.LoadGame();
     }
 
     public void QuitGame()

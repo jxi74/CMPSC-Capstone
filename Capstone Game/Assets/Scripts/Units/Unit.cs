@@ -9,6 +9,9 @@ public class Unit
 {
     [SerializeField] private UnitBase _base;
     [SerializeField] private int level;
+    [SerializeField] private int hp;
+    [SerializeField] private int sta;
+    [SerializeField] private int experience;
     
 
     public UnitBase Base
@@ -27,9 +30,33 @@ public class Unit
         }
     }
 
-    public int HP { get; set; }
-    public int STA { get; set; }
+    public int HP
+    {
+        get
+        {
+            return hp;
+        }
+        set => hp = value;
+    }
 
+    public int STA
+    {
+        get
+        {
+            return sta;
+        }
+        set => sta = value;
+    }
+
+    public int Experience
+    {
+        get
+        {
+            return experience;
+        }
+        set => experience = value;
+    }
+    
     public List<Skill> Skills { get; set; }
     public Dictionary<UnitBase.Stat, int> Stats { get; private set; }
     public Dictionary<UnitBase.Stat, int> StatBoosts { get; private set; }
@@ -56,10 +83,10 @@ public class Unit
             }
         }
 
-        Exp = Base.GetExpForLevel(level);
+        Experience = Base.GetExpForLevel(level);
         CalcStats();
-        HP = MaxHealth;
-        STA = MaxStamina;
+        hp = MaxHealth;
+        sta = MaxStamina;
         
         ResetStatBoost();
         // Add debug statement to check status after initialization
@@ -141,7 +168,7 @@ public class Unit
 
     public bool CheckLevelUp()
     {
-        if (Exp > Base.GetExpForLevel(level + 1))
+        if (Experience > Base.GetExpForLevel(level + 1))
         {
             ++level;
             return true;
@@ -149,7 +176,7 @@ public class Unit
 
         return false;
     }
-    public int Exp { get; set; }
+    
 
     public int MaxHealth { get; private set; }
     

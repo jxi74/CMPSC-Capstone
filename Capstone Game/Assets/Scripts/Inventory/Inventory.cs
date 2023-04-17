@@ -6,7 +6,7 @@ using UnityEngine;
 
 //back end of the inventory which stores the data of what the character
 //is currently holding
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IDataPersistence
 {
     [SerializeField] public int balance;
     public List<ItemBase> characterItems = new List<ItemBase>();
@@ -16,18 +16,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private UIItem selectedItem;
     public Canvas canvas;
     [SerializeField] Tooltip tp;
-
-    private void Start()
-    {
-        inventoryUI.PrepareInventory();
-        canvas = inventoryUI.GetComponentInParent<Canvas>();
-        tp.enabled = false;
-        canvas.enabled = false;
-        GiveItem("Bandage");
-        GiveItem("Energy Drink");
-        GiveItem("Energy Drink");
-    }
-
+    
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.I))
@@ -78,6 +67,26 @@ public class Inventory : MonoBehaviour
 
             Debug.Log("Item removed: " + itemName);
         }
+    }
+    
+    public void LoadData(GameData data)
+    {
+        this.balance = data.balance;
+        this.characterItems = data.inventory;
+        inventoryUI.PrepareInventory();
+        canvas = inventoryUI.GetComponentInParent<Canvas>();
+        tp.enabled = false;
+        canvas.enabled = false;
+        foreach (ItemBase item in data.inventory)
+        {
+            inventoryUI.AddNewItem(item);
+        }
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.balance = this.balance;
+        data.inventory = this.characterItems;
     }
     
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class SettingsMenu : MonoBehaviour
+public class SettingsMenu : MonoBehaviour, IDataPersistence
 {
 
     public AudioMixer audioMixer;
@@ -12,6 +12,10 @@ public class SettingsMenu : MonoBehaviour
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
+
+    public float vol;
+
+    public Slider volSlider;
 
     void Start()
     {
@@ -22,7 +26,7 @@ public class SettingsMenu : MonoBehaviour
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
-        for (int i = 0; i< resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
@@ -47,7 +51,10 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        //audioMixer.SetFloat("volume", volume);
+        this.vol = volume;
+        this.volSlider.value = volume;
+        AudioListener.volume = volume;
     }
 
     public void SetQuality(int qualityIndex)
@@ -58,5 +65,17 @@ public class SettingsMenu : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+    }
+    
+    public void LoadData(GameData data)
+    {
+        this.vol = data.volume;
+        this.volSlider.value = data.volume;
+        AudioListener.volume = this.vol;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.volume = this.vol;
     }
 }

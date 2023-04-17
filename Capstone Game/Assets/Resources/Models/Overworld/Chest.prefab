@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 7655152817737350200}
   - component: {fileID: 2156921019818515590}
   - component: {fileID: 8208357152884721951}
+  - component: {fileID: 2981733369722617435}
   m_Layer: 6
   m_Name: Chest
   m_TagString: Untagged
@@ -281,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f93c8cde44c3534c8c47566d2cb9b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chestID: 
   _prompt: Open Chest
   text: {fileID: 0}
   id: 4
@@ -384,6 +386,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &2981733369722617435
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064690746433707288}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7432003, y: 0.5, z: 0.5287701}
+  m_Center: {x: -0.37160015, y: 0.3, z: 0.21928799}
 --- !u!1 &5073564212262109681
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,9 +22,11 @@ public class GameController : MonoBehaviour
     private GameObject player;
     [SerializeField] private Party party;
     private Transform playerchar;
+    private GameObject playermodel;
     private Renderer a;
     private Renderer b;
     private GameObject emptyInstance;
+    [SerializeField] private GameObject switcheffect;
     
     
     
@@ -56,10 +58,26 @@ public class GameController : MonoBehaviour
         //battlecam.enabled = false;
         player = GameObject.Find("Player");
         playerchar = player.transform.Find("Player character");
-        a = playerchar.GetChild(0).GetComponent<Renderer>();
-        b = playerchar.GetChild(0).GetChild(0).GetComponent<Renderer>();
+        PlayerModelReset();
+        //a = playerchar.GetChild(0).GetComponent<Renderer>();
+        //b = playerchar.GetChild(0).GetChild(0).GetComponent<Renderer>();
     }
 
+    public void PlayerModelReset()
+    {
+        playerchar = player.transform.Find("Player character");
+        Destroy(playermodel);
+        playermodel = Instantiate(party.units[0].Base.Model, playerchar.transform.position + Vector3.down * 1.8f, playerchar.rotation);
+        playermodel.transform.SetParent(playerchar.transform);
+        Destroy(playermodel.GetComponent<Rigidbody>());
+
+        switcheffect.transform.localScale = new Vector3(2, 2, 2);
+        Instantiate(switcheffect, playermodel.transform.position + Vector3.up * 1.25f, playermodel.transform.rotation);
+        
+        ParticleSystem ps = switcheffect.GetComponent<ParticleSystem>();
+        Destroy(switcheffect, ps.main.duration);
+    }
+    
     public void ResetUnits()
     {
         // Destroy the existing instance of enemyPool1
@@ -119,8 +137,9 @@ public class GameController : MonoBehaviour
             bgm.Play();
             state = GameState.Battle;
             //disable movement and hide player
-            a.enabled = false;
-            b.enabled = false;
+            //a.enabled = false;
+            //b.enabled = false;
+            playermodel.gameObject.SetActive(false);
             //battlecam.enabled = true;
             movement.enabled = false;
             //thirdpersoncam.enabled = false;
@@ -139,8 +158,9 @@ public class GameController : MonoBehaviour
             bgm.Play();
             state = GameState.FreeRoam;
             //enable movement and show player
-            a.enabled = true;
-            b.enabled = true;
+            //a.enabled = true;
+            //b.enabled = true;
+            playermodel.gameObject.SetActive(true);
             //battlecam.enabled = false;
             movement.enabled = true;
             //thirdpersoncam.enabled = true;

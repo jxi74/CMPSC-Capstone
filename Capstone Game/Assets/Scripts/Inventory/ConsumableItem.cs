@@ -16,13 +16,28 @@ public class ConsumableItem : ItemBase
     [Header("Status")]
     [SerializeField] private int status;
     [SerializeField] private bool restoreAllStatus;
-    
-    [Header("Revive")]
-    [SerializeField] private int revive;
+
+    [Header("Revive")] 
+    [SerializeField] private bool revive;
+    [SerializeField] private int reviveAmt;
     [SerializeField] private bool maxRevive;
 
     public override bool Use(Unit unit)
     {
+        if (unit.HP == 0 && !revive)
+        {
+            return false;
+        }
+        if (unit.HP == 0 && revive)
+        {
+            unit.IncreaseHp(reviveAmt);
+            return true;
+        }
+
+        if (unit.HP > 0 && revive)
+        {
+            return false;
+        }
         if (hpHeal > 0)
         {
             if (unit.HP == unit.MaxHealth)

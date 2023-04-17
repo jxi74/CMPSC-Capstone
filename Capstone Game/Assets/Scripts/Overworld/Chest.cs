@@ -2,8 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : MonoBehaviour, IInteractable
+public class Chest : MonoBehaviour, IInteractable, IDataPersistence
 {
+    //Unique ID for chest
+    [SerializeField] private string chestID;
+
+    [ContextMenu("Generate guid for id")]
+
+    //Used to Create Unique ID for each Chest Object
+    private void GenerateGuid()
+    {
+        chestID = System.Guid.NewGuid().ToString();
+    }
+
+    
     [SerializeField] private string _prompt;
     [SerializeField] OverWorldBox text;
     [SerializeField] private int id;
@@ -59,5 +71,19 @@ public class Chest : MonoBehaviour, IInteractable
         Money,
         Consumable,
         Battle
+    }
+    
+    public void LoadData(GameData data)
+    {
+        data.chestsOpened.TryGetValue(chestID, out opened);
+    }
+
+    public void SaveData(GameData data)
+    {
+        if (data.chestsOpened.ContainsKey(chestID)) //If ID is already in dictionary
+        {
+            data.chestsOpened.Remove(chestID);
+        }
+        data.chestsOpened.Add(chestID, opened);
     }
 }
