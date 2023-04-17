@@ -133,11 +133,13 @@ public class ThirdPersonMovement : MonoBehaviour, IDataPersistence
    public void LoadData(GameData data)
    {
        this.transform.position = data.playerPosition;
+       this.transform.rotation = data.playerRotation;
    }
 
    // Gets current position of player and saves to json file
    public void SaveData(GameData data)
    {
        data.playerPosition = this.transform.position;
+       data.playerRotation = this.transform.rotation;
    }
 }

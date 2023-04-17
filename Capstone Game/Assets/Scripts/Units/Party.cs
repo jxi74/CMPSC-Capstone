@@ -5,17 +5,41 @@ using UnityEngine;
 
 public class Party : MonoBehaviour, IDataPersistence
 {
+    [SerializeField] private Unit starter;
     [SerializeField] public List<Unit> units;
     [SerializeField] private BattleSystem battlesystem;
     private void Start()
     {
-        foreach (var unit in units)
+        if (units.Count == 0)
         {
-            unit.Init();
-            //Debug.Log("GetFirstHealthyUnit() returned: " + (unit != null ? unit.Base.Name : "null"));
-            //Debug.Log("GetNextHealthyUnit() returned: " + (GetNextHealthyUnit(unit) != null ? GetNextHealthyUnit(unit).Base.Name : "null"));
+            starter.Init();
+            units.Add(starter);
         }
+
+        foreach (Unit unit in units)
+        {
+            unit.MaxHealth = unit.Base.MaxHp;
+            unit.MaxStamina = unit.Base.Sta;
+            
+            List<Skill> Skills = new List<Skill>();
         
+            //Move generator
+            foreach (var skill in unit.Base.LearnableSkills)
+            {
+                if (skill.level <= unit.Level)
+                {
+                    //Debug.Log(skill.level);
+                    //Debug.Log(skill.Base.Name);
+                    Skills.Add(new Skill(skill.Base));
+                }
+            }
+
+            unit.Skills = Skills;
+            
+            unit.CalcStats();
+            unit.ResetStatBoost();
+        }
+
     }
 
     public Unit GetFirstHealthyUnit()

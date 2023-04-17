@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour
     
     private void Start()
     {
+        
         emptyInstance = Instantiate(enemyPool1, enemyPool1.transform.position, Quaternion.identity);
         // Loop through all child objects and instantiate them
         //battlecam.enabled = false;

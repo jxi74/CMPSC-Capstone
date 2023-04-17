@@ -16,6 +16,15 @@ public class Inventory : MonoBehaviour, IDataPersistence
     [SerializeField] private UIItem selectedItem;
     public Canvas canvas;
     [SerializeField] Tooltip tp;
+
+
+    private void Start()
+    {
+        inventoryUI.PrepareInventory();
+        canvas = inventoryUI.GetComponentInParent<Canvas>();
+        tp.enabled = false;
+        canvas.enabled = false;
+    }
     
     private void Update()
     {
@@ -73,10 +82,7 @@ public class Inventory : MonoBehaviour, IDataPersistence
     {
         this.balance = data.balance;
         this.characterItems = data.inventory;
-        inventoryUI.PrepareInventory();
-        canvas = inventoryUI.GetComponentInParent<Canvas>();
-        tp.enabled = false;
-        canvas.enabled = false;
+        
         foreach (ItemBase item in data.inventory)
         {
             inventoryUI.AddNewItem(item);

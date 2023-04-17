@@ -28,6 +28,7 @@ public class Unit
         {
             return level;
         }
+        set => level = value;
     }
 
     public int HP
@@ -92,7 +93,7 @@ public class Unit
         // Add debug statement to check status after initialization
     }
 
-    void ResetStatBoost()
+    public void ResetStatBoost()
     {
         StatBoosts = new Dictionary<UnitBase.Stat, int>()
         {
@@ -107,7 +108,7 @@ public class Unit
         };
     }
 
-    void CalcStats()
+    public void CalcStats()
     {
         Stats = new Dictionary<UnitBase.Stat, int>();
         Stats.Add(UnitBase.Stat.Attack, Mathf.FloorToInt(2 * (Base.Atk * Level) / 100f) + 3);
@@ -178,9 +179,9 @@ public class Unit
     }
     
 
-    public int MaxHealth { get; private set; }
+    public int MaxHealth { get; set; }
     
-    public int MaxStamina { get; private set; }
+    public int MaxStamina { get; set; }
     
     public int Attack { get { return GetStat(UnitBase.Stat.Attack); } }
     
