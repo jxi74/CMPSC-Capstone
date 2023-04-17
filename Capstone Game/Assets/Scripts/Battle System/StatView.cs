@@ -31,8 +31,8 @@ public class StatView : MonoBehaviour
         unitSta.value = unit.STA;
         unitStatext.text = unit.STA + "/" + unit.MaxStamina;
         unitXp.maxValue = nextLevelxp - currLevelxp;
-        unitXp.value = unit.Exp - currLevelxp;
-        unitXptext.text = $"{unit.Exp - currLevelxp} / {nextLevelxp - currLevelxp}";
+        unitXp.value = unit.Experience - currLevelxp;
+        unitXptext.text = $"{unit.Experience - currLevelxp} / {nextLevelxp - currLevelxp}";
         unitName.text = unit.Base.Name;
         unitLevel.text = $"Lv {unit.Level}";
         unitStatuses.text = unit.Status?.ToString() ?? "Healthy";

@@ -488,9 +488,9 @@ public class BattleSystem : MonoBehaviour
             BattleUnit unit1 = inBattleUnits[0];
             BattleUnit unit2 = inBattleUnits[1];
                 
-            unit1.Unit.Exp += expEarned;
+            unit1.Unit.Experience += expEarned;
             yield return box.DisplayText($"{unit1.Unit.Base.Name} and {unit2.Unit.Base.Name} gained {expEarned} exp!");
-            unit2.Unit.Exp += expEarned;
+            unit2.Unit.Experience += expEarned;
             
             //check level up
             while (unit1.Unit.CheckLevelUp())

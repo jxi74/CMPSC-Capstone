@@ -9,7 +9,7 @@ public class SettingsMenu : MonoBehaviour, IDataPersistence
 
     public AudioMixer audioMixer;
 
-    //public TMPro.TMP_Dropdown resolutionDropdown;
+    public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
 
@@ -21,12 +21,12 @@ public class SettingsMenu : MonoBehaviour, IDataPersistence
     {
         resolutions = Screen.resolutions;
 
-       // resolutionDropdown.ClearOptions();
+        resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
-        for (int i = 0; i< resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
@@ -38,9 +38,9 @@ public class SettingsMenu : MonoBehaviour, IDataPersistence
             }
         }
 
-       // resolutionDropdown.AddOptions(options);
-      //  resolutionDropdown.value = currentResolutionIndex;
-       // resolutionDropdown.RefreshShownValue();
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 
     public void SetResolution(int resolutionIndex)

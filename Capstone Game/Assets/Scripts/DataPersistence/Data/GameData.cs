@@ -10,6 +10,7 @@ public class GameData
     //public int deathCount;
     public Vector3 playerPosition;
     public SerializableDictionary<string, bool> chestsOpened;
+    public SerializableDictionary<string, int> npcFlag;
     public List<Unit> party;
     public int balance;
     public List<ItemBase> inventory;
@@ -21,6 +22,7 @@ public class GameData
     {
         playerPosition = new Vector3(500.8f, 23.45f, 324.9f);
         chestsOpened = new SerializableDictionary<string, bool>();
+        npcFlag = new SerializableDictionary<string, int>();
         party = new List<Unit>();
         balance = 15000;
         inventory = new List<ItemBase>();
