@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d22c13aac7557479b6ecd84f997dfb, type: 3}
   m_Name: Chicken
   m_EditorClassIdentifier: 
-  displayName: Chicken
-  price: 10000
+  displayName: Lv 3 Chicken
+  price: 7500
   itemName: 
   unit:
     _base: {fileID: 11400000, guid: 613d1156409fce64a93a5d60c473e56f, type: 2}
-    level: 13
+    level: 3
+    hp: 0
+    sta: 0
+    experience: 0
   type: 1

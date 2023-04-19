@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,10 +31,14 @@ public class PartyUnits : MonoBehaviour
             Debug.Log($"Item was being held, {selectedItem.item.name}");
 
             //Use item
+            String itemname = selectedItem.item.name;
             if (selectedItem.item.Use(party.units[box]))
             {
                 GameObject.Find("GameController").GetComponent<GameController>().Success();
+                Debug.Log($"itemname: {itemname}");
+                inventory.RemoveItemInventory(itemname);
                 selectedItem.UpdateItem(null);
+                
                 partyhuds.SetPartyNamesParty();
             }
             else
@@ -53,7 +58,7 @@ public class PartyUnits : MonoBehaviour
             }
             else
             {
-                if (_first == box)
+                if (_first == box || FindObjectOfType<GameController>().state == GameState.Battle)
                 {
                     reset();
                     Debug.Log("Swap Cancelled");

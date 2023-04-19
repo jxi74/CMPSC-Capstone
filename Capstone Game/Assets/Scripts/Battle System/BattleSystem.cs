@@ -560,7 +560,7 @@ public class BattleSystem : MonoBehaviour
             BattleUnit unit2 = inBattleUnits[1];
                 
             unit1.Unit.Experience += expEarned;
-            if (unit2.Unit != null)
+            if (unit2.Unit != null && unit1.Unit != null)
             {
                 yield return box.DisplayText($"{unit1.Unit.Base.Name} and {unit2.Unit.Base.Name} gained {expEarned} exp!");
                 unit2.Unit.Experience += expEarned;
@@ -576,13 +576,22 @@ public class BattleSystem : MonoBehaviour
                     unit2.GetComponentInChildren<unithud>().setName(unit2.Unit.Base.Name, unit2.Unit.Level);
                 }
             }
-            else
+            else if (unit2.Unit == null)
             {
                 yield return box.DisplayText($"{unit1.Unit.Base.Name} gained {expEarned} exp!");
                 while (unit1.Unit.CheckLevelUp())
                 {
                     yield return box.DisplayText($"{unit1.Unit.Base.Name} leveled up!");
                     unit1.GetComponentInChildren<unithud>().setName(unit1.Unit.Base.Name, unit1.Unit.Level);
+                }
+            }
+            else if (unit1.Unit == null)
+            {
+                yield return box.DisplayText($"{unit2.Unit.Base.Name} gained {expEarned} exp!");
+                while (unit1.Unit.CheckLevelUp())
+                {
+                    yield return box.DisplayText($"{unit2.Unit.Base.Name} leveled up!");
+                    unit1.GetComponentInChildren<unithud>().setName(unit2.Unit.Base.Name, unit2.Unit.Level);
                 }
             }
             

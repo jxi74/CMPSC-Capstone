@@ -77,6 +77,17 @@ public class Inventory : MonoBehaviour, IDataPersistence
             Debug.Log("Item removed: " + itemName);
         }
     }
+
+    public void RemoveItemInventory(string itemName)
+    {
+        ItemBase itemToRemove = characterItems.FirstOrDefault(item => item.Name == itemName);
+        Debug.Log($"Removing Item: {itemToRemove.name}");
+        if (itemToRemove != null)
+        {
+            characterItems.Remove(itemToRemove);
+            Debug.Log("Item removed: " + itemName);
+        }
+    }
     
     public void LoadData(GameData data)
     {

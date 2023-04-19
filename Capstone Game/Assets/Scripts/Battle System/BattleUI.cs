@@ -72,10 +72,17 @@ public class BattleUI : MonoBehaviour
             inv.CloseUI();
         }
 
-        StartCoroutine(FindObjectOfType<BattleSystem>().unit1.hud.UpdateHpBar());
-        StartCoroutine(FindObjectOfType<BattleSystem>().unit1.hud.UpdateStaBar());
-        StartCoroutine(FindObjectOfType<BattleSystem>().unit2.hud.UpdateHpBar());
-        StartCoroutine(FindObjectOfType<BattleSystem>().unit2.hud.UpdateStaBar());
+        if(FindObjectOfType<BattleSystem>().unit1.Unit != null)
+        {
+            StartCoroutine(FindObjectOfType<BattleSystem>().unit1.hud.UpdateHpBar());
+            StartCoroutine(FindObjectOfType<BattleSystem>().unit1.hud.UpdateStaBar());
+        }
+        if(FindObjectOfType<BattleSystem>().unit2.Unit != null)
+        {
+            StartCoroutine(FindObjectOfType<BattleSystem>().unit2.hud.UpdateHpBar());
+            StartCoroutine(FindObjectOfType<BattleSystem>().unit2.hud.UpdateStaBar());
+        }
+        
         
     } 
     

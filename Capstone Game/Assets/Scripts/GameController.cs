@@ -7,8 +7,8 @@ using UnityEngine.TextCore.Text;
 public enum GameState { FreeRoam, Battle}
 
 public class GameController : MonoBehaviour
-{
-    private GameState state;
+{ 
+    public GameState state;
     [SerializeField] private GameObject enemyPool1;
     [SerializeField] private ThirdPersonMovement movement;
     [SerializeField] private CinemachineBrain thirdpersoncam;
@@ -59,11 +59,17 @@ public class GameController : MonoBehaviour
         //battlecam.enabled = false;
         player = GameObject.Find("Player");
         playerchar = player.transform.Find("Player character");
-        PlayerModelReset();
+        StartCoroutine(StartModelReset());
         //a = playerchar.GetChild(0).GetComponent<Renderer>();
         //b = playerchar.GetChild(0).GetChild(0).GetComponent<Renderer>();
     }
 
+    IEnumerator StartModelReset()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PlayerModelReset();
+    }
+    
     public void PlayerModelReset()
     {
         playerchar = player.transform.Find("Player character");

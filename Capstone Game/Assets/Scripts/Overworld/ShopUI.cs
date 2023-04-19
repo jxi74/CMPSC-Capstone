@@ -50,7 +50,7 @@ public class ShopUI : MonoBehaviour
     
     public void BuyItem(string name, int price)
     {
-        if (inventory.balance >= price)
+        if (inventory.balance >= price && inventory.characterItems.Count < 160)
         {
             audioSource.clip = successPurchase;
             audioSource.Play();
@@ -68,7 +68,7 @@ public class ShopUI : MonoBehaviour
     }
     public void BuyUnit(Unit unit, int price)
     {
-        if (inventory.balance >= price)
+        if (inventory.balance >= price && party.units.Count < 6)
         {
             inventory.balance -= price;
             

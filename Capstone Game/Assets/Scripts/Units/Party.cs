@@ -92,6 +92,7 @@ public class Party : MonoBehaviour, IDataPersistence
         return null;
     }
     
+    
     public void LoadData(GameData data)
     {
         this.units = data.party;

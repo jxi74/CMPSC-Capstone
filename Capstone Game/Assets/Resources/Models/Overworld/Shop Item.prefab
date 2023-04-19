@@ -202,8 +202,6 @@ MonoBehaviour:
   shopitem: {fileID: 0}
   itemname: {fileID: 6367380009992700517}
   price: {fileID: 5288088446630915960}
-  audioSource: {fileID: 5081423368025912001}
-  buttonPress: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}
 --- !u!82 &5081423368025912001
 AudioSource:
   m_ObjectHideFlags: 0
@@ -431,7 +429,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.9145813, y: 0, z: 0.9857559, w: 0}
+  m_margin: {x: 74.53701, y: 0, z: -25.584099, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -537,7 +535,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -566,7 +564,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.9145813, y: 0, z: 0.9857559, w: 0}
+  m_margin: {x: 0.9145813, y: 0, z: -146.88568, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

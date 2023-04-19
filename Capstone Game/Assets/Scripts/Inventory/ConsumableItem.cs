@@ -24,6 +24,7 @@ public class ConsumableItem : ItemBase
 
     public override bool Use(Unit unit)
     {
+        
         if (unit.HP == 0 && !revive)
         {
             return false;
@@ -37,6 +38,20 @@ public class ConsumableItem : ItemBase
         if (unit.HP > 0 && revive)
         {
             return false;
+        }
+
+        if (hpHeal > 0 && staHeal > 0)
+        {
+            if (unit.HP == unit.MaxHealth && unit.STA == unit.MaxStamina)
+            {
+                return false;
+            }
+            else
+            {
+                unit.IncreaseHp(hpHeal);
+                unit.IncreaseSTA(staHeal);
+                return true;
+            }
         }
         if (hpHeal > 0)
         {
@@ -56,6 +71,14 @@ public class ConsumableItem : ItemBase
             }
             
             unit.IncreaseSTA(staHeal);
+        }
+        if (restoreAllStatus)
+        {
+            if (unit.Status == null)
+            {
+                return false;
+            }
+            
         }
 
         return true;

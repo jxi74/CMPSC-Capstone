@@ -27,7 +27,7 @@ public class GameData
         chestsOpened = new SerializableDictionary<string, bool>();
         npcFlag = new SerializableDictionary<string, int>();
         party = new List<Unit>();
-        balance = 5000;
+        balance = 7500;
         inventory = new List<ItemBase>();
         volume = 4;
         Debug.Log("Values reset");

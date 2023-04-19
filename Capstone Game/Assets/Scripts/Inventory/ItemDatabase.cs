@@ -27,6 +27,7 @@ public class ItemDatabase : MonoBehaviour
         items.Add(Resources.Load<ItemBase>("Items/Yggdrasil drop"));
         items.Add(Resources.Load<ItemBase>("Items/Blood of Gods"));
         items.Add(Resources.Load<ItemBase>("Items/Revive"));
+        items.Add(Resources.Load<ItemBase>("Items/All Purpose Medicine"));
 
         // Add any other items to the items list here.
     }
