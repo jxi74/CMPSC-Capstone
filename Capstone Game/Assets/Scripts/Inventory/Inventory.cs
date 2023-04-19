@@ -30,14 +30,18 @@ public class Inventory : MonoBehaviour, IDataPersistence
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            canvas.enabled = (!canvas.isActiveAndEnabled);
-            canvas.GetComponent<CanvasGroup>().interactable = (canvas.isActiveAndEnabled);
-            if (canvas.enabled)
+            if (!FindObjectOfType<PauseMenu>().GameIsPaused)
             {
+                canvas.enabled = (!canvas.isActiveAndEnabled);
+                canvas.GetComponent<CanvasGroup>().interactable = (canvas.isActiveAndEnabled);
+                if (canvas.enabled)
+                {
                 
-                inventoryUI.UpdateBalance(balance);
-                partyHud.SetPartyNamesParty();
+                    inventoryUI.UpdateBalance(balance);
+                    partyHud.SetPartyNamesParty();
+                }
             }
+            
         }
     }
 

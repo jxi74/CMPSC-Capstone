@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,9 +75,16 @@ public class ConsumableItem : ItemBase
         }
         if (restoreAllStatus)
         {
-            if (unit.Status == null)
+            Debug.Log("Status:" + unit.Status?.Name.ToString());
+            String check = unit.Status?.ToString() ?? "Healthy";
+            if (unit.Status?.Name.ToString() == "")
             {
                 return false;
+            }
+            else
+            {
+                unit.CureStatus();
+                return true;
             }
             
         }

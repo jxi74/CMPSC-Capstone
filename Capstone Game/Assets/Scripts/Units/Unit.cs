@@ -295,7 +295,7 @@ public class Unit
 
     public void Rest()
     {
-        IncreaseSTA(Mathf.FloorToInt(STA * .15f + 4));
+        IncreaseSTA(Mathf.FloorToInt(MaxStamina * .15f + 4));
     }
 
     public void OnBattleOver()
