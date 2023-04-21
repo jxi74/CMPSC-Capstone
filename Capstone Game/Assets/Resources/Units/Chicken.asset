@@ -17,7 +17,7 @@ MonoBehaviour:
   model: {fileID: 6291385857562609007, guid: ae8308d9b9f40bd4a95f1567c1883901, type: 3}
   type1: 8
   type2: 0
-  max_hp: 32
+  max_hp: 38
   atk: 40
   flx: 27
   def: 32

@@ -19,9 +19,9 @@ MonoBehaviour:
   model: {fileID: 5626988897713376881, guid: 3aa6dfaa8cfc788469980bb04f6d92d9, type: 3}
   type1: 7
   type2: 0
-  max_hp: 50
+  max_hp: 55
   atk: 50
-  flx: 20
+  flx: 32
   def: 47
   res: 35
   lck: 15

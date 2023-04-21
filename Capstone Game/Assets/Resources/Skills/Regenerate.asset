@@ -24,8 +24,8 @@ MonoBehaviour:
     boosts: []
     status: 2
   secondaryEffects: []
-  target: 1
+  target: 0
   vfx: {fileID: 9017484664307500583, guid: 5bf583ad95effb540a22dc1826292c2d, type: 3}
-  vfxTarget: 1
+  vfxTarget: 0
   sfx: {fileID: 8300000, guid: 9a624eb218d2f4a7fab8586ecef513d5, type: 3}
   staminaCost: 6
