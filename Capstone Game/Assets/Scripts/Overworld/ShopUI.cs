@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.UI;
 public class ShopUI : MonoBehaviour
 {
     [SerializeField] private OverWorldBox box;
-    [SerializeField] private Canvas shopUi;
+    [SerializeField] public Canvas shopUi;
     [SerializeField] private Inventory inventory;
     [SerializeField] private Party party;
     [SerializeField] private TextMeshProUGUI balance;
@@ -70,12 +70,14 @@ public class ShopUI : MonoBehaviour
     {
         if (inventory.balance >= price && party.units.Count < 6)
         {
+            
             inventory.balance -= price;
             
             //Can randomize later
             unit.Init();
             party.units.Add(unit);
-            
+            audioSource.clip = successPurchase;
+            audioSource.Play();
             balance.text = string.Format("{0:#,###0}", inventory.balance);
         }
         else

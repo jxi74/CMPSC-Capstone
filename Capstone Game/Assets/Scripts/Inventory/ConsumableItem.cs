@@ -41,6 +41,16 @@ public class ConsumableItem : ItemBase
             return false;
         }
 
+        if (restoreHp)
+        {
+            unit.IncreaseHp(unit.MaxHealth);
+        }
+
+        if (restoreSta)
+        {
+            unit.IncreaseSTA(unit.MaxStamina);
+        }
+        
         if (hpHeal > 0 && staHeal > 0)
         {
             if (unit.HP == unit.MaxHealth && unit.STA == unit.MaxStamina)

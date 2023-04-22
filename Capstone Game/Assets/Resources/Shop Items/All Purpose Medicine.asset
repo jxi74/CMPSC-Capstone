@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: All Purpose Medicine
   m_EditorClassIdentifier: 
   displayName: Medicine
-  price: 600
+  price: 300
   itemName: All Purpose Medicine
   unit:
     _base: {fileID: 0}

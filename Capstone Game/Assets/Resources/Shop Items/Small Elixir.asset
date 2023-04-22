@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Small Elixir
   m_EditorClassIdentifier: 
   displayName: Small Elixir
-  price: 750
+  price: 325
   itemName: Small Elixir
   unit:
     _base: {fileID: 0}
     level: 0
+    hp: 0
+    sta: 0
+    experience: 0
   type: 0

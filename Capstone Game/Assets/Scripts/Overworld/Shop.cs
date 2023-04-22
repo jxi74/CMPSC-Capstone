@@ -15,7 +15,7 @@ public class Shop : MonoBehaviour, IInteractable
     
     public bool Interact(Interactor interactor)
     {
-        if (!shopUi.GetComponent<Canvas>().enabled)
+        if (!shopUi.GetComponent<Canvas>().enabled && !FindObjectOfType<PauseMenu>().GameIsPaused)
         {
             transform.GetComponent<AudioSource>().Play();
             Debug.Log("Opening Shop");

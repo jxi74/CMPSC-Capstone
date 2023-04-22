@@ -40,7 +40,8 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public Inventory inventory;
     [SerializeField] public PartyHuds partyhuds;
     [SerializeField] public EnemyEncounter enemygenerator;
-
+    
+    
     public void StartBattle()
     {
         gamecontroller.inBattle(true);
@@ -259,6 +260,10 @@ public class BattleSystem : MonoBehaviour
             if (unit2.Unit == null)
             {
                 targetlist[index] = 1;
+            }
+            else if (unit1.Unit == null)
+            {
+                targetlist[index] = 2;
             }
             else
             {
@@ -595,9 +600,9 @@ public class BattleSystem : MonoBehaviour
                 }
             }
             
-            inventory.balance += Mathf.FloorToInt(defeatedUnit.level * defeatedUnit.unitBase.GoldGain * 1.5f);
+            inventory.balance += Mathf.FloorToInt(defeatedUnit.level * defeatedUnit.unitBase.GoldGain * 2.5f);
             yield return box.DisplayText(
-                $"Your party earned {Mathf.FloorToInt(defeatedUnit.level * defeatedUnit.unitBase.GoldGain * 1.5f)} gold!");
+                $"Your party earned {Mathf.FloorToInt(defeatedUnit.level * defeatedUnit.unitBase.GoldGain * 2.5f)} gold!");
             
             yield return new WaitForSeconds(1f);
         }

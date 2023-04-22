@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Energy Drink
   m_EditorClassIdentifier: 
   displayName: Energy Drink
-  price: 1000
+  price: 400
   itemName: Energy Drink
   unit:
     _base: {fileID: 0}
     level: 0
+    hp: 0
+    sta: 0
+    experience: 0
   type: 0

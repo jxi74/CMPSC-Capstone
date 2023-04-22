@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Revive
   m_EditorClassIdentifier: 
   displayName: Revive
-  price: 2500
+  price: 1750
   itemName: Revive
   unit:
     _base: {fileID: 0}

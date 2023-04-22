@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Bandage
   m_EditorClassIdentifier: 
   displayName: Bandage
-  price: 500
+  price: 250
   itemName: Bandage
   unit:
     _base: {fileID: 0}
     level: 0
+    hp: 0
+    sta: 0
+    experience: 0
   type: 0

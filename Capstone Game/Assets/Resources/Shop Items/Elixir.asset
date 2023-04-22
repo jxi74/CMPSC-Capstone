@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elixir
   m_EditorClassIdentifier: 
   displayName: Elixir
-  price: 1500
+  price: 750
   itemName: Elixir
   unit:
     _base: {fileID: 0}

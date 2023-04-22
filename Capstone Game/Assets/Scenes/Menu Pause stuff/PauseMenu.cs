@@ -20,7 +20,11 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                Pause();
+                if (FindObjectOfType<GameController>().state != GameState.Battle && !FindObjectOfType<ShopUI>().shopUi.isActiveAndEnabled && !FindObjectOfType<Inventory>().canvas.isActiveAndEnabled)
+                {
+                    Pause();
+                }
+                
             }
         }
     }

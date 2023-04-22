@@ -49,19 +49,17 @@ public class Party : MonoBehaviour, IDataPersistence
 
     public Unit GetNextHealthyUnitStart(Unit currentUnit)
     {
-        if (units.Count == 1)
-        {
-            return null;
-        }
         int currentIndex = units.IndexOf(currentUnit);
+        int startIndex = (currentIndex + 1) % units.Count;
         for (int i = 0; i < units.Count; i++)
         {
-            int index = (currentIndex + i + 1) % units.Count;
-            if (units[index].HP > 0)
+            int index = (startIndex + i) % units.Count;
+            if (units[index] != currentUnit && units[index].HP > 0)
             {
                 return units[index];
             }
         }
+
         return null;
     }
     
