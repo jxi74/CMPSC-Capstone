@@ -630,6 +630,7 @@ public class BattleSystem : MonoBehaviour
                                 renderer.enabled = false;
                             }
                         }
+                        
                         defeatedUnit.GetComponentInChildren<Canvas>().enabled = false;
                         break;
                     }

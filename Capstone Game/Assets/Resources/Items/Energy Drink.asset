@@ -18,7 +18,7 @@ MonoBehaviour:
   hpHeal: 0
   restoreHp: 0
   staHeal: 5
-  restoreSta: 1
+  restoreSta: 0
   status: 0
   restoreAllStatus: 0
   revive: 0
