@@ -639,6 +639,8 @@ public class BattleSystem : MonoBehaviour
                 {
                     int tag = inBattleUnits.IndexOf(defeatedUnit);
                     defeatedUnit.Setup(nextUnit, true);
+                    yield return new WaitForSeconds(.05f);
+                    Debug.Log($"tag swap: {tag + 1}");
                     inBattleUnits[tag] = GameObject.FindWithTag($"Unit{tag + 1}").GetComponent<BattleUnit>();
                                 
                     defeatedUnit.hud.Setdata(nextUnit);
@@ -859,6 +861,7 @@ public class BattleSystem : MonoBehaviour
                 //Update swaps
                 skillsSelect.SetTargetNames();
                 unit.Setup(party.units[buttonval - 1], true);
+                yield return new WaitForSeconds(.05f);
                 inBattleUnits[tag] = GameObject.FindWithTag($"Unit{tag + 1}").GetComponent<BattleUnit>();
                 unit.hud.Setdata(party.units[buttonval - 1]);
             }
