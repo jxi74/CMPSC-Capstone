@@ -11,3 +11,6 @@ CMPSC 488 Capstone Project Presentation
 Website
 - Our Website includes a short description of our game, the High-level requirements we listed out before developing our game, robustness diagrams that explains the games' logic, and how every team member contributed to the project.
 - Website: https://wer5062.github.io/
+
+How to Play
+- Download a zip of this branch and load open "Capstone Game" as a project in the Unity Hub.
