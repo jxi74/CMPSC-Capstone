@@ -13,4 +13,4 @@ Website
 - Website: https://wer5062.github.io/
 
 How to Play
-- Download a zip of this branch and load open "Capstone Game" as a project in the Unity Hub.
+- Download a zip of this branch and open the "Capstone Game" folder as a project in the Unity Hub.
